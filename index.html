@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>KikuNihongo - Práctica Auditiva de Japonés</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Ajustes táctiles e inmersivos para iPadOS / Safari */
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    
+    /* Scroll suave y estilizado */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="h-full bg-slate-100 text-slate-800 flex flex-col font-sans select-none antialiased">
+
+  <!-- ==================== HEADER SUPERIOR ==================== -->
+  <header class="bg-white border-b border-slate-200 px-4 py-3 flex items-center justify-between shadow-sm flex-shrink-0">
+    <div class="flex items-center gap-3">
+      <button id="btn-toggle-menu" class="p-2 rounded-xl hover:bg-slate-100 active:scale-95 transition-all text-slate-700">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+      <div>
+        <h1 class="text-lg font-bold tracking-tight text-slate-900 flex items-center gap-2">
+          <span>聞く日本語</span>
+          <span class="text-xs bg-rose-100 text-rose-700 px-2 py-0.5 rounded-full font-semibold uppercase tracking-wider">Listening Lab</span>
+        </h1>
+        <p id="current-badge" class="text-xs text-slate-500 font-medium">Cargando...</p>
+      </div>
+    </div>
+
+    <!-- Acciones Rápidas -->
+    <div class="flex items-center gap-2">
+      <button id="btn-open-creator" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold active:scale-95 transition-all">
+        <i data-lucide="plus-circle" class="w-4 h-4 text-rose-500"></i>
+        <span class="hidden sm:inline">Nueva Conversación</span>
+      </button>
+      <button id="btn-open-data" class="p-2 rounded-xl hover:bg-slate-100 text-slate-600 active:scale-95 transition-all" title="Gestionar JSON">
+        <i data-lucide="database" class="w-5 h-5"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== CONTENEDOR PRINCIPAL ==================== -->
+  <main class="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8 flex justify-center">
+    <div class="w-full max-w-3xl flex flex-col gap-6">
+
+      <!-- TARJETA DEL REPRODUCTOR AUDITIVO -->
+      <section class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 flex flex-col gap-5">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span id="label-category" class="text-xs font-bold text-rose-600 tracking-wide uppercase">Categoría</span>
+              <span class="text-slate-300">•</span>
+              <span id="label-difficulty" class="text-xs font-bold px-2 py-0.5 rounded-md bg-amber-50 text-amber-700 border border-amber-200">N5</span>
+            </div>
+            <h2 id="conv-title" class="text-xl md:text-2xl font-bold text-slate-900 leading-snug">Título de la conversación</h2>
+            <p id="conv-desc" class="text-sm text-slate-500 mt-1">Escucha atentamente el audio para responder las preguntas.</p>
+          </div>
+          <button id="btn-delete-conv" class="text-slate-400 hover:text-red-500 p-2 rounded-lg transition-colors" title="Borrar esta conversación">
+            <i data-lucide="trash-2" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+        <!-- Barra de Reproducción y Controles -->
+        <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200 flex flex-col gap-4">
+          <div class="flex items-center justify-between">
+            <span id="audio-status" class="text-xs font-semibold text-slate-500 flex items-center gap-2">
+              <span id="status-indicator" class="w-2.5 h-2.5 rounded-full bg-slate-400 inline-block"></span>
+              Listo para reproducir
+            </span>
+            <!-- Selector de Velocidad -->
+            <div class="flex items-center gap-1 bg-white rounded-xl p-1 border border-slate-200">
+              <button data-speed="0.8" class="btn-speed text-xs px-2.5 py-1 rounded-lg font-bold text-slate-600 hover:bg-slate-100">0.8x</button>
+              <button data-speed="1.0" class="btn-speed text-xs px-2.5 py-1 rounded-lg font-bold bg-rose-500 text-white shadow-sm">1.0x</button>
+              <button data-speed="1.2" class="btn-speed text-xs px-2.5 py-1 rounded-lg font-bold text-slate-600 hover:bg-slate-100">1.2x</button>
+            </div>
+          </div>
+
+          <!-- Botón de Audio Principal -->
+          <div class="flex items-center gap-3">
+            <button id="btn-play-audio" class="flex-1 py-4 px-6 rounded-2xl bg-rose-600 hover:bg-rose-700 active:scale-[0.99] text-white font-bold flex items-center justify-center gap-3 shadow-md transition-all text-base">
+              <i data-lucide="play" id="icon-play" class="w-6 h-6 fill-current"></i>
+              <span id="btn-play-text">Escuchar Diálogo Completo</span>
+            </button>
+            <button id="btn-stop-audio" class="p-4 rounded-2xl bg-slate-200 hover:bg-slate-300 active:scale-95 text-slate-700 transition-all" title="Detener">
+              <i data-lucide="square" class="w-6 h-6 fill-current"></i>
+            </button>
+          </div>
+
+          <!-- Interlocutor Activo Dinámico -->
+          <div id="speaker-display" class="hidden text-sm bg-white border border-rose-200 p-2.5 rounded-xl text-rose-900 font-medium items-center justify-between">
+            <span class="flex items-center gap-2">
+              <i data-lucide="volume-2" class="w-4 h-4 text-rose-500 animate-pulse"></i>
+              Habla: <strong id="current-speaker" class="font-bold">Interlocutor</strong>
+            </span>
+            <span id="audio-progress-step" class="text-xs text-slate-400 font-mono">1/5</span>
+          </div>
+        </div>
+
+        <!-- Transcripción Opcional (Modo Asistido / Ocultable) -->
+        <div class="border-t border-slate-100 pt-3">
+          <button id="btn-toggle-transcript" class="text-xs font-semibold text-slate-500 hover:text-slate-800 flex items-center gap-1.5 transition-colors">
+            <i data-lucide="eye" id="transcript-eye-icon" class="w-4 h-4"></i>
+            <span id="transcript-toggle-text">Mostrar Transcripción en Japonés</span>
+          </button>
+          <div id="transcript-box" class="hidden mt-3 p-4 bg-slate-50 rounded-2xl border border-slate-200 text-sm space-y-2">
+            <!-- Rellenado dinámico -->
+          </div>
+        </div>
+      </section>
+
+      <!-- PREGUNTAS TIPO TEST -->
+      <section class="flex flex-col gap-4">
+        <div class="flex items-center justify-between px-1">
+          <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
+            <i data-lucide="help-circle" class="w-5 h-5 text-rose-500"></i>
+            Preguntas de Comprensión
+          </h3>
+          <span id="score-counter" class="text-xs font-bold px-3 py-1 bg-white rounded-full border border-slate-200 text-slate-600 shadow-sm">
+            0 / 0 Respondidas
+          </span>
+        </div>
+
+        <div id="questions-container" class="space-y-4">
+          <!-- Render dinámico de preguntas -->
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ==================== DRAWER MODAL DE CATEGORÍAS (ISLAS) ==================== -->
+  <div id="menu-drawer" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden transition-opacity">
+    <div class="absolute inset-y-0 left-0 w-full max-w-md bg-white shadow-2xl flex flex-col">
+      <div class="p-4 border-b border-slate-200 flex items-center justify-between">
+        <div>
+          <h2 class="font-bold text-slate-900 text-lg">Diálogos Disponibles</h2>
+          <p class="text-xs text-slate-500">Explora por categorías y subcategorías</p>
+        </div>
+        <button id="btn-close-menu" class="p-2 rounded-xl hover:bg-slate-100 text-slate-500">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Buscador -->
+      <div class="p-4 border-b border-slate-100 bg-slate-50">
+        <div class="relative">
+          <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-slate-400"></i>
+          <input type="text" id="search-input" placeholder="Buscar por tema, palabra o situación..." class="w-full pl-9 pr-3 py-2 bg-white rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500">
+        </div>
+      </div>
+
+      <!-- Árbol de Categorías y Conversaciones -->
+      <div id="dialogues-tree" class="flex-1 overflow-y-auto p-4 space-y-4">
+        <!-- Rellenado dinámicamente -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: CREAR / EDITAR CONVERSACIÓN ==================== -->
+  <div id="creator-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden p-4 flex items-center justify-center">
+    <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      <div class="p-4 md:p-6 border-b border-slate-200 flex items-center justify-between">
+        <div>
+          <h3 class="font-bold text-lg text-slate-900">Añadir Nueva Conversación</h3>
+          <p class="text-xs text-slate-500">Genera audio instantáneo sin grabar ficheros</p>
+        </div>
+        <button id="btn-close-creator" class="p-2 rounded-xl hover:bg-slate-100 text-slate-500">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="p-4 md:p-6 overflow-y-auto space-y-4 flex-1">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-xs font-bold text-slate-700">Categoría Principal</label>
+            <input type="text" id="new-cat" placeholder="Ej: Restauración" class="mt-1 w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-rose-500 outline-none">
+          </div>
+          <div>
+            <label class="text-xs font-bold text-slate-700">Subcategoría</label>
+            <input type="text" id="new-subcat" placeholder="Ej: Cafetería / Conbini" class="mt-1 w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-rose-500 outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-3">
+          <div class="col-span-2">
+            <label class="text-xs font-bold text-slate-700">Título del Escenario</label>
+            <input type="text" id="new-title" placeholder="Ej: Pidiendo café con leche de soja" class="mt-1 w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-rose-500 outline-none">
+          </div>
+          <div>
+            <label class="text-xs font-bold text-slate-700">Nivel JLPT</label>
+            <select id="new-difficulty" class="mt-1 w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:ring-2 focus:ring-rose-500 outline-none">
+              <option value="N5">N5 (Básico)</option>
+              <option value="N4">N4 (Medio)</option>
+              <option value="N3">N3 (Intermedio)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-xs font-bold text-slate-700">Guion del Diálogo en Japonés (Formato: Hablante: Frase)</label>
+          <textarea id="new-dialogue-text" rows="5" placeholder="Cliente: すみません、ホットコーヒーをください。&#10;Camarero: かしこまりました。サイズはどうされますか。&#10;Cliente: あ、やっぱりアイスコーヒーのMサイズに変更できますか。" class="mt-1 w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono focus:ring-2 focus:ring-rose-500 outline-none"></textarea>
+          <span class="text-[11px] text-slate-400">Separa cada línea por salto. Si incluyes "Camarero:" o "Cliente:", la app variará el tono de voz automáticamente.</span>
+        </div>
+
+        <div>
+          <label class="text-xs font-bold text-slate-700">Preguntas y Opciones (Formato Simplificado)</label>
+          <textarea id="new-questions-text" rows="5" placeholder="¿Qué pidió finalmente el cliente? | Café caliente | Café frío | Té frío | Café frío (Opción 2 correcta)&#10;Formato por línea: Pregunta | Opción 1 | Opción 2 | Opción 3 | ÍndiceCorrecto(0,1 o 2) | Explicación" class="mt-1 w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono focus:ring-2 focus:ring-rose-500 outline-none"></textarea>
+        </div>
+      </div>
+
+      <div class="p-4 border-t border-slate-200 bg-slate-50 flex items-center justify-end gap-3">
+        <button id="btn-cancel-creator" class="px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-200">Cancelar</button>
+        <button id="btn-save-creator" class="px-5 py-2 rounded-xl text-sm font-bold bg-rose-600 text-white hover:bg-rose-700 shadow-md">Guardar Diálogo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: GESTOR DE DATOS JSON ==================== -->
+  <div id="data-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden p-4 flex items-center justify-center">
+    <div class="bg-white rounded-3xl max-w-xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
+      <div class="p-4 md:p-6 border-b border-slate-200 flex items-center justify-between">
+        <div>
+          <h3 class="font-bold text-lg text-slate-900">Gestión de Diálogos (JSON)</h3>
+          <p class="text-xs text-slate-500">Haz copias de seguridad o importa baterías masivas</p>
+        </div>
+        <button id="btn-close-data" class="p-2 rounded-xl hover:bg-slate-100 text-slate-500">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div class="p-4 md:p-6 overflow-y-auto space-y-4 flex-1">
+        <div class="flex gap-2">
+          <button id="btn-export-json" class="flex-1 py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold flex items-center justify-center gap-2">
+            <i data-lucide="download" class="w-4 h-4"></i> Exportar JSON
+          </button>
+          <button id="btn-reset-factory" class="py-2.5 px-4 bg-rose-50 hover:bg-rose-100 text-rose-700 rounded-xl text-xs font-bold flex items-center justify-center gap-2">
+            <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Restaurar Fábrica
+          </button>
+        </div>
+        <div>
+          <label class="text-xs font-bold text-slate-700">Importar / Reemplazar JSON</label>
+          <textarea id="json-input" rows="8" class="mt-1 w-full p-3 font-mono text-xs bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-rose-500 outline-none" placeholder="Pega aquí el array JSON con las conversaciones..."></textarea>
+        </div>
+      </div>
+      <div class="p-4 border-t border-slate-200 bg-slate-50 flex justify-end gap-3">
+        <button id="btn-import-json" class="px-5 py-2.5 bg-slate-900 text-white text-xs font-bold rounded-xl hover:bg-slate-800">Cargar JSON en la App</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== LÓGICA JAVASCRIPT VANILLA ==================== -->
+  <script>
+    /* =========================================================================
+       1. CATÁLOGO BASE DE CONVERSACIONES (Con distractores y cambios de idea)
+       ========================================================================= */
+    const DEFAULT_CONVERSATIONS = [
+      {
+        id: "conv_transporte_001",
+        category: "Transporte",
+        subcategory: "Tren / Shinkansen",
+        title: "Comprando billetes de Shinkansen en taquilla",
+        difficulty: "N5",
+        dialogue: [
+          { speaker: "Taquillero", pitch: 1.0, text: "次の方どうぞ。どちらまでですか。" },
+          { speaker: "Pasajero", pitch: 1.15, text: "京都まで大人二枚お願いします。あ、自由席でいいです。" },
+          { speaker: "Taquillero", pitch: 1.0, text: "かしこまりました。本日の午前中の新幹線ですね。" },
+          { speaker: "Pasajero", pitch: 1.15, text: "あ、待ってください！京都は混みそうだから、やっぱり指定席に変更してください。" },
+          { speaker: "Taquillero", pitch: 1.0, text: "承知いたしました。指定席ですね。窓側と通路側、どちらがよろしいですか。" },
+          { speaker: "Pasajero", pitch: 1.15, text: "二枚とも窓側で……あ、並びの席でお願いします。" },
+          { speaker: "Taquillero", pitch: 1.0, text: "はい、並びの席でお取りできました。二枚で二万八千円になります。" }
+        ],
+        questions: [
+          {
+            id: "q1",
+            question: "¿Qué tipo de asiento decide comprar finalmente el pasajero?",
+            options: ["Asiento no reservado (自由席)", "Asiento reservado (指定席)", "Primera clase (Green Car)", "Coche cama"],
+            correctIndex: 1,
+            explanation: "Primero pidió 自由席, pero cambió de idea por la afluencia de gente: 'やっぱり指定席に変更してください'."
+          },
+          {
+            id: "q2",
+            question: "¿Cómo son los asientos elegidos?",
+            options: ["Dos asientos de ventanilla en coches diferentes", "Asientos contiguos / juntos", "Uno de pasillo y otro de ventanilla", "En la zona de equipaje especial"],
+            correctIndex: 1,
+            explanation: "El cliente corrigió y pidió asientos contiguos: '並びの席でお願いします'."
+          },
+          {
+            id: "q3",
+            question: "¿Cuánto es el precio total de los dos billetes?",
+            options: ["18.000 yenes", "24.000 yenes", "28.000 yenes", "30.000 yenes"],
+            correctIndex: 2,
+            explanation: "El taquillero indica: '二万八千円' (28.000 yenes)."
+          }
+        ]
+      },
+      {
+        id: "conv_restauracion_001",
+        category: "Restauración",
+        subcategory: "Cafetería",
+        title: "Dos personas decidiendo qué pedir antes y ante el mostrador",
+        difficulty: "N5",
+        dialogue: [
+          { speaker: "Kenji", pitch: 0.9, text: "マナ、何を飲む？僕はアイスコーヒーにするよ。" },
+          { speaker: "Mana", pitch: 1.25, text: "うーん、抹茶ラテにしようかな。あ、でもケーキセットも美味しそう！" },
+          { speaker: "Camarera", pitch: 1.05, text: "いらっしゃいませ。ご注文をお伺いします。" },
+          { speaker: "Kenji", pitch: 0.9, text: "アイスコーヒーを一つと、えーと……" },
+          { speaker: "Mana", pitch: 1.25, text: "あ、やっぱり抹茶ラテじゃなくて、ホットの紅茶にします！それとチーズケーキを一つ。" },
+          { speaker: "Camarera", pitch: 1.05, text: "かしこまりました。店内でお召し上がりですか。" },
+          { speaker: "Kenji", pitch: 0.9, text: "はい、店内でお願いします。" },
+          { speaker: "Camarera", pitch: 1.05, text: "合計で千二百円になります。" }
+        ],
+        questions: [
+          {
+            id: "q1",
+            question: "¿Qué bebida pide Mana al final?",
+            options: ["Té con matcha latte", "Café frío", "Té caliente", "Zumo de naranja"],
+            correctIndex: 2,
+            explanation: "Pensó pedir Matcha Latte, pero rectificó al ordenar: 'やっぱり抹茶ラテじゃなくて、ホットの紅茶にします'."
+          },
+          {
+            id: "q2",
+            question: "¿Qué comida ordenaron?",
+            options: ["Sándwich de huevo", "Tarta de queso (Cheesecake)", "Un dango dulce", "No pidieron comida"],
+            correctIndex: 1,
+            explanation: "Mana añadió: 'チーズケーキを一つ' (una tarta de queso)."
+          },
+          {
+            id: "q3",
+            question: "¿Dónde van a tomar su pedido?",
+            options: ["Para llevar (持ち帰り)", "En el local (店内)", "En una terraza exterior", "Solo la comida para llevar"],
+            correctIndex: 1,
+            explanation: "Kenji respondió claramente: '店内でお願いします' (en el local, por favor)."
+          }
+        ]
+      },
+      {
+        id: "conv_alojamiento_001",
+        category: "Alojamiento",
+        subcategory: "Hotel / Ryokan",
+        title: "Check-in y elección del desayuno en el Ryokan",
+        difficulty: "N4",
+        dialogue: [
+          { speaker: "Recepcionista", pitch: 1.0, text: "いらっしゃいませ。チェックインですね。お名前をお願いします。" },
+          { speaker: "Huésped", pitch: 1.15, text: "予約した田中です。一泊、二名で予約しました。" },
+          { speaker: "Recepcionista", pitch: 1.0, text: "田中様ですね。明日のご朝食ですが、和食か洋食をお選びいただけます。" },
+          { speaker: "Huésped", pitch: 1.15, text: "二人とも和食でお願いします。時間は七時半で。" },
+          { speaker: "Recepcionista", pitch: 1.0, text: "申し訳ございません。明日の七時半は満席でして、七時か八時なら空いております。" },
+          { speaker: "Huésped", pitch: 1.15, text: "あ、それならゆっくり起きたいので、八時でお願いします。" },
+          { speaker: "Recepcionista", pitch: 1.0, text: "かしこまりました。お風呂は夜の十一時までご利用いただけます。" }
+        ],
+        questions: [
+          {
+            id: "q1",
+            question: "¿Qué estilo de desayuno eligió para ambos?",
+            options: ["Desayuno occidental (洋食)", "Desayuno tradicional japonés (和食)", "Solo café y fruta", "Un menú vegetariano"],
+            correctIndex: 1,
+            explanation: "El huésped pidió: '二人とも和食でお願いします' (los dos con desayuno japonés)."
+          },
+          {
+            id: "q2",
+            question: "¿A qué hora fijaron finalmente el desayuno?",
+            options: ["7:00", "7:30", "8:00", "8:30"],
+            correctIndex: 2,
+            explanation: "A las 7:30 estaba lleno, y el huésped prefirió levantarse tarde: '八時でお願いします'."
+          },
+          {
+            id: "q3",
+            question: "¿Hasta qué hora se pueden usar los baños/aguas termales?",
+            options: ["Hasta las 22:00", "Hasta las 23:00 (十一時)", "Hasta medianoche", "Abierto toda la noche"],
+            correctIndex: 1,
+            explanation: "La recepcionista avisó: 'お風呂は夜の十一時まで' (hasta las 11 de la noche)."
+          }
+        ]
+      },
+      {
+        id: "conv_comercio_001",
+        category: "Comercio",
+        subcategory: "Conbini (Tienda de conveniencia)",
+        title: "Bolsas de plástico, calentar comida y método de pago",
+        difficulty: "N5",
+        dialogue: [
+          { speaker: "Cajero", pitch: 1.1, text: "いらっしゃいませ。温めますか。" },
+          { speaker: "Cliente", pitch: 0.95, text: "このお弁当だけ温めてください。おにぎりはそのままで大丈夫です。" },
+          { speaker: "Cajero", pitch: 1.1, text: "はい。レジ袋はご利用になりますか。" },
+          { speaker: "Cliente", pitch: 0.95, text: "袋はいりません。カバンに入れます……あ、やっぱりスープもあるから小さい袋を一枚ください。" },
+          { speaker: "Cajero", pitch: 1.1, text: "袋は五円になります。お箸は一膳でお付けしますか。" },
+          { speaker: "Cliente", pitch: 0.95, text: "はい、一つでいいです。あと、支払いはPayPayで。" },
+          { speaker: "Cajero", pitch: 1.1, text: "バーコードを画面にお見せください。" }
+        ],
+        questions: [
+          {
+            id: "q1",
+            question: "¿Qué producto pidió calentar?",
+            options: ["El onigiri", "El bento y el onigiri", "Únicamente el bento", "La sopa"],
+            correctIndex: 2,
+            explanation: "El cliente dijo: 'このお弁当だけ温めてください' (solo caliente este bento)."
+          },
+          {
+            id: "q2",
+            question: "¿Qué ocurrió con la bolsa de plástico (レジ袋)?",
+            options: ["No la quiso", "Traía su propia bolsa grande", "Primero dijo que no, pero luego pidió una pequeña", "Le dieron dos gratis"],
+            correctIndex: 2,
+            explanation: "Primero la rechazó pero rectificó por la sopa: 'やっぱりスープもあるから小さい袋を一枚ください'."
+          },
+          {
+            id: "q3",
+            question: "¿Cómo pagó el cliente?",
+            options: ["En metálico", "Con tarjeta Suica", "Con PayPay (código de barras)", "Con tarjeta de crédito"],
+            correctIndex: 2,
+            explanation: "Dijo expresamente: '支払いはPayPayで' (el pago con PayPay)."
+          }
+        ]
+      }
+    ];
+
+    /* =========================================================================
+       2. GESTOR DE ESTADO Y PERSISTENCIA (localStorage)
+       ========================================================================= */
+    const STORAGE_KEY = "kikunihongo_conversations_v1";
+    let conversations = [];
+    let currentConvId = null;
+    let selectedPlaybackSpeed = 1.0;
+    let isPlaying = false;
+    let currentUtteranceIndex = 0;
+    let userAnswers = {}; // { questionId: selectedIndex }
+
+    function initData() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        try {
+          conversations = JSON.parse(stored);
+        } catch(e) {
+          conversations = [...DEFAULT_CONVERSATIONS];
+        }
+      } else {
+        conversations = [...DEFAULT_CONVERSATIONS];
+        saveData();
+      }
+      if (conversations.length > 0) {
+        currentConvId = conversations[0].id;
+      }
+    }
+
+    function saveData() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(conversations));
+    }
+
+    /* =========================================================================
+       3. MOTOR DE AUDIO (Web Speech API para iOS/Safari)
+       ========================================================================= */
+    let japaneseVoice = null;
+
+    function getJapaneseVoice() {
+      if (!window.speechSynthesis) return null;
+      const voices = window.speechSynthesis.getVoices();
+      // Búsqueda prioritaria de voces ja-JP nativas o de calidad
+      const jv = voices.find(v => v.lang === "ja-JP" || v.lang === "ja_JP" || v.lang.startsWith("ja"));
+      return jv || null;
+    }
+
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
+      window.speechSynthesis.onvoiceschanged = () => {
+        japaneseVoice = getJapaneseVoice();
+      };
+    }
+
+    function stopAudio() {
+      if (window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+      }
+      isPlaying = false;
+      updateAudioUI(false);
+      document.getElementById("speaker-display").classList.add("hidden");
+    }
+
+    function playFullConversation() {
+      if (!("speechSynthesis" in window)) {
+        alert("Tu navegador no soporta síntesis de voz Web Speech API.");
+        return;
+      }
+
+      const conv = conversations.find(c => c.id === currentConvId);
+      if (!conv || !conv.dialogue || conv.dialogue.length === 0) return;
+
+      stopAudio(); // Detener cualquier reproducción en curso
+      isPlaying = true;
+      currentUtteranceIndex = 0;
+      updateAudioUI(true);
+
+      const speakerBox = document.getElementById("speaker-display");
+      const currentSpeakerTxt = document.getElementById("current-speaker");
+      const audioProgressStep = document.getElementById("audio-progress-step");
+      speakerBox.classList.remove("hidden");
+
+      function speakNextLine() {
+        if (!isPlaying) return;
+
+        if (currentUtteranceIndex >= conv.dialogue.length) {
+          // Finalizó el diálogo
+          stopAudio();
+          return;
+        }
+
+        const line = conv.dialogue[currentUtteranceIndex];
+        currentSpeakerTxt.textContent = line.speaker || "Interlocutor";
+        audioProgressStep.textContent = `${currentUtteranceIndex + 1}/${conv.dialogue.length}`;
+
+        const utterance = new SpeechSynthesisUtterance(line.text);
+        utterance.lang = "ja-JP";
+        if (japaneseVoice) utterance.voice = japaneseVoice;
+
+        // Modulación para diferenciar hablantes (cliente vs dependiente, hombre vs mujer)
+        utterance.pitch = line.pitch || 1.0;
+        utterance.rate = (line.rate || 1.0) * selectedPlaybackSpeed;
+
+        utterance.onend = () => {
+          currentUtteranceIndex++;
+          // Pequeña pausa natural de 400ms entre turnos de palabra
+          setTimeout(() => {
+            if (isPlaying) speakNextLine();
+          }, 450);
+        };
+
+        utterance.onerror = (e) => {
+          console.warn("Speech error:", e);
+          currentUtteranceIndex++;
+          if (isPlaying) speakNextLine();
+        };
+
+        window.speechSynthesis.speak(utterance);
+      }
+
+      speakNextLine();
+    }
+
+    function updateAudioUI(playing) {
+      const btnText = document.getElementById("btn-play-text");
+      const iconPlay = document.getElementById("icon-play");
+      const statusIndicator = document.getElementById("status-indicator");
+      const statusText = document.getElementById("audio-status");
+
+      if (playing) {
+        btnText.textContent = "Reproduciendo Audio...";
+        iconPlay.setAttribute("data-lucide", "volume-2");
+        statusIndicator.className = "w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block animate-ping";
+        statusText.innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span> Reproduciendo en japonés`;
+      } else {
+        btnText.textContent = "Escuchar Diálogo Completo";
+        iconPlay.setAttribute("data-lucide", "play");
+        statusIndicator.className = "w-2.5 h-2.5 rounded-full bg-slate-400 inline-block";
+        statusText.innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-slate-400 inline-block"></span> Listo para reproducir`;
+      }
+      lucide.createIcons();
+    }
+
+    /* =========================================================================
+       4. RENDERIZADO DE LA VISTA PRINCIPAL
+       ========================================================================= */
+    function renderCurrentConversation() {
+      const conv = conversations.find(c => c.id === currentConvId);
+      if (!conv) {
+        document.getElementById("conv-title").textContent = "No hay diálogos disponibles";
+        return;
+      }
+
+      // Reiniciar estado de respuestas para este diálogo
+      userAnswers = {};
+
+      document.getElementById("label-category").textContent = `${conv.category} > ${conv.subcategory || 'General'}`;
+      document.getElementById("label-difficulty").textContent = conv.difficulty || "N5";
+      document.getElementById("conv-title").textContent = conv.title;
+      document.getElementById("current-badge").textContent = `${conv.category} • ${conv.dialogue.length} líneas de diálogo`;
+
+      // Transcripción
+      const transcriptBox = document.getElementById("transcript-box");
+      transcriptBox.innerHTML = conv.dialogue.map((line, idx) => `
+        <div class="flex items-start gap-2">
+          <span class="font-bold text-slate-700 min-w-[70px] text-xs uppercase tracking-wide bg-slate-200/70 px-2 py-0.5 rounded">${line.speaker}:</span>
+          <span class="text-slate-800 text-sm font-medium">${line.text}</span>
+        </div>
+      `).join("");
+
+      // Ocultar transcripción por defecto en cada nuevo diálogo
+      document.getElementById("transcript-box").classList.add("hidden");
+      document.getElementById("transcript-toggle-text").textContent = "Mostrar Transcripción en Japonés";
+
+      renderQuestions(conv);
+      updateScoreBadge();
+      lucide.createIcons();
+    }
+
+    function renderQuestions(conv) {
+      const container = document.getElementById("questions-container");
+      container.innerHTML = "";
+
+      if (!conv.questions || conv.questions.length === 0) {
+        container.innerHTML = `<div class="p-6 bg-white rounded-2xl border border-slate-200 text-center text-slate-500 text-sm">Este diálogo no tiene preguntas asignadas todavía.</div>`;
+        return;
+      }
+
+      conv.questions.forEach((q, qIndex) => {
+        const qCard = document.createElement("div");
+        qCard.className = "bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col gap-3";
+
+        const qTitle = document.createElement("h4");
+        qTitle.className = "font-bold text-slate-900 text-sm md:text-base flex items-start gap-2";
+        qTitle.innerHTML = `<span class="bg-rose-100 text-rose-700 w-6 h-6 rounded-full flex items-center justify-center text-xs flex-shrink-0 font-bold">${qIndex + 1}</span> ${q.question}`;
+        qCard.appendChild(qTitle);
+
+        const optionsDiv = document.createElement("div");
+        optionsDiv.className = "space-y-2 mt-1";
+
+        q.options.forEach((opt, optIndex) => {
+          const btnOpt = document.createElement("button");
+          btnOpt.className = `w-full text-left p-3.5 rounded-xl border text-sm font-medium transition-all active:scale-[0.99] flex items-center justify-between border-slate-200 hover:bg-slate-50 text-slate-700`;
+          btnOpt.dataset.qId = q.id;
+          btnOpt.dataset.optIndex = optIndex;
+          btnOpt.innerHTML = `<span>${opt}</span><span class="icon-indicator"></span>`;
+
+          btnOpt.addEventListener("click", () => handleSelectOption(conv, q, optIndex, qCard));
+          optionsDiv.appendChild(btnOpt);
+        });
+
+        qCard.appendChild(optionsDiv);
+
+        // Contenedor para la explicación (inicialmente oculto)
+        const expDiv = document.createElement("div");
+        expDiv.id = `exp-${q.id}`;
+        expDiv.className = "hidden mt-2 p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900";
+        qCard.appendChild(expDiv);
+
+        container.appendChild(qCard);
+      });
+    }
+
+    function handleSelectOption(conv, question, selectedIndex, cardElement) {
+      userAnswers[question.id] = selectedIndex;
+      const isCorrect = selectedIndex === question.correctIndex;
+      const buttons = cardElement.querySelectorAll("button[data-opt-index]");
+      const expDiv = cardElement.querySelector(`#exp-${question.id}`);
+
+      buttons.forEach((btn) => {
+        const idx = parseInt(btn.dataset.optIndex);
+        btn.disabled = true; // Bloquea tras responder
+
+        if (idx === question.correctIndex) {
+          btn.className = "w-full text-left p-3.5 rounded-xl border text-sm font-semibold flex items-center justify-between border-emerald-500 bg-emerald-50 text-emerald-900 shadow-sm";
+          btn.querySelector(".icon-indicator").innerHTML = `<i data-lucide="check" class="w-4 h-4 text-emerald-600"></i>`;
+        } else if (idx === selectedIndex && !isCorrect) {
+          btn.className = "w-full text-left p-3.5 rounded-xl border text-sm font-semibold flex items-center justify-between border-rose-500 bg-rose-50 text-rose-900 shadow-sm";
+          btn.querySelector(".icon-indicator").innerHTML = `<i data-lucide="x" class="w-4 h-4 text-rose-600"></i>`;
+        } else {
+          btn.className = "w-full text-left p-3.5 rounded-xl border text-sm font-medium flex items-center justify-between border-slate-100 bg-slate-50 text-slate-400 opacity-60";
+        }
+      });
+
+      if (question.explanation) {
+        expDiv.innerHTML = `<strong>Explicación:</strong> ${question.explanation}`;
+        expDiv.classList.remove("hidden");
+      }
+
+      updateScoreBadge();
+      lucide.createIcons();
+    }
+
+    function updateScoreBadge() {
+      const conv = conversations.find(c => c.id === currentConvId);
+      if (!conv || !conv.questions) return;
+      const total = conv.questions.length;
+      const answered = Object.keys(userAnswers).length;
+      document.getElementById("score-counter").textContent = `${answered} / ${total} Respondidas`;
+    }
+
+    /* =========================================================================
+       5. ÁRBOL DE CATEGORÍAS EN EL MODAL DRAWER
+       ========================================================================= */
+    function renderCategoriesDrawer(filterText = "") {
+      const container = document.getElementById("dialogues-tree");
+      container.innerHTML = "";
+
+      // Agrupar conversaciones por Categoría -> Subcategoría
+      const groups = {};
+      conversations.forEach(c => {
+        const matchesFilter = filterText === "" || 
+          c.title.toLowerCase().includes(filterText.toLowerCase()) ||
+          c.category.toLowerCase().includes(filterText.toLowerCase()) ||
+          (c.subcategory && c.subcategory.toLowerCase().includes(filterText.toLowerCase()));
+
+        if (!matchesFilter) return;
+
+        if (!groups[c.category]) groups[c.category] = {};
+        const sub = c.subcategory || "General";
+        if (!groups[c.category][sub]) groups[c.category][sub] = [];
+        groups[c.category][sub].push(c);
+      });
+
+      if (Object.keys(groups).length === 0) {
+        container.innerHTML = `<p class="text-sm text-slate-400 text-center py-6">No se encontraron conversaciones con ese filtro.</p>`;
+        return;
+      }
+
+      for (const [catName, subCats] of Object.entries(groups)) {
+        const catBox = document.createElement("div");
+        catBox.className = "bg-slate-50 border border-slate-200 rounded-2xl overflow-hidden";
+
+        const catTitle = document.createElement("div");
+        catTitle.className = "px-4 py-2.5 bg-slate-100/80 font-bold text-xs uppercase tracking-wider text-slate-700 flex items-center justify-between";
+        catTitle.innerHTML = `<span>${catName}</span>`;
+        catBox.appendChild(catTitle);
+
+        const subList = document.createElement("div");
+        subList.className = "p-2 space-y-3";
+
+        for (const [subName, items] of Object.entries(subCats)) {
+          const subTitle = document.createElement("div");
+          subTitle.className = "text-[11px] font-bold text-slate-400 uppercase px-2 pt-1";
+          subTitle.textContent = subName;
+          subList.appendChild(subTitle);
+
+          items.forEach(conv => {
+            const btnConv = document.createElement("button");
+            const isSelected = conv.id === currentConvId;
+            btnConv.className = `w-full text-left px-3 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-between transition-all ${
+              isSelected ? "bg-rose-500 text-white shadow-sm" : "hover:bg-slate-200/60 text-slate-700"
+            }`;
+            btnConv.innerHTML = `
+              <div class="truncate pr-2">
+                <div>${conv.title}</div>
+                <div class="text-[10px] ${isSelected ? 'text-rose-100' : 'text-slate-400'} font-normal">${conv.questions.length} preguntas • ${conv.difficulty}</div>
+              </div>
+              <i data-lucide="chevron-right" class="w-4 h-4 flex-shrink-0 ${isSelected ? 'text-white' : 'text-slate-400'}"></i>
+            `;
+            btnConv.addEventListener("click", () => {
+              stopAudio();
+              currentConvId = conv.id;
+              renderCurrentConversation();
+              document.getElementById("menu-drawer").classList.add("hidden");
+            });
+            subList.appendChild(btnConv);
+          });
+        }
+
+        catBox.appendChild(subList);
+        container.appendChild(catBox);
+      }
+      lucide.createIcons();
+    }
+
+    /* =========================================================================
+       6. CREACIÓN, EDICIÓN Y GESTIÓN JSON
+       ========================================================================= */
+    function setupEventListeners() {
+      // Audio
+      document.getElementById("btn-play-audio").addEventListener("click", () => {
+        if (isPlaying) {
+          stopAudio();
+        } else {
+          playFullConversation();
+        }
+      });
+      document.getElementById("btn-stop-audio").addEventListener("click", stopAudio);
+
+      // Velocidades
+      document.querySelectorAll(".btn-speed").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          document.querySelectorAll(".btn-speed").forEach(b => {
+            b.className = "btn-speed text-xs px-2.5 py-1 rounded-lg font-bold text-slate-600 hover:bg-slate-100";
+          });
+          e.target.className = "btn-speed text-xs px-2.5 py-1 rounded-lg font-bold bg-rose-500 text-white shadow-sm";
+          selectedPlaybackSpeed = parseFloat(e.target.dataset.speed);
+        });
+      });
+
+      // Transcripción toggle
+      document.getElementById("btn-toggle-transcript").addEventListener("click", () => {
+        const box = document.getElementById("transcript-box");
+        const isHidden = box.classList.contains("hidden");
+        if (isHidden) {
+          box.classList.remove("hidden");
+          document.getElementById("transcript-toggle-text").textContent = "Ocultar Transcripción";
+        } else {
+          box.classList.add("hidden");
+          document.getElementById("transcript-toggle-text").textContent = "Mostrar Transcripción en Japonés";
+        }
+      });
+
+      // Drawer de Categorías
+      const menuDrawer = document.getElementById("menu-drawer");
+      document.getElementById("btn-toggle-menu").addEventListener("click", () => {
+        renderCategoriesDrawer();
+        menuDrawer.classList.remove("hidden");
+      });
+      document.getElementById("btn-close-menu").addEventListener("click", () => menuDrawer.classList.add("hidden"));
+      document.getElementById("search-input").addEventListener("input", (e) => {
+        renderCategoriesDrawer(e.target.value);
+      });
+
+      // Borrar diálogo actual
+      document.getElementById("btn-delete-conv").addEventListener("click", () => {
+        if (conversations.length <= 1) {
+          alert("Debes mantener al menos una conversación activa.");
+          return;
+        }
+        if (confirm("¿Seguro que deseas eliminar esta conversación?")) {
+          conversations = conversations.filter(c => c.id !== currentConvId);
+          currentConvId = conversations[0].id;
+          saveData();
+          renderCurrentConversation();
+        }
+      });
+
+      // Creador Modal
+      const creatorModal = document.getElementById("creator-modal");
+      document.getElementById("btn-open-creator").addEventListener("click", () => creatorModal.classList.remove("hidden"));
+      document.getElementById("btn-close-creator").addEventListener("click", () => creatorModal.classList.add("hidden"));
+      document.getElementById("btn-cancel-creator").addEventListener("click", () => creatorModal.classList.add("hidden"));
+
+      document.getElementById("btn-save-creator").addEventListener("click", () => {
+        const cat = document.getElementById("new-cat").value.trim() || "Comercio";
+        const subcat = document.getElementById("new-subcat").value.trim() || "Tienda";
+        const title = document.getElementById("new-title").value.trim() || "Nueva Conversación";
+        const diff = document.getElementById("new-difficulty").value;
+        const dialogueRaw = document.getElementById("new-dialogue-text").value.trim();
+        const questionsRaw = document.getElementById("new-questions-text").value.trim();
+
+        if (!dialogueRaw) {
+          alert("Por favor introduce al menos una línea de diálogo.");
+          return;
+        }
+
+        // Parsear líneas de diálogo
+        const lines = dialogueRaw.split("\n").filter(l => l.trim().length > 0);
+        const dialogue = lines.map(line => {
+          let speaker = "Interlocutor";
+          let text = line;
+          let pitch = 1.0;
+          if (line.includes(":") || line.includes("：")) {
+            const parts = line.includes(":") ? line.split(":") : line.split("：");
+            speaker = parts[0].trim();
+            text = parts.slice(1).join(":").trim();
+            // Regular pitch por nombre para variedad
+            if (speaker.toLowerCase().includes("camarer") || speaker.toLowerCase().includes("clienta") || speaker.toLowerCase().includes("mujer")) {
+              pitch = 1.2;
+            } else if (speaker.toLowerCase().includes("cliente") || speaker.toLowerCase().includes("hombre")) {
+              pitch = 0.9;
+            }
+          }
+          return { speaker, pitch, text };
+        });
+
+        // Parsear preguntas
+        const qLines = questionsRaw.split("\n").filter(l => l.trim().length > 0);
+        const questions = qLines.map((line, i) => {
+          const parts = line.split("|").map(p => p.trim());
+          if (parts.length >= 4) {
+            return {
+              id: `custom_q_${Date.now()}_${i}`,
+              question: parts[0],
+              options: [parts[1], parts[2], parts[3], parts[4] || "Otra opción"].filter(Boolean),
+              correctIndex: parseInt(parts[4]) || 0,
+              explanation: parts[5] || ""
+            };
+          }
+          return null;
+        }).filter(Boolean);
+
+        const newId = `custom_${Date.now()}`;
+        const newConversation = {
+          id: newId,
+          category: cat,
+          subcategory: subcat,
+          title: title,
+          difficulty: diff,
+          dialogue: dialogue,
+          questions: questions
+        };
+
+        conversations.unshift(newConversation);
+        currentConvId = newId;
+        saveData();
+        renderCurrentConversation();
+        creatorModal.classList.add("hidden");
+
+        // Limpiar campos
+        document.getElementById("new-dialogue-text").value = "";
+        document.getElementById("new-questions-text").value = "";
+      });
+
+      // Data JSON Modal
+      const dataModal = document.getElementById("data-modal");
+      document.getElementById("btn-open-data").addEventListener("click", () => {
+        document.getElementById("json-input").value = JSON.stringify(conversations, null, 2);
+        dataModal.classList.remove("hidden");
+      });
+      document.getElementById("btn-close-data").addEventListener("click", () => dataModal.classList.add("hidden"));
+
+      document.getElementById("btn-export-json").addEventListener("click", () => {
+        const blob = new Blob([JSON.stringify(conversations, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `kikunihongo_backup_${new Date().toISOString().slice(0,10)}.json`;
+        a.click();
+      });
+
+      document.getElementById("btn-reset-factory").addEventListener("click", () => {
+        if (confirm("¿Restaurar los diálogos iniciales de fábrica? Se perderán las modificaciones locales.")) {
+          conversations = [...DEFAULT_CONVERSATIONS];
+          currentConvId = conversations[0].id;
+          saveData();
+          renderCurrentConversation();
+          dataModal.classList.add("hidden");
+        }
+      });
+
+      document.getElementById("btn-import-json").addEventListener("click", () => {
+        try {
+          const parsed = JSON.parse(document.getElementById("json-input").value);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            conversations = parsed;
+            currentConvId = conversations[0].id;
+            saveData();
+            renderCurrentConversation();
+            dataModal.classList.add("hidden");
+            alert("¡Datos importados con éxito!");
+          } else {
+            alert("El JSON debe ser un array válido de conversaciones.");
+          }
+        } catch(err) {
+          alert("Error de sintaxis en el JSON: " + err.message);
+        }
+      });
+    }
+
+    /* =========================================================================
+       7. ARRANQUE DE LA APLICACIÓN
+       ========================================================================= */
+    window.addEventListener("DOMContentLoaded", () => {
+      initData();
+      renderCurrentConversation();
+      setupEventListeners();
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
