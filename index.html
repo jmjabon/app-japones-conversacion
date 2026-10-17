@@ -1,4 +1,18 @@
+  <html>
+  <body>
   <!-- ==================== LÓGICA JAVASCRIPT ==================== -->
+  <div id="debug-box" style="position:fixed; top:0; left:0; width:100%; background:red; color:white; font-family:monospace; font-size:12px; padding:10px; z-index:9999; word-wrap:break-word;">
+  Buscando errores...
+</div>
+<script>
+  window.addEventListener('error', function(e) {
+    document.getElementById('debug-box').innerHTML += '<br><br>🚨 JS Error: ' + e.message + ' (Línea ' + e.lineno + ')';
+  });
+  window.addEventListener('unhandledrejection', function(e) {
+    document.getElementById('debug-box').innerHTML += '<br><br>⚠️ Error de Datos: ' + e.reason;
+  });
+</script>
+
   <script src="./js/app.js"></script>
 </body>
 </html>
