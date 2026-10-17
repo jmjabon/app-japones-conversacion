@@ -1,66 +1,76 @@
+// --- FUNCION DE DEPURACION EN PANTALLA ---
+function logDebug(msg) {
+  const box = document.getElementById('debug-box');
+  if(box) box.innerHTML += '<br>🔹 ' + msg;
+}
+
 let conversations = [];
 let currentConvId = null;
 let selectedPlaybackSpeed = 1.0;
 let isPlaying = false;
 let currentUtteranceIndex = 0;
 let userAnswers = {};
-let openCategories = new Set(); // Empezará vacío, se llenará al cargar
+let openCategories = new Set();
 
 // --- 1. MOTOR DE CARGA (NUEVO) ---
 async function loadApp() {
+  logDebug("Iniciando la carga de la app...");
   try {
-    // 1. Cargamos el mapa de archivos
+    logDebug("Buscando ./data/manifest.json ...");
     const manifestResponse = await fetch('./data/manifest.json');
-    if (!manifestResponse.ok) throw new Error("No se pudo cargar manifest.json");
+    
+    if (!manifestResponse.ok) {
+      throw new Error(`HTTP Error ${manifestResponse.status}. ¿Existe el archivo manifest.json?`);
+    }
+    
     const manifest = await manifestResponse.json();
+    logDebug(`Manifest cargado. Categorías a buscar: ${manifest.length}`);
 
-    // 2. Cargamos todos los archivos JSON de las categorías
     let allConvs = [];
     for (const cat of manifest) {
+      logDebug(`Leyendo archivo: ${cat.file} ...`);
       try {
         const catResponse = await fetch('./' + cat.file);
         if (catResponse.ok) {
           const catData = await catResponse.json();
           allConvs = allConvs.concat(catData);
-          openCategories.add(cat.name); // Abre los acordeones por defecto
+          openCategories.add(cat.name);
+          logDebug(`✅ Éxito: ${cat.file} (${catData.length} diálogos)`);
+        } else {
+          logDebug(`⚠️ No se encontró: ${cat.file} (Error${catResponse.status})`);
         }
       } catch (err) {
-        console.warn(`Error cargando ${cat.file}:`, err);
+        logDebug(`❌ Error de sintaxis en el JSON de ${cat.file}:${err.message}`);
       }
     }
 
-    // 3. Inicializamos la app
     conversations = allConvs;
+    logDebug(`Total diálogos listos: ${conversations.length}`);
+
     if (conversations.length > 0) {
       currentConvId = conversations[0].id;
       renderCurrentConversation();
+      logDebug("🎉 Interfaz renderizada correctamente.");
     } else {
       document.getElementById("conv-title").textContent = "No hay diálogos disponibles.";
+      logDebug("⚠️ No hay diálogos en los JSON.");
     }
   } catch (error) {
-    console.error("Error crítico al iniciar la app:", error);
+    logDebug(`❌ ERROR CRÍTICO: ${error.message}`);
     document.getElementById("conv-title").textContent = "Error al conectar con la base de datos.";
   }
 }
 
 // --- 2. MOTOR DE AUDIO ---
 function stopAudio() {
-  try {
-    if (window.speechSynthesis) window.speechSynthesis.cancel();
-  } catch (e) {
-    console.warn("El motor de voz no pudo ser detenido:", e);
-  }
+  try { if (window.speechSynthesis) window.speechSynthesis.cancel(); } catch (e) {}
   isPlaying = false;
   updateAudioUI(false);
   document.getElementById("speaker-display").classList.add("hidden");
 }
 
 function playFullConversation() {
-  if (!("speechSynthesis" in window)) {
-    alert("Tu dispositivo no soporta síntesis de voz.");
-    return;
-  }
-
+  if (!("speechSynthesis" in window)) return;
   const conv = conversations.find(c => c.id === currentConvId);
   if (!conv || !conv.dialogue || conv.dialogue.length === 0) return;
 
@@ -90,7 +100,7 @@ function playFullConversation() {
 
     const line = conv.dialogue[currentUtteranceIndex];
     currentSpeakerTxt.textContent = line.speaker || "Interlocutor";
-    audioProgressStep.textContent = `${currentUtteranceIndex + 1} / ${conv.dialogue.length}`;
+    audioProgressStep.textContent = `${currentUtteranceIndex + 1} /${conv.dialogue.length}`;
 
     const cleanText = line.text || line.html.replace(/<[^>]*>/g, "");
     const utterance = new SpeechSynthesisUtterance(cleanText);
@@ -110,16 +120,11 @@ function playFullConversation() {
       if (isPlaying) speakLine();
     };
 
-    try {
-      window.speechSynthesis.speak(utterance);
-    } catch(e) {
-      stopAudio();
-    }
+    try { window.speechSynthesis.speak(utterance); } catch(e) { stopAudio(); }
   }
   speakLine();
 }
 
-// CORRECCIÓN APLICADA AQUÍ
 function updateAudioUI(playing) {
   const btnText = document.getElementById("btn-play-text");
   const iconWrapper = document.getElementById("play-icon-wrapper");
@@ -127,14 +132,14 @@ function updateAudioUI(playing) {
 
   if (playing) {
     btnText.textContent = "Reproduciendo...";
-    iconWrapper.innerHTML = `<i data-lucide="volume-2" class="w-6 h-6 fill-current"></i>`;
-    statusText.innerHTML = `<span id="status-indicator" class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block animate-ping"></span> Reproduciendo diálogo en japonés`;
+    if(iconWrapper) iconWrapper.innerHTML = `<i data-lucide="volume-2" class="w-6 h-6 fill-current"></i>`;
+    if(statusText) statusText.innerHTML = `<span id="status-indicator" class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block animate-ping"></span> Reproduciendo diálogo en japonés`;
   } else {
     btnText.textContent = "Reproducir Diálogo";
-    iconWrapper.innerHTML = `<i data-lucide="play" class="w-6 h-6 fill-current"></i>`;
-    statusText.innerHTML = `<span id="status-indicator" class="w-2.5 h-2.5 rounded-full bg-slate-400 inline-block"></span> Listo para escuchar`;
+    if(iconWrapper) iconWrapper.innerHTML = `<i data-lucide="play" class="w-6 h-6 fill-current"></i>`;
+    if(statusText) statusText.innerHTML = `<span id="status-indicator" class="w-2.5 h-2.5 rounded-full bg-slate-400 inline-block"></span> Listo para escuchar`;
   }
-  lucide.createIcons();
+  if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
 // --- 3. RENDERIZADO DE INTERFAZ ---
@@ -143,10 +148,10 @@ function renderCurrentConversation() {
   if (!conv) return;
   userAnswers = {};
 
-  document.getElementById("label-category").textContent = `${conv.category} > ${conv.subcategory || 'General'}`;
+  document.getElementById("label-category").textContent = `${conv.category} >${conv.subcategory || 'General'}`;
   document.getElementById("label-difficulty").textContent = conv.difficulty || "N5";
   document.getElementById("conv-title").textContent = conv.title;
-  document.getElementById("current-badge").textContent = `${conv.category} • ${conv.dialogue.length} intervenciones`;
+  document.getElementById("current-badge").textContent = `${conv.category} •${conv.dialogue.length} intervenciones`;
 
   const transcriptBox = document.getElementById("transcript-box");
   transcriptBox.innerHTML = conv.dialogue.map(line => `
@@ -162,7 +167,7 @@ function renderCurrentConversation() {
 
   renderQuestions(conv);
   updateScoreBadge();
-  lucide.createIcons();
+  if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
 function renderQuestions(conv) {
@@ -180,7 +185,7 @@ function renderQuestions(conv) {
 
     const qTitle = document.createElement("h4");
     qTitle.className = "font-bold text-slate-900 text-sm md:text-base flex items-start gap-2";
-    qTitle.innerHTML = `<span class="bg-rose-100 text-rose-700 w-6 h-6 rounded-full flex items-center justify-center text-xs flex-shrink-0 font-bold">${qIndex + 1}</span> ${q.question}`;
+    qTitle.innerHTML = `<span class="bg-rose-100 text-rose-700 w-6 h-6 rounded-full flex items-center justify-center text-xs flex-shrink-0 font-bold">${qIndex + 1}</span>${q.question}`;
     qCard.appendChild(qTitle);
 
     const optionsDiv = document.createElement("div");
@@ -230,19 +235,22 @@ function handleSelectOption(question, selectedIndex, cardElement) {
     expDiv.classList.remove("hidden");
   }
   updateScoreBadge();
-  lucide.createIcons();
+  if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
 function updateScoreBadge() {
   const conv = conversations.find(c => c.id === currentConvId);
   if (!conv || !conv.questions) return;
-  document.getElementById("score-counter").textContent = `${Object.keys(userAnswers).length} / ${conv.questions.length} Respondidas`;
+  const counter = document.getElementById("score-counter");
+  if(counter) counter.textContent = `${Object.keys(userAnswers).length} /${conv.questions.length} Respondidas`;
 }
 
 function renderCategoriesDrawer(filterText = "") {
   const container = document.getElementById("dialogues-tree");
+  if(!container) return;
   container.innerHTML = "";
-  document.getElementById("total-convs-counter").textContent = `${conversations.length} diálogos en total`;
+  const counter = document.getElementById("total-convs-counter");
+  if(counter) counter.textContent = `${conversations.length} diálogos en total`;
 
   const groups = {};
   conversations.forEach(c => {
@@ -288,81 +296,4 @@ function renderCategoriesDrawer(filterText = "") {
           const btn = document.createElement("button");
           btn.setAttribute("data-conv-id", conv.id);
           btn.className = `cursor-pointer w-full text-left p-3 rounded-xl text-xs font-semibold flex items-center justify-between transition-all my-1 ${isSelected ? "bg-rose-500 text-white shadow-sm" : "hover:bg-slate-100 text-slate-700"}`;
-          btn.innerHTML = `<div class="truncate pr-2 pointer-events-none"><div class="font-bold truncate text-[13px]">${conv.title}</div><div class="text-[10px] opacity-75 mt-0.5">${conv.difficulty}</div></div><i data-lucide="chevron-right" class="w-4 h-4 flex-shrink-0 pointer-events-none ${isSelected ? 'text-white' : 'text-slate-400'}"></i>`;
-          subWrapper.appendChild(btn);
-        });
-        bodyDiv.appendChild(subWrapper);
-      }
-      groupDiv.appendChild(bodyDiv);
-    }
-    container.appendChild(groupDiv);
-  }
-  lucide.createIcons();
-}
-
-// --- 4. EVENTOS ---
-function setupEventListeners() {
-  document.getElementById("btn-play-audio").addEventListener("click", () => isPlaying ? stopAudio() : playFullConversation());
-  document.getElementById("btn-stop-audio").addEventListener("click", stopAudio);
-
-  document.querySelectorAll(".btn-speed").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-      document.querySelectorAll(".btn-speed").forEach(b => b.className = "btn-speed cursor-pointer text-xs px-2.5 py-1 rounded-lg font-bold text-slate-600 hover:bg-slate-100");
-      e.target.className = "btn-speed cursor-pointer text-xs px-2.5 py-1 rounded-lg font-bold bg-rose-500 text-white shadow-sm";
-      selectedPlaybackSpeed = parseFloat(e.target.dataset.speed);
-    });
-  });
-
-  const transcriptBox = document.getElementById("transcript-box");
-  const furiganaSwitch = document.getElementById("furigana-switch-container");
-  
-  document.getElementById("btn-toggle-transcript").addEventListener("click", () => {
-    if (transcriptBox.classList.contains("hidden")) {
-      transcriptBox.classList.remove("hidden");
-      furiganaSwitch.classList.remove("hidden");
-      furiganaSwitch.classList.add("flex");
-      document.getElementById("transcript-toggle-text").textContent = "Ocultar Transcripción";
-    } else {
-      transcriptBox.classList.add("hidden");
-      furiganaSwitch.classList.add("hidden");
-      furiganaSwitch.classList.remove("flex");
-      document.getElementById("transcript-toggle-text").textContent = "Ver Transcripción en Japonés";
-    }
-  });
-
-  document.getElementById("check-furigana").addEventListener("change", (e) => {
-    e.target.checked ? transcriptBox.classList.remove("hide-furigana") : transcriptBox.classList.add("hide-furigana");
-  });
-
-  const menuDrawer = document.getElementById("menu-drawer");
-  document.getElementById("btn-toggle-menu").addEventListener("click", () => {
-    renderCategoriesDrawer();
-    menuDrawer.classList.remove("hidden");
-  });
-  document.getElementById("btn-close-menu").addEventListener("click", () => menuDrawer.classList.add("hidden"));
-  document.getElementById("search-input").addEventListener("input", (e) => renderCategoriesDrawer(e.target.value));
-
-  document.getElementById("dialogues-tree").addEventListener("click", (e) => {
-    const headerBtn = e.target.closest("[data-category-header]");
-    if (headerBtn) {
-      const cat = headerBtn.getAttribute("data-category-header");
-      openCategories.has(cat) ? openCategories.delete(cat) : openCategories.add(cat);
-      renderCategoriesDrawer(document.getElementById("search-input").value);
-      return;
-    }
-    const convBtn = e.target.closest("[data-conv-id]");
-    if (convBtn) {
-      stopAudio();
-      currentConvId = convBtn.getAttribute("data-conv-id");
-      renderCurrentConversation();
-      menuDrawer.classList.add("hidden");
-    }
-  });
-}
-
-// INICIALIZACIÓN
-window.addEventListener("DOMContentLoaded", () => {
-  setupEventListeners();
-  loadApp(); // Nuevo motor de carga
-  lucide.createIcons();
-});
+          btn.innerHTML = `<div class="truncate pr-2 pointer-events-none"><div class="font
