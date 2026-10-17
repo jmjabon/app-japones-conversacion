@@ -3,10 +3,5 @@
     "id": "transporte",
     "name": "Transporte",
     "file": "data/transporte.json"
-  },
-  {
-    "id": "restauracion",
-    "name": "Restauración",
-    "file": "data/restauracion.json"
   }
 ]
