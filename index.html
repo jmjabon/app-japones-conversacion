@@ -1,18 +1,65 @@
-  <html>
-  <body>
-  <!-- ==================== LÓGICA JAVASCRIPT ==================== -->
-  <div id="debug-box" style="position:fixed; top:0; left:0; width:100%; background:red; color:white; font-family:monospace; font-size:12px; padding:10px; z-index:9999; word-wrap:break-word;">
-  Buscando errores...
-</div>
-<script>
-  window.addEventListener('error', function(e) {
-    document.getElementById('debug-box').innerHTML += '<br><br>🚨 JS Error: ' + e.message + ' (Línea ' + e.lineno + ')';
-  });
-  window.addEventListener('unhandledrejection', function(e) {
-    document.getElementById('debug-box').innerHTML += '<br><br>⚠️ Error de Datos: ' + e.reason;
-  });
-</script>
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>KikuNihongo - Práctica Auditiva de Japonés</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 
-  <script src="./js/app.js"></script>
-</body>
-</html>
+  <style>
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    
+    ruby {
+      ruby-position: over;
+    }
+    rt {
+      font-size: 0.65em;
+      color: #e11d48;
+      user-select: none;
+      font-weight: 600;
+    }
+    .hide-furigana rt {
+      display: none;
+    }
+
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="h-full bg-slate-100 text-slate-800 flex flex-col font-sans select-none antialiased">
+
+  <!-- ==================== CHIVATO DE ERRORES (DEBUG) ==================== -->
+  <div id="debug-box" style="position:fixed; top:0; left:0; width:100%; background:red; color:white; font-family:monospace; font-size:12px; padding:10px; z-index:9999; word-wrap:break-word; max-height: 200px; overflow-y: auto;">
+    <strong>Consola de Depuración (Borrar cuando todo funcione)</strong>
+  </div>
+  <script>
+    window.addEventListener('error', function(e) {
+      document.getElementById('debug-box').innerHTML += '<br><br>🚨 JS Error: ' + e.message + ' (Línea ' + e.lineno + ')';
+    });
+    window.addEventListener('unhandledrejection', function(e) {
+      document.getElementById('debug-box').innerHTML += '<br><br>⚠️ Error de Datos (Promesa): ' + e.reason;
+    });
+  </script>
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="bg-white border-b border-slate-200 px-4 py-3 flex items-center justify-between shadow-sm flex-shrink-0 mt-10"> <!-- mt-10 añadido para que no lo tape la barra de debug -->
+    <div class="flex items-center gap-3">
+      <button id="btn-toggle-menu" class="cursor-pointer p-2.5 rounded-xl hover:bg-slate-100 active:bg-slate-200 transition-all text-slate-700 flex items-center justify-center">
+        <i data-lucide="menu" class="w-6 h-6 pointer-events-none"></i>
+      </button>
+      <div>
+        <h1 class="text-lg font-bold tracking-tight text-slate-900 flex items-center gap-2">
+          <span>聞く日本語</span>
+          <span class="text-[10px] bg-rose-100 text-rose-700 px-2 py-0.5
