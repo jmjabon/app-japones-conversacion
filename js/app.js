@@ -37,10 +37,10 @@ async function loadApp() {
           openCategories.add(cat.name);
           logDebug(`✅ Éxito: ${cat.file} (${catData.length} diálogos)`);
         } else {
-          logDebug(`⚠️ No se encontró: ${cat.file} (Error${catResponse.status})`);
+          logDebug(`⚠️ No se encontró: ${cat.file} (Error ${catResponse.status})`);
         }
       } catch (err) {
-        logDebug(`❌ Error de sintaxis en el JSON de ${cat.file}:${err.message}`);
+        logDebug(`❌ Error de sintaxis en el JSON de ${cat.file}: ${err.message}`);
       }
     }
 
@@ -100,7 +100,7 @@ function playFullConversation() {
 
     const line = conv.dialogue[currentUtteranceIndex];
     currentSpeakerTxt.textContent = line.speaker || "Interlocutor";
-    audioProgressStep.textContent = `${currentUtteranceIndex + 1} /${conv.dialogue.length}`;
+    audioProgressStep.textContent = `${currentUtteranceIndex + 1} / ${conv.dialogue.length}`;
 
     const cleanText = line.text || line.html.replace(/<[^>]*>/g, "");
     const utterance = new SpeechSynthesisUtterance(cleanText);
@@ -148,10 +148,10 @@ function renderCurrentConversation() {
   if (!conv) return;
   userAnswers = {};
 
-  document.getElementById("label-category").textContent = `${conv.category} >${conv.subcategory || 'General'}`;
+  document.getElementById("label-category").textContent = `${conv.category} > ${conv.subcategory || 'General'}`;
   document.getElementById("label-difficulty").textContent = conv.difficulty || "N5";
   document.getElementById("conv-title").textContent = conv.title;
-  document.getElementById("current-badge").textContent = `${conv.category} •${conv.dialogue.length} intervenciones`;
+  document.getElementById("current-badge").textContent = `${conv.category} • ${conv.dialogue.length} intervenciones`;
 
   const transcriptBox = document.getElementById("transcript-box");
   transcriptBox.innerHTML = conv.dialogue.map(line => `
@@ -185,7 +185,7 @@ function renderQuestions(conv) {
 
     const qTitle = document.createElement("h4");
     qTitle.className = "font-bold text-slate-900 text-sm md:text-base flex items-start gap-2";
-    qTitle.innerHTML = `<span class="bg-rose-100 text-rose-700 w-6 h-6 rounded-full flex items-center justify-center text-xs flex-shrink-0 font-bold">${qIndex + 1}</span>${q.question}`;
+    qTitle.innerHTML = `<span class="bg-rose-100 text-rose-700 w-6 h-6 rounded-full flex items-center justify-center text-xs flex-shrink-0 font-bold">${qIndex + 1}</span> ${q.question}`;
     qCard.appendChild(qTitle);
 
     const optionsDiv = document.createElement("div");
@@ -242,7 +242,7 @@ function updateScoreBadge() {
   const conv = conversations.find(c => c.id === currentConvId);
   if (!conv || !conv.questions) return;
   const counter = document.getElementById("score-counter");
-  if(counter) counter.textContent = `${Object.keys(userAnswers).length} /${conv.questions.length} Respondidas`;
+  if(counter) counter.textContent = `${Object.keys(userAnswers).length} / ${conv.questions.length} Respondidas`;
 }
 
 function renderCategoriesDrawer(filterText = "") {
@@ -296,4 +296,101 @@ function renderCategoriesDrawer(filterText = "") {
           const btn = document.createElement("button");
           btn.setAttribute("data-conv-id", conv.id);
           btn.className = `cursor-pointer w-full text-left p-3 rounded-xl text-xs font-semibold flex items-center justify-between transition-all my-1 ${isSelected ? "bg-rose-500 text-white shadow-sm" : "hover:bg-slate-100 text-slate-700"}`;
-          btn.innerHTML = `<div class="truncate pr-2 pointer-events-none"><div class="font
+          btn.innerHTML = `<div class="truncate pr-2 pointer-events-none"><div class="font-bold truncate text-[13px]">${conv.title}</div><div class="text-[10px] opacity-75 mt-0.5">${conv.difficulty}</div></div><i data-lucide="chevron-right" class="w-4 h-4 flex-shrink-0 pointer-events-none ${isSelected ? 'text-white' : 'text-slate-400'}"></i>`;
+          subWrapper.appendChild(btn);
+        });
+        bodyDiv.appendChild(subWrapper);
+      }
+      groupDiv.appendChild(bodyDiv);
+    }
+    container.appendChild(groupDiv);
+  }
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+// --- 4. EVENTOS ---
+function setupEventListeners() {
+  const btnPlay = document.getElementById("btn-play-audio");
+  if(btnPlay) btnPlay.addEventListener("click", () => isPlaying ? stopAudio() : playFullConversation());
+  
+  const btnStop = document.getElementById("btn-stop-audio");
+  if(btnStop) btnStop.addEventListener("click", stopAudio);
+
+  document.querySelectorAll(".btn-speed").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      document.querySelectorAll(".btn-speed").forEach(b => b.className = "btn-speed cursor-pointer text-xs px-2.5 py-1 rounded-lg font-bold text-slate-600 hover:bg-slate-100");
+      e.target.className = "btn-speed cursor-pointer text-xs px-2.5 py-1 rounded-lg font-bold bg-rose-500 text-white shadow-sm";
+      selectedPlaybackSpeed = parseFloat(e.target.dataset.speed);
+    });
+  });
+
+  const transcriptBox = document.getElementById("transcript-box");
+  const furiganaSwitch = document.getElementById("furigana-switch-container");
+  const btnToggleTrans = document.getElementById("btn-toggle-transcript");
+  
+  if(btnToggleTrans && transcriptBox && furiganaSwitch) {
+    btnToggleTrans.addEventListener("click", () => {
+      if (transcriptBox.classList.contains("hidden")) {
+        transcriptBox.classList.remove("hidden");
+        furiganaSwitch.classList.remove("hidden");
+        furiganaSwitch.classList.add("flex");
+        document.getElementById("transcript-toggle-text").textContent = "Ocultar Transcripción";
+      } else {
+        transcriptBox.classList.add("hidden");
+        furiganaSwitch.classList.add("hidden");
+        furiganaSwitch.classList.remove("flex");
+        document.getElementById("transcript-toggle-text").textContent = "Ver Transcripción en Japonés";
+      }
+    });
+  }
+
+  const checkFurigana = document.getElementById("check-furigana");
+  if(checkFurigana && transcriptBox) {
+    checkFurigana.addEventListener("change", (e) => {
+      e.target.checked ? transcriptBox.classList.remove("hide-furigana") : transcriptBox.classList.add("hide-furigana");
+    });
+  }
+
+  const menuDrawer = document.getElementById("menu-drawer");
+  const btnToggleMenu = document.getElementById("btn-toggle-menu");
+  if(btnToggleMenu && menuDrawer) {
+    btnToggleMenu.addEventListener("click", () => {
+      renderCategoriesDrawer();
+      menuDrawer.classList.remove("hidden");
+    });
+  }
+  
+  const btnCloseMenu = document.getElementById("btn-close-menu");
+  if(btnCloseMenu && menuDrawer) btnCloseMenu.addEventListener("click", () => menuDrawer.classList.add("hidden"));
+  
+  const searchInput = document.getElementById("search-input");
+  if(searchInput) searchInput.addEventListener("input", (e) => renderCategoriesDrawer(e.target.value));
+
+  const tree = document.getElementById("dialogues-tree");
+  if(tree) {
+    tree.addEventListener("click", (e) => {
+      const headerBtn = e.target.closest("[data-category-header]");
+      if (headerBtn) {
+        const cat = headerBtn.getAttribute("data-category-header");
+        openCategories.has(cat) ? openCategories.delete(cat) : openCategories.add(cat);
+        renderCategoriesDrawer(document.getElementById("search-input").value);
+        return;
+      }
+      const convBtn = e.target.closest("[data-conv-id]");
+      if (convBtn) {
+        stopAudio();
+        currentConvId = convBtn.getAttribute("data-conv-id");
+        renderCurrentConversation();
+        menuDrawer.classList.add("hidden");
+      }
+    });
+  }
+}
+
+// INICIALIZACIÓN
+window.addEventListener("DOMContentLoaded", () => {
+  logDebug("El HTML ha cargado. Arrancando scripts...");
+  setupEventListeners();
+  loadApp(); 
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+});
