@@ -456,27 +456,25 @@
       speakLine();
     }
 
-    function updateAudioUI(playing) {
+        function updateAudioUI(playing) {
       const btnText = document.getElementById("btn-play-text");
       const iconWrapper = document.getElementById("play-icon-wrapper");
-      const statusIndicator = document.getElementById("status-indicator");
-      const statusText = document.getElementById("audio-status");
+      const statusText = document.getElementById("audio-status"); // Solo buscamos el contenedor general
 
-      // Usamos el wrapper en lugar de acceder directamente al id del icono 
-      // para evitar el fallo de pérdida de DOM con Lucide.
       if (playing) {
         btnText.textContent = "Reproduciendo...";
         iconWrapper.innerHTML = `<i data-lucide="volume-2" class="w-6 h-6 fill-current"></i>`;
-        statusIndicator.className = "w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block animate-ping";
-        statusText.innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span> Reproduciendo diálogo en japonés`;
+        // Inyectamos el texto junto con el indicador, manteniendo su ID a salvo
+        statusText.innerHTML = `<span id="status-indicator" class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block animate-ping"></span> Reproduciendo diálogo en japonés`;
       } else {
         btnText.textContent = "Reproducir Diálogo";
         iconWrapper.innerHTML = `<i data-lucide="play" class="w-6 h-6 fill-current"></i>`;
-        statusIndicator.className = "w-2.5 h-2.5 rounded-full bg-slate-400 inline-block";
-        statusText.innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-slate-400 inline-block"></span> Listo para escuchar`;
+        // Lo devolvemos a gris
+        statusText.innerHTML = `<span id="status-indicator" class="w-2.5 h-2.5 rounded-full bg-slate-400 inline-block"></span> Listo para escuchar`;
       }
       lucide.createIcons();
     }
+
 
     function renderCurrentConversation() {
       const conv = conversations.find(c => c.id === currentConvId);
