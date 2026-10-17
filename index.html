@@ -10,10 +10,13 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <style>
-    -webkit-touch-callout: none;
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
+    <style>
+    /* Corrección: ahora están dentro del selector body */
+    body {
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
     
     ruby {
       ruby-position: over;
@@ -37,13 +40,15 @@
       border-radius: 4px;
     }
   </style>
+
 </head>
 <body class="h-full bg-slate-100 text-slate-800 flex flex-col font-sans select-none antialiased">
 
   <!-- ==================== CHIVATO DE ERRORES (DEBUG) ==================== -->
   <div id="debug-box" style="position:fixed; top:0; left:0; width:100%; background:red; color:white; font-family:monospace; font-size:12px; padding:10px; z-index:9999; word-wrap:break-word; max-height: 200px; overflow-y: auto;">
-    <strong>Consola de Depuración (Borrar cuando todo funcione)</strong>
+    <strong>Consola 2 de Depuración (Borrar cuando todo funcione)</strong>
   </div>
+  <script src="./js/app.js" onerror="document.getElementById('debug-box').innerHTML += '<br><br>🚨 ERROR 404: No se encuentra el archivo app.js. ¡Revisa el nombre de la carpeta js!'" defer></script>
   <script>
     window.addEventListener('error', function(e) {
       document.getElementById('debug-box').innerHTML += '<br><br>🚨 JS Error: ' + e.message + ' (Línea ' + e.lineno + ')';
