@@ -120,5 +120,122 @@
         "explanation": "La camarera indica que son 750 yenes ('750円です' / ななひゃくごじゅうえん)."
       }
     ]
+  },
+  {
+    "id": "conv_restauracion_003",
+    "category": "Restauración",
+    "subcategory": "Cafetería",
+    "title": "Pidiendo un café helado en la cafetería",
+    "difficulty": "N5",
+    "audioUrl": "media/cafeteria1.mp3",
+    "dialogue": [
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "すみません、アイスコーヒーをください。",
+        "html": "すみません、アイスコーヒーをください。",
+        "translation": "Perdone, un café helado, por favor."
+      },
+      {
+        "speaker": "Camarera",
+        "pitch": 1.1,
+        "text": "サイズはどうされますか？",
+        "html": "サイズはどうされますか？",
+        "translation": "¿De qué tamaño lo desea?"
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "Mサイズでお願いします。",
+        "html": "Mサイズでお<ruby>願<rt>ねが</rt></ruby>いします。",
+        "translation": "Tamaño M, por favor."
+      },
+      {
+        "speaker": "Camarera",
+        "pitch": 1.1,
+        "text": "店内でお召し上がりですか？",
+        "html": "<ruby>店内<rt>てんない</rt></ruby>でお<ruby>召<rt>め</rt></ruby>し<ruby>上<rt>あ</rt></ruby>がりですか？",
+        "translation": "¿Es para tomar aquí?"
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "はい、ここで。",
+        "html": "はい、ここで。",
+        "translation": "Sí, aquí."
+      },
+      {
+        "speaker": "Camarera",
+        "pitch": 1.1,
+        "text": "かしこまりました。ご一緒にスイーツはいかがですか？",
+        "html": "かしこまりました。ご<ruby>一緒<rt>いっしょ</rt></ruby>にスイーツはいかがですか？",
+        "translation": "Entendido. ¿Le gustaría algún dulce para acompañar?"
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "いいえ、結構です。",
+        "html": "いいえ、<ruby>結構<rt>けっこう</rt></ruby>です。",
+        "translation": "No, gracias."
+      },
+      {
+        "speaker": "Camarera",
+        "pitch": 1.1,
+        "text": "では、400円になります。",
+        "html": "では、<ruby>400円<rt>よんひゃくえん</rt></ruby>になります。",
+        "translation": "Entonces, son 400 yenes."
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "カードで払えますか？",
+        "html": "カードで<ruby>払<rt>はら</rt></ruby>えますか？",
+        "translation": "¿Puedo pagar con tarjeta?"
+      },
+      {
+        "speaker": "Camarera",
+        "pitch": 1.1,
+        "text": "はい、ご利用いただけます。",
+        "html": "はい、ご<ruby>利用<rt>りよう</rt></ruby>いただけます。",
+        "translation": "Sí, puede utilizarla."
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "お願いします。",
+        "html": "お<ruby>願<rt>ねが</rt></ruby>いします。",
+        "translation": "Por favor."
+      },
+      {
+        "speaker": "Camarera",
+        "pitch": 1.1,
+        "text": "ありがとうございました。お席でお待ちください。",
+        "html": "ありがとうございました。お<ruby>席<rt>せき</rt></ruby>でお<ruby>待<rt>ま</rt></ruby>ちください。",
+        "translation": "Muchas gracias. Por favor, espere en su asiento."
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1_cafe",
+        "question": "¿Qué tamaño de bebida pidió el cliente?",
+        "options": ["Tamaño S", "Tamaño M", "Tamaño L", "Tamaño XL"],
+        "correctIndex": 1,
+        "explanation": "El cliente especifica claramente 'Mサイズでお願いします' (Tamaño M, por favor)."
+      },
+      {
+        "id": "q2_cafe",
+        "question": "¿Cómo pagó la cuenta?",
+        "options": ["En efectivo", "Con tarjeta", "Con Suica", "Con PayPay"],
+        "correctIndex": 1,
+        "explanation": "Preguntó 'カードで払えますか？' (¿Puedo pagar con tarjeta?) y la camarera le confirmó que sí."
+      },
+      {
+        "id": "q3_cafe",
+        "question": "¿Qué le ofreció la camarera además de la bebida?",
+        "options": ["Azúcar extra", "Un sándwich", "Un dulce (sweets)", "Agua"],
+        "correctIndex": 2,
+        "explanation": "Le ofreció un postre diciendo 'ご一緒にスイーツはいかがですか？' (¿Le gustaría algún dulce?)."
+      }
+    ]
   }
 ]
