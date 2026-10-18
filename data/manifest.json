@@ -1,7 +1,6 @@
 [
-  {
-    "id": "transporte",
-    "name": "Transporte",
-    "file": "data/transporte.json"
-  }
+  { "id": "transporte", "name": "Transporte", "file": "data/transporte.json" },
+  { "id": "restauracion", "name": "Restauración", "file": "data/restauracion.json" },
+  { "id": "alojamiento", "name": "Alojamiento", "file": "data/alojamiento.json" },
+  { "id": "comercio", "name": "Comercio", "file": "data/comercio.json" }
 ]

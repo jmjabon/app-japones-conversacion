@@ -44,18 +44,22 @@
 <body class="h-full bg-slate-100 text-slate-800 flex flex-col font-sans select-none antialiased">
 
   <!-- ==================== CHIVATO DE ERRORES (DEBUG) ==================== -->
-<div id="debug-box" style="position:fixed; top:0; left:0; width:100%; background:red; color:white; font-family:monospace; font-size:12px; padding:10px; z-index:9999; word-wrap:break-word; max-height: 150px; overflow-y: auto; user-select: text; -webkit-user-select: text; pointer-events: auto;">
-  <strong>Consola de Depuración (Borrar cuando todo funcione)</strong>
-</div>
+<div id="debug-box-container" style="position:fixed; top:0; left:0; width:100%; z-index:9999;">
+    <div style="background:#991b1b; color:white; padding:8px 12px; display:flex; justify-content:space-between; align-items:center; font-family:sans-serif; font-size:12px; font-weight:bold;">
+      <span>Consola de Depuración</span>
+      <button onclick="document.getElementById('debug-box-container').style.display='none'" style="background:white; color:#991b1b; border:none; border-radius:6px; padding:4px 10px; font-weight:bold; cursor:pointer;">Minimizar / Cerrar</button>
+    </div>
+    <div id="debug-box" style="background:#ef4444; color:white; font-family:monospace; font-size:11px; padding:10px; word-wrap:break-word; max-height: 150px; overflow-y: auto; user-select: text; -webkit-user-select: text;">
+    </div>
+  </div>
   <script>
     window.addEventListener('error', function(e) {
-      document.getElementById('debug-box').innerHTML += '<br><br>🚨 JS Error: ' + e.message + ' (Línea ' + e.lineno + ')';
+      document.getElementById('debug-box').innerHTML += '<br>🚨 JS Error: ' + e.message + ' (Línea ' + e.lineno + ')';
     });
     window.addEventListener('unhandledrejection', function(e) {
-      document.getElementById('debug-box').innerHTML += '<br><br>⚠️ Error de Datos (Promesa): ' + e.reason;
+      document.getElementById('debug-box').innerHTML += '<br>⚠️ Promesa: ' + e.reason;
     });
   </script>
-
   <!-- ==================== HEADER ==================== -->
   <header class="bg-white border-b border-slate-200 px-4 py-3 flex items-center justify-between shadow-sm flex-shrink-0 mt-10">
     <div class="flex items-center gap-3">
