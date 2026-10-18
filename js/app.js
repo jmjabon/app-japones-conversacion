@@ -148,10 +148,11 @@ function renderCurrentConversation() {
   if (!conv) return;
   userAnswers = {};
 
-  document.getElementById("label-category").textContent = `${conv.category} > ${conv.subcategory || 'General'}`;
-  document.getElementById("label-difficulty").textContent = conv.difficulty || "N5";
-  document.getElementById("conv-title").textContent = conv.title;
-  document.getElementById("current-badge").textContent = `${conv.category} • ${conv.dialogue.length} intervenciones`;
+// Buscamos los elementos de forma segura con ?. (Optional Chaining)
+  document.getElementById("label-category")?.textContent = `${conv.category} > ${conv.subcategory || 'General'}`;
+  document.getElementById("label-difficulty")?.textContent = conv.difficulty || "N5";
+  document.getElementById("conv-title")?.textContent = conv.title;
+  document.getElementById("current-badge")?.textContent = `${conv.category} • ${conv.dialogue.length} intervenciones`;
 
   const transcriptBox = document.getElementById("transcript-box");
   transcriptBox.innerHTML = conv.dialogue.map(line => `
