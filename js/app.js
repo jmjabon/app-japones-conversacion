@@ -97,6 +97,7 @@ function playFullConversation() {
     logDebug(`Reproduciendo MP3 desde: ${conv.audioUrl}`);
     currentAudioElement = new Audio(conv.audioUrl);
     currentAudioElement.playbackRate = selectedPlaybackSpeed;
+    currentAudioElement.volume = 1.0; // FUERZA EL MP3 AL 100%
 
     currentAudioElement.onended = () => stopAudio();
 
@@ -142,7 +143,8 @@ function playFullConversation() {
     
     utterance.pitch = line.pitch || 1.0;
     utterance.rate = (line.rate || 1.0) * selectedPlaybackSpeed;
-
+    utterance.volume = 0.7; // REDUCE LA VOZ ROBÓTICA AL 70%
+    
     utterance.onend = () => {
       currentUtteranceIndex++;
       setTimeout(() => { if (isPlaying) speakLine(); }, 350);
