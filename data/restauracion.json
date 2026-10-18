@@ -31,5 +31,94 @@
         "explanation": "Kenji respondió: '店内でお願いします'."
       }
     ]
+  },
+  {
+    "id": "conv_restaurante_002",
+    "category": "Restauración",
+    "subcategory": "Restaurante",
+    "title": "Pidiendo una hamburguesa para llevar",
+    "difficulty": "N5",
+    "audioUrl": "media/Restaurante1.mp3",
+    "dialogue": [
+      {
+        "speaker": "Camarera",
+        "pitch": 1.1,
+        "text": "いらっしゃいませ。",
+        "html": "いらっしゃいませ。",
+        "translation": "Bienvenidos."
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "チキンバーガーを一つください。",
+        "html": "チキンバーガーを<ruby>一<rt>ひと</rt></ruby>つください。",
+        "translation": "Una hamburguesa de pollo, por favor."
+      },
+      {
+        "speaker": "Camarera",
+        "pitch": 1.1,
+        "text": "はい。こちらで食べますか？",
+        "html": "はい。こちらで<ruby>食<rt>た</rt></ruby>べますか？",
+        "translation": "Sí. ¿Va a comer aquí?"
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "いいえ、持って帰ります。",
+        "html": "いいえ、<ruby>持<rt>も</rt></ruby>って<ruby>帰<rt>かえ</rt></ruby>ります。",
+        "translation": "No, es para llevar."
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "いくらですか？",
+        "html": "いくらですか？",
+        "translation": "¿Cuánto es?"
+      },
+      {
+        "speaker": "Camarera",
+        "pitch": 1.1,
+        "text": "750円です。",
+        "html": "<ruby>750円<rt>ななひゃくごじゅうえん</rt></ruby>です。",
+        "translation": "Son 750 yenes."
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "はい、どうぞ。",
+        "html": "はい、どうぞ。",
+        "translation": "Aquí tiene."
+      },
+      {
+        "speaker": "Camarera",
+        "pitch": 1.1,
+        "text": "ありがとうございます。",
+        "html": "ありがとうございます。",
+        "translation": "Muchas gracias."
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1_burger",
+        "question": "¿Qué pidió el cliente?",
+        "options": ["Hamburguesa de queso", "Hamburguesa de pollo", "Patatas fritas", "Pizza"],
+        "correctIndex": 1,
+        "explanation": "El cliente dice claramente: 'チキンバーガーを一つください' (Una hamburguesa de pollo, por favor)."
+      },
+      {
+        "id": "q2_burger",
+        "question": "¿Dónde va a comer el cliente?",
+        "options": ["En el restaurante", "Para llevar", "En la terraza", "En el coche"],
+        "correctIndex": 1,
+        "explanation": "A la pregunta de si come allí (こちらで食べますか), responde '持って帰ります' (Me lo llevo / Para llevar)."
+      },
+      {
+        "id": "q3_burger",
+        "question": "¿Cuál es el precio total?",
+        "options": ["550 yenes", "700 yenes", "750 yenes", "850 yenes"],
+        "correctIndex": 2,
+        "explanation": "La camarera indica que son 750 yenes ('750円です' / ななひゃくごじゅうえん)."
+      }
+    ]
   }
 ]
