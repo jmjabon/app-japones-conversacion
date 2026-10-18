@@ -11,9 +11,12 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
-    -webkit-touch-callout: none;
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
+    /* Corrección de CSS: Envuelto en el selector body */
+    body {
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
     
     ruby {
       ruby-position: over;
@@ -40,8 +43,21 @@
 </head>
 <body class="h-full bg-slate-100 text-slate-800 flex flex-col font-sans select-none antialiased">
 
+  <!-- ==================== CHIVATO DE ERRORES (DEBUG) ==================== -->
+<div id="debug-box" style="position:fixed; top:0; left:0; width:100%; background:red; color:white; font-family:monospace; font-size:12px; padding:10px; z-index:9999; word-wrap:break-word; max-height: 150px; overflow-y: auto; user-select: text; -webkit-user-select: text; pointer-events: auto;">
+  <strong>Consola de Depuración (Borrar cuando todo funcione)</strong>
+</div>
+  <script>
+    window.addEventListener('error', function(e) {
+      document.getElementById('debug-box').innerHTML += '<br><br>🚨 JS Error: ' + e.message + ' (Línea ' + e.lineno + ')';
+    });
+    window.addEventListener('unhandledrejection', function(e) {
+      document.getElementById('debug-box').innerHTML += '<br><br>⚠️ Error de Datos (Promesa): ' + e.reason;
+    });
+  </script>
+
   <!-- ==================== HEADER ==================== -->
-  <header class="bg-white border-b border-slate-200 px-4 py-3 flex items-center justify-between shadow-sm flex-shrink-0">
+  <header class="bg-white border-b border-slate-200 px-4 py-3 flex items-center justify-between shadow-sm flex-shrink-0 mt-10">
     <div class="flex items-center gap-3">
       <button id="btn-toggle-menu" class="cursor-pointer p-2.5 rounded-xl hover:bg-slate-100 active:bg-slate-200 transition-all text-slate-700 flex items-center justify-center">
         <i data-lucide="menu" class="w-6 h-6 pointer-events-none"></i>
@@ -51,7 +67,7 @@
           <span>聞く日本語</span>
           <span class="text-[10px] bg-rose-100 text-rose-700 px-2 py-0.5 rounded-full font-bold uppercase tracking-wide">Choukai Lab</span>
         </h1>
-        <p id="current-badge" class="text-xs text-slate-500 font-medium">Cargando...</p>
+        <p id="current-badge" class="text-xs text-slate-500 font-medium">Iniciando...</p>
       </div>
     </div>
 
@@ -75,11 +91,11 @@
         <div class="flex items-start justify-between gap-4">
           <div>
             <div class="flex items-center gap-2 mb-1">
-              <span id="label-category" class="text-xs font-bold text-rose-600 tracking-wide uppercase">Categoría</span>
+              <span id="label-category" class="text-xs font-bold text-rose-600 tracking-wide uppercase">Cargando...</span>
               <span class="text-slate-300">•</span>
-              <span id="label-difficulty" class="text-xs font-bold px-2 py-0.5 rounded-md bg-amber-50 text-amber-700 border border-amber-200">N5</span>
+              <span id="label-difficulty" class="text-xs font-bold px-2 py-0.5 rounded-md bg-amber-50 text-amber-700 border border-amber-200">--</span>
             </div>
-            <h2 id="conv-title" class="text-xl md:text-2xl font-bold text-slate-900 leading-snug">Cargando...</h2>
+            <h2 id="conv-title" class="text-xl md:text-2xl font-bold text-slate-900 leading-snug">Conectando con la base de datos...</h2>
             <p class="text-xs text-slate-500 mt-1">Escucha atentamente el audio en japonés para responder a las preguntas.</p>
           </div>
           <button id="btn-delete-conv" class="cursor-pointer text-slate-400 hover:text-red-500 p-2 rounded-lg transition-colors" title="Borrar este diálogo">
@@ -106,7 +122,6 @@
           <!-- Botones de Acción -->
           <div class="flex items-center gap-3">
             <button id="btn-play-audio" class="cursor-pointer flex-1 py-4 px-6 rounded-2xl bg-rose-600 hover:bg-rose-700 active:scale-[0.99] text-white font-bold flex items-center justify-center gap-3 shadow-md transition-all text-base">
-              <!-- Wrapper para evitar que Lucide rompa las referencias del DOM en Safari -->
               <span id="play-icon-wrapper" class="flex items-center justify-center pointer-events-none">
                 <i data-lucide="play" class="w-6 h-6 fill-current"></i>
               </span>
@@ -160,7 +175,7 @@
           </span>
         </div>
 
-        <div id="questions-container" class="space-y-4">
+        <div id="questions-container" class="space-y-4 pb-8">
           <!-- Render dinámico de preguntas -->
         </div>
       </section>
@@ -174,7 +189,7 @@
       <div class="p-4 border-b border-slate-200 flex items-center justify-between">
         <div>
           <h2 class="font-bold text-slate-900 text-lg">Catálogo de Diálogos</h2>
-          <p id="total-convs-counter" class="text-xs text-slate-500">0 conversaciones organizadas</p>
+          <p id="total-convs-counter" class="text-xs text-slate-500">Cargando índice...</p>
         </div>
         <button id="btn-close-menu" class="cursor-pointer p-2 rounded-xl hover:bg-slate-100 text-slate-500 flex items-center justify-center">
           <i data-lucide="x" class="w-5 h-5 pointer-events-none"></i>
@@ -199,7 +214,6 @@
   <!-- ==================== MODAL: NUEVA CONVERSACIÓN ==================== -->
   <div id="creator-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden p-4 flex items-center justify-center">
     <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
-      <!-- Contenido del modal se mantiene igual por brevedad -->
       <div class="p-4 md:p-6 border-b border-slate-200 flex items-center justify-between">
         <div>
           <h3 class="font-bold text-lg text-slate-900">Añadir Nuevo Diálogo</h3>
@@ -286,615 +300,7 @@
     </div>
   </div>
 
-  <!-- ==================== LÓGICA JAVASCRIPT ==================== -->
-  <script>
-    const DEFAULT_CONVERSATIONS = [
-      {
-        id: "conv_transporte_001",
-        category: "Transporte",
-        subcategory: "Tren / Shinkansen",
-        title: "Comprando billetes de Shinkansen en taquilla",
-        difficulty: "N5",
-        dialogue: [
-          { speaker: "Taquillero", pitch: 1.0, text: "次の方どうぞ。どちらまでですか。", html: "<ruby>次<rt>つぎ</rt></ruby>の<ruby>方<rt>かた</rt></ruby>どうぞ。どちらまでですか。" },
-          { speaker: "Pasajero", pitch: 1.15, text: "京都まで大人二枚お願いします。あ、自由席でいいです。", html: "<ruby>京都<rt>きょうと</rt></ruby>まで<ruby>大人<rt>おとな</rt></ruby><ruby>二枚<rt>にまい</rt></ruby>お<ruby>願<rt>ねが</rt></ruby>いします。あ、<ruby>自由席<rt>じゆうせき</rt></ruby>でいいです。" },
-          { speaker: "Taquillero", pitch: 1.0, text: "かしこまりました。本日の午前中の新幹線ですね。", html: "かしこまりました。<ruby>本日<rt>ほんじつ</rt></ruby>の<ruby>午前中<rt>ごぜんちゅう</rt></ruby>の<ruby>新幹線<rt>しんかんせん</rt></ruby>ですね。" },
-          { speaker: "Pasajero", pitch: 1.15, text: "あ、待ってください！京都は混みそうだから、やっぱり指定席に変更してください。", html: "あ、<ruby>待<rt>ま</rt></ruby>ってください！<ruby>京都<rt>きょうと</rt></ruby>は<ruby>混<rt>こ</rt></ruby>みそうだから、やっぱり<ruby>指定席<rt>していせき</rt></ruby>に<ruby>変更<rt>へんこう</rt></ruby>してください。" },
-          { speaker: "Taquillero", pitch: 1.0, text: "承知いたしました。指定席ですね。窓側と通路側、どちらがよろしいですか。", html: "<ruby>承知<rt>しょうち</rt></ruby>いたしました。<ruby>指定席<rt>していせき</rt></ruby>ですね。<ruby>窓側<rt>まどがわ</rt></ruby>と<ruby>通路側<rt>つうろがわ</rt></ruby>、どちらがよろしいですか。" },
-          { speaker: "Pasajero", pitch: 1.15, text: "二枚とも窓側で……あ、並びの席でお願いします。", html: "<ruby>二枚<rt>にまい</rt></ruby>とも<ruby>窓側<rt>まどがわ</rt></ruby>で……あ、<ruby>並<rt>なら</rt></ruby>びの<ruby>席<rt>せき</rt></ruby>でお<ruby>願<rt>ねが</rt></ruby>いします。" },
-          { speaker: "Taquillero", pitch: 1.0, text: "はい、並びの席でお取りできました。二枚で二万八千円になります。", html: "はい、<ruby>並<rt>なら</rt></ruby>びの<ruby>席<rt>せき</rt></ruby>でお<ruby>取<rt>と</rt></ruby>りできました。<ruby>二枚<rt>にまい</rt></ruby>で<ruby>二万八千円<rt>にまんはっせんえん</rt></ruby>になります。" }
-        ],
-        questions: [
-          { id: "q1", question: "¿Qué tipo de asiento decide comprar finalmente?", options: ["Asiento no reservado (自由席)", "Asiento reservado (指定席)", "Primera clase (Green Car)", "Coche cama"], correctIndex: 1, explanation: "Primero pidió 自由席, pero cambió de idea: 'やっぱり指定席に変更してください'." },
-          { id: "q2", question: "¿Cómo son los asientos elegidos?", options: ["En ventanilla pero separados", "Asientos contiguos / juntos", "Uno en pasillo y otro en ventanilla", "En extremos opuestos"], correctIndex: 1, explanation: "Pidió: '並びの席でお願いします' (asientos contiguos)." },
-          { id: "q3", question: "¿Cuánto es el precio total?", options: ["18.000 yenes", "24.000 yenes", "28.000 yenes", "30.000 yenes"], correctIndex: 2, explanation: "Total: '二万八千円' (28.000 yenes)." }
-        ]
-      },
-      {
-        id: "conv_restauracion_001",
-        category: "Restauración",
-        subcategory: "Cafetería",
-        title: "Dos personas decidiendo qué pedir ante el mostrador",
-        difficulty: "N5",
-        dialogue: [
-          { speaker: "Kenji", pitch: 0.9, text: "マナ、何を飲む？僕はアイスコーヒーにするよ。", html: "マナ、<ruby>何<rt>なに</rt></ruby>を<ruby>飲<rt>の</rt></ruby>む？<ruby>僕<rt>ぼく</rt></ruby>はアイスコーヒーにするよ。" },
-          { speaker: "Mana", pitch: 1.25, text: "うーん、抹茶ラテにしようかな。あ、でもケーキセットも美味しそう！", html: "うーん、<ruby>抹茶<rt>まっちゃ</rt></ruby>ラテにしようかな。あ、でもケーキセットも<ruby>美味<rt>おい</rt></ruby>しそう！" },
-          { speaker: "Camarera", pitch: 1.05, text: "いらっしゃいませ。ご注文をお伺いします。", html: "いらっしゃいませ。ご<ruby>注文<rt>ちゅうもん</rt></ruby>をお<ruby>伺<rt>うかが</rt></ruby>いします。" },
-          { speaker: "Kenji", pitch: 0.9, text: "アイスコーヒーを一つと、えーと……", html: "アイスコーヒーを<ruby>一<rt>ひと</rt></ruby>つと、えーと……" },
-          { speaker: "Mana", pitch: 1.25, text: "あ、やっぱり抹茶ラテじゃなくて、ホットの紅茶にします！それとチーズケーキを一つ。", html: "あ、やっぱり<ruby>抹茶<rt>まっちゃ</rt></ruby>ラテじゃなくて、ホットの<ruby>紅茶<rt>こうちゃ</rt></ruby>にします！それとチーズケーキを<ruby>一<rt>ひと</rt></ruby>つ。" },
-          { speaker: "Camarera", pitch: 1.05, text: "かしこまりました。店内でお召し上がりですか。", html: "かしこまりました。<ruby>店内<rt>てんない</rt></ruby>でお<ruby>召<rt>め</rt></ruby>し<ruby>上<rt>あ</rt></ruby>がりですか。" },
-          { speaker: "Kenji", pitch: 0.9, text: "はい、店内でお願いします。", html: "はい、<ruby>店内<rt>てんない</rt></ruby>でお<ruby>願<rt>ねが</rt></ruby>いします。" },
-          { speaker: "Camarera", pitch: 1.05, text: "合計で千二百円になります。", html: "<ruby>合計<rt>ごうけい</rt></ruby>で<ruby>千二百円<rt>せんにひゃくえん</rt></ruby>になります。" }
-        ],
-        questions: [
-          { id: "q1", question: "¿Qué bebida pide Mana al final?", options: ["Matcha latte", "Café frío", "Té caliente (紅茶)", "Zumo de fruta"], correctIndex: 2, explanation: "Mana rectificó: 'やっぱり抹茶ラテじゃなくて、ホットの紅茶にします'." },
-          { id: "q2", question: "¿Dónde van a consumir el pedido?", options: ["Para llevar", "En el local (店内)", "En la terraza", "Solo la tarta en el local"], correctIndex: 1, explanation: "Kenji respondió: '店内でお願いします'." }
-        ]
-      }
-    ];
-
-    const STORAGE_KEY = "kikunihongo_v3_store";
-    let conversations = [];
-    let currentConvId = null;
-    let selectedPlaybackSpeed = 1.0;
-    let isPlaying = false;
-    let currentUtteranceIndex = 0;
-    let userAnswers = {};
-    let openCategories = new Set(["Transporte"]);
-
-    function initData() {
-      try {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        if (stored) {
-          conversations = JSON.parse(stored);
-        } else {
-          conversations = [...DEFAULT_CONVERSATIONS];
-          saveData();
-        }
-      } catch(e) {
-        // Fallback robusto por si localStorage está bloqueado (modo incógnito estricto en iOS)
-        conversations = [...DEFAULT_CONVERSATIONS];
-      }
-      
-      if (conversations.length > 0) {
-        currentConvId = conversations[0].id;
-      }
-    }
-
-    function saveData() {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(conversations));
-      } catch(e) {
-        console.warn("No se pudo guardar en LocalStorage (posible navegación privada).");
-      }
-    }
-
-    function stopAudio() {
-      try {
-        if (window.speechSynthesis) {
-          window.speechSynthesis.cancel();
-        }
-      } catch (e) {
-        console.warn("El motor de voz no pudo ser detenido:", e);
-      }
-      isPlaying = false;
-      updateAudioUI(false);
-      document.getElementById("speaker-display").classList.add("hidden");
-    }
-
-    function playFullConversation() {
-      if (!("speechSynthesis" in window)) {
-        alert("Tu dispositivo no soporta síntesis de voz Web Speech API.");
-        return;
-      }
-
-      const conv = conversations.find(c => c.id === currentConvId);
-      if (!conv || !conv.dialogue || conv.dialogue.length === 0) return;
-
-      try {
-        window.speechSynthesis.cancel();
-        if (window.speechSynthesis.paused) {
-          window.speechSynthesis.resume();
-        }
-      } catch(e) {
-        console.warn("Aviso en el motor de voz:", e);
-      }
-
-      isPlaying = true;
-      currentUtteranceIndex = 0;
-      updateAudioUI(true);
-
-      const speakerBox = document.getElementById("speaker-display");
-      const currentSpeakerTxt = document.getElementById("current-speaker");
-      const audioProgressStep = document.getElementById("audio-progress-step");
-      speakerBox.classList.remove("hidden");
-
-      const voices = window.speechSynthesis.getVoices();
-      const jaVoice = voices.find(v => v.lang.startsWith("ja") || v.lang.includes("JP"));
-
-      function speakLine() {
-        if (!isPlaying) return;
-
-        if (currentUtteranceIndex >= conv.dialogue.length) {
-          stopAudio();
-          return;
-        }
-
-        const line = conv.dialogue[currentUtteranceIndex];
-        currentSpeakerTxt.textContent = line.speaker || "Interlocutor";
-        audioProgressStep.textContent = `${currentUtteranceIndex + 1} / ${conv.dialogue.length}`;
-
-        const cleanText = line.text || line.html.replace(/<[^>]*>/g, "");
-        const utterance = new SpeechSynthesisUtterance(cleanText);
-        utterance.lang = "ja-JP";
-        if (jaVoice) utterance.voice = jaVoice;
-        
-        utterance.pitch = line.pitch || 1.0;
-        utterance.rate = (line.rate || 1.0) * selectedPlaybackSpeed;
-
-        utterance.onend = () => {
-          currentUtteranceIndex++;
-          setTimeout(() => {
-            if (isPlaying) speakLine();
-          }, 350);
-        };
-
-        utterance.onerror = (err) => {
-          console.warn("Speech error, reanudando hilo...", err);
-          currentUtteranceIndex++;
-          if (isPlaying) speakLine();
-        };
-
-        try {
-          window.speechSynthesis.speak(utterance);
-        } catch(e) {
-          console.warn("Error al emitir síntesis:", e);
-          stopAudio();
-        }
-      }
-
-      speakLine();
-    }
-
-        function updateAudioUI(playing) {
-      const btnText = document.getElementById("btn-play-text");
-      const iconWrapper = document.getElementById("play-icon-wrapper");
-      const statusText = document.getElementById("audio-status"); // Solo buscamos el contenedor general
-
-      if (playing) {
-        btnText.textContent = "Reproduciendo...";
-        iconWrapper.innerHTML = `<i data-lucide="volume-2" class="w-6 h-6 fill-current"></i>`;
-        // Inyectamos el texto junto con el indicador, manteniendo su ID a salvo
-        statusText.innerHTML = `<span id="status-indicator" class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block animate-ping"></span> Reproduciendo diálogo en japonés`;
-      } else {
-        btnText.textContent = "Reproducir Diálogo";
-        iconWrapper.innerHTML = `<i data-lucide="play" class="w-6 h-6 fill-current"></i>`;
-        // Lo devolvemos a gris
-        statusText.innerHTML = `<span id="status-indicator" class="w-2.5 h-2.5 rounded-full bg-slate-400 inline-block"></span> Listo para escuchar`;
-      }
-      lucide.createIcons();
-    }
-
-
-    function renderCurrentConversation() {
-      const conv = conversations.find(c => c.id === currentConvId);
-      if (!conv) {
-        document.getElementById("conv-title").textContent = "Sin diálogo seleccionado";
-        return;
-      }
-
-      userAnswers = {};
-
-      document.getElementById("label-category").textContent = `${conv.category} > ${conv.subcategory || 'General'}`;
-      document.getElementById("label-difficulty").textContent = conv.difficulty || "N5";
-      document.getElementById("conv-title").textContent = conv.title;
-      document.getElementById("current-badge").textContent = `${conv.category} • ${conv.dialogue.length} intervenciones`;
-
-      const transcriptBox = document.getElementById("transcript-box");
-      transcriptBox.innerHTML = conv.dialogue.map(line => `
-        <div class="flex items-start gap-2.5">
-          <span class="font-bold text-slate-700 min-w-[75px] text-xs uppercase tracking-wide bg-slate-200/80 px-2 py-0.5 rounded text-center flex-shrink-0">${line.speaker}:</span>
-          <span class="text-slate-800 text-base leading-relaxed">${line.html || line.text}</span>
-        </div>
-      `).join("");
-
-      transcriptBox.classList.add("hidden");
-      document.getElementById("furigana-switch-container").classList.add("hidden");
-      document.getElementById("transcript-toggle-text").textContent = "Ver Transcripción en Japonés";
-
-      renderQuestions(conv);
-      updateScoreBadge();
-      lucide.createIcons();
-    }
-
-    function renderQuestions(conv) {
-      const container = document.getElementById("questions-container");
-      container.innerHTML = "";
-
-      if (!conv.questions || conv.questions.length === 0) {
-        container.innerHTML = `<div class="p-6 bg-white rounded-2xl border border-slate-200 text-center text-slate-500 text-sm">No hay preguntas asociadas a esta conversación.</div>`;
-        return;
-      }
-
-      conv.questions.forEach((q, qIndex) => {
-        const qCard = document.createElement("div");
-        qCard.className = "bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col gap-3";
-
-        const qTitle = document.createElement("h4");
-        qTitle.className = "font-bold text-slate-900 text-sm md:text-base flex items-start gap-2";
-        qTitle.innerHTML = `<span class="bg-rose-100 text-rose-700 w-6 h-6 rounded-full flex items-center justify-center text-xs flex-shrink-0 font-bold">${qIndex + 1}</span> ${q.question}`;
-        qCard.appendChild(qTitle);
-
-        const optionsDiv = document.createElement("div");
-        optionsDiv.className = "space-y-2 mt-1";
-
-        q.options.forEach((opt, optIndex) => {
-          const btnOpt = document.createElement("button");
-          // Añadido cursor-pointer para consistencia táctil en iOS
-          btnOpt.className = "cursor-pointer w-full text-left p-3.5 rounded-xl border text-sm font-medium transition-all active:scale-[0.99] flex items-center justify-between border-slate-200 hover:bg-slate-50 text-slate-700";
-          btnOpt.dataset.qId = q.id;
-          btnOpt.dataset.optIndex = optIndex;
-          btnOpt.innerHTML = `<span>${opt}</span><span class="icon-indicator"></span>`;
-
-          btnOpt.addEventListener("click", () => handleSelectOption(q, optIndex, qCard));
-          optionsDiv.appendChild(btnOpt);
-        });
-
-        qCard.appendChild(optionsDiv);
-
-        const expDiv = document.createElement("div");
-        expDiv.id = `exp-${q.id}`;
-        expDiv.className = "hidden mt-2 p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 leading-relaxed";
-        qCard.appendChild(expDiv);
-
-        container.appendChild(qCard);
-      });
-    }
-
-    function handleSelectOption(question, selectedIndex, cardElement) {
-      userAnswers[question.id] = selectedIndex;
-      const isCorrect = selectedIndex === question.correctIndex;
-      const buttons = cardElement.querySelectorAll("button[data-opt-index]");
-      const expDiv = cardElement.querySelector(`#exp-${question.id}`);
-
-      buttons.forEach(btn => {
-        const idx = parseInt(btn.dataset.optIndex);
-        btn.disabled = true;
-
-        if (idx === question.correctIndex) {
-          btn.className = "w-full text-left p-3.5 rounded-xl border text-sm font-semibold flex items-center justify-between border-emerald-500 bg-emerald-50 text-emerald-900 shadow-sm";
-          btn.querySelector(".icon-indicator").innerHTML = `<i data-lucide="check" class="w-4 h-4 text-emerald-600 pointer-events-none"></i>`;
-        } else if (idx === selectedIndex && !isCorrect) {
-          btn.className = "w-full text-left p-3.5 rounded-xl border text-sm font-semibold flex items-center justify-between border-rose-500 bg-rose-50 text-rose-900 shadow-sm";
-          btn.querySelector(".icon-indicator").innerHTML = `<i data-lucide="x" class="w-4 h-4 text-rose-600 pointer-events-none"></i>`;
-        } else {
-          btn.className = "w-full text-left p-3.5 rounded-xl border text-sm font-medium flex items-center justify-between border-slate-100 bg-slate-50 text-slate-400 opacity-60";
-        }
-      });
-
-      if (question.explanation) {
-        expDiv.innerHTML = `<strong>Explicación:</strong> ${question.explanation}`;
-        expDiv.classList.remove("hidden");
-      }
-
-      updateScoreBadge();
-      lucide.createIcons();
-    }
-
-    function updateScoreBadge() {
-      const conv = conversations.find(c => c.id === currentConvId);
-      if (!conv || !conv.questions) return;
-      const total = conv.questions.length;
-      const answered = Object.keys(userAnswers).length;
-      document.getElementById("score-counter").textContent = `${answered} / ${total} Respondidas`;
-    }
-
-    function renderCategoriesDrawer(filterText = "") {
-      const container = document.getElementById("dialogues-tree");
-      container.innerHTML = "";
-      document.getElementById("total-convs-counter").textContent = `${conversations.length} diálogos en total`;
-
-      const groups = {};
-      conversations.forEach(c => {
-        const matches = filterText === "" || 
-          c.title.toLowerCase().includes(filterText.toLowerCase()) ||
-          c.category.toLowerCase().includes(filterText.toLowerCase()) ||
-          (c.subcategory && c.subcategory.toLowerCase().includes(filterText.toLowerCase()));
-
-        if (!matches) return;
-
-        if (!groups[c.category]) groups[c.category] = {};
-        const sub = c.subcategory || "General";
-        if (!groups[c.category][sub]) groups[c.category][sub] = [];
-        groups[c.category][sub].push(c);
-      });
-
-      if (Object.keys(groups).length === 0) {
-        container.innerHTML = `<p class="text-xs text-slate-400 text-center py-6">No se encontraron conversaciones.</p>`;
-        return;
-      }
-
-      for (const [catName, subCats] of Object.entries(groups)) {
-        const isExpanded = filterText !== "" || openCategories.has(catName);
-
-        let countInCat = 0;
-        Object.values(subCats).forEach(items => countInCat += items.length);
-
-        const groupDiv = document.createElement("div");
-        groupDiv.className = "border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm";
-
-        const groupHeader = document.createElement("button");
-        groupHeader.className = "cursor-pointer w-full px-4 py-4 bg-slate-50 hover:bg-slate-100 flex items-center justify-between transition-colors border-b border-slate-200";
-        // Uso de setAttribute explícito para mayor seguridad en delegación DOM con Safari iOS
-        groupHeader.setAttribute("data-category-header", catName);
-        groupHeader.innerHTML = `
-          <div class="flex items-center gap-2 pointer-events-none">
-            <i data-lucide="${isExpanded ? 'folder-open' : 'folder'}" class="w-4 h-4 text-rose-500"></i>
-            <span class="font-bold text-xs uppercase tracking-wider text-slate-800">${catName}</span>
-          </div>
-          <div class="flex items-center gap-2 pointer-events-none">
-            <span class="text-[10px] font-bold bg-slate-200 text-slate-600 px-2 py-0.5 rounded-full">${countInCat}</span>
-            <i data-lucide="chevron-${isExpanded ? 'up' : 'down'}" class="w-4 h-4 text-slate-400"></i>
-          </div>
-        `;
-
-        groupDiv.appendChild(groupHeader);
-
-        if (isExpanded) {
-          const bodyDiv = document.createElement("div");
-          bodyDiv.className = "p-2 space-y-3";
-
-          for (const [subName, items] of Object.entries(subCats)) {
-            const subWrapper = document.createElement("div");
-            subWrapper.innerHTML = `<div class="text-[11px] font-bold text-slate-400 uppercase px-2 py-1">${subName}</div>`;
-
-            items.forEach(conv => {
-              const isSelected = conv.id === currentConvId;
-              const btn = document.createElement("button");
-              // Uso explícito de atributos estándar en vez de dataset para seguridad cross-browser iOS
-              btn.setAttribute("data-conv-id", conv.id);
-              btn.className = `cursor-pointer w-full text-left p-3 rounded-xl text-xs font-semibold flex items-center justify-between transition-all my-1 ${
-                isSelected ? "bg-rose-500 text-white shadow-sm" : "hover:bg-slate-100 text-slate-700"
-              }`;
-              btn.innerHTML = `
-                <div class="truncate pr-2 pointer-events-none">
-                  <div class="font-bold truncate text-[13px] leading-snug">${conv.title}</div>
-                  <div class="text-[10px] opacity-75 mt-0.5">${conv.difficulty} • ${conv.questions.length} preguntas</div>
-                </div>
-                <i data-lucide="chevron-right" class="w-4 h-4 flex-shrink-0 pointer-events-none ${isSelected ? 'text-white' : 'text-slate-400'}"></i>
-              `;
-              subWrapper.appendChild(btn);
-            });
-
-            bodyDiv.appendChild(subWrapper);
-          }
-          groupDiv.appendChild(bodyDiv);
-        }
-
-        container.appendChild(groupDiv);
-      }
-      lucide.createIcons();
-    }
-
-    function setupEventListeners() {
-      // Audio
-      document.getElementById("btn-play-audio").addEventListener("click", () => {
-        if (isPlaying) {
-          stopAudio();
-        } else {
-          playFullConversation();
-        }
-      });
-      document.getElementById("btn-stop-audio").addEventListener("click", stopAudio);
-
-      // Velocidades
-      document.querySelectorAll(".btn-speed").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-          document.querySelectorAll(".btn-speed").forEach(b => {
-            b.className = "btn-speed cursor-pointer text-xs px-2.5 py-1 rounded-lg font-bold text-slate-600 hover:bg-slate-100";
-          });
-          e.target.className = "btn-speed cursor-pointer text-xs px-2.5 py-1 rounded-lg font-bold bg-rose-500 text-white shadow-sm";
-          selectedPlaybackSpeed = parseFloat(e.target.dataset.speed);
-        });
-      });
-
-      // Transcripción y Furigana
-      const transcriptBox = document.getElementById("transcript-box");
-      const furiganaSwitch = document.getElementById("furigana-switch-container");
-      const checkFurigana = document.getElementById("check-furigana");
-
-      document.getElementById("btn-toggle-transcript").addEventListener("click", () => {
-        const isHidden = transcriptBox.classList.contains("hidden");
-        if (isHidden) {
-          transcriptBox.classList.remove("hidden");
-          furiganaSwitch.classList.remove("hidden");
-          furiganaSwitch.classList.add("flex");
-          document.getElementById("transcript-toggle-text").textContent = "Ocultar Transcripción";
-        } else {
-          transcriptBox.classList.add("hidden");
-          furiganaSwitch.classList.add("hidden");
-          furiganaSwitch.classList.remove("flex");
-          document.getElementById("transcript-toggle-text").textContent = "Ver Transcripción en Japonés";
-        }
-      });
-
-      checkFurigana.addEventListener("change", (e) => {
-        if (e.target.checked) {
-          transcriptBox.classList.remove("hide-furigana");
-        } else {
-          transcriptBox.classList.add("hide-furigana");
-        }
-      });
-
-      // Menú Drawer
-      const menuDrawer = document.getElementById("menu-drawer");
-      document.getElementById("btn-toggle-menu").addEventListener("click", () => {
-        renderCategoriesDrawer();
-        menuDrawer.classList.remove("hidden");
-      });
-      document.getElementById("btn-close-menu").addEventListener("click", () => menuDrawer.classList.add("hidden"));
-      document.getElementById("search-input").addEventListener("input", (e) => {
-        renderCategoriesDrawer(e.target.value);
-      });
-
-      // Delegación de eventos para acordeones y selección de conversación
-      document.getElementById("dialogues-tree").addEventListener("click", (e) => {
-        const headerBtn = e.target.closest("[data-category-header]");
-        if (headerBtn) {
-          const cat = headerBtn.getAttribute("data-category-header");
-          if (openCategories.has(cat)) {
-            openCategories.delete(cat);
-          } else {
-            openCategories.add(cat);
-          }
-          renderCategoriesDrawer(document.getElementById("search-input").value);
-          return;
-        }
-
-        const convBtn = e.target.closest("[data-conv-id]");
-        if (convBtn) {
-          const id = convBtn.getAttribute("data-conv-id");
-          stopAudio();
-          currentConvId = id;
-          renderCurrentConversation();
-          menuDrawer.classList.add("hidden");
-        }
-      });
-
-      // Borrar conversación
-      document.getElementById("btn-delete-conv").addEventListener("click", () => {
-        if (conversations.length <= 1) {
-          alert("Debes mantener al menos una conversación activa en la app.");
-          return;
-        }
-        if (confirm("¿Deseas eliminar definitivamente este diálogo?")) {
-          conversations = conversations.filter(c => c.id !== currentConvId);
-          currentConvId = conversations[0].id;
-          saveData();
-          renderCurrentConversation();
-        }
-      });
-
-      // Creador
-      const creatorModal = document.getElementById("creator-modal");
-      document.getElementById("btn-open-creator").addEventListener("click", () => creatorModal.classList.remove("hidden"));
-      document.getElementById("btn-close-creator").addEventListener("click", () => creatorModal.classList.add("hidden"));
-      document.getElementById("btn-cancel-creator").addEventListener("click", () => creatorModal.classList.add("hidden"));
-
-      document.getElementById("btn-save-creator").addEventListener("click", () => {
-        const cat = document.getElementById("new-cat").value.trim() || "Comercio";
-        const subcat = document.getElementById("new-subcat").value.trim() || "Tienda";
-        const title = document.getElementById("new-title").value.trim() || "Nuevo Diálogo";
-        const diff = document.getElementById("new-difficulty").value;
-        const dialogueRaw = document.getElementById("new-dialogue-text").value.trim();
-        const questionsRaw = document.getElementById("new-questions-text").value.trim();
-
-        if (!dialogueRaw) {
-          alert("Introduce al menos una línea de diálogo.");
-          return;
-        }
-
-        const lines = dialogueRaw.split("\n").filter(l => l.trim().length > 0);
-        const dialogue = lines.map(line => {
-          let speaker = "Interlocutor";
-          let text = line;
-          let pitch = 1.0;
-          if (line.includes(":") || line.includes("：")) {
-            const parts = line.includes(":") ? line.split(":") : line.split("：");
-            speaker = parts[0].trim();
-            text = parts.slice(1).join(":").trim();
-            if (speaker.toLowerCase().includes("camarer") || speaker.toLowerCase().includes("mujer")) pitch = 1.2;
-            if (speaker.toLowerCase().includes("cliente") || speaker.toLowerCase().includes("hombre")) pitch = 0.9;
-          }
-          return { speaker, pitch, text, html: text };
-        });
-
-        const qLines = questionsRaw.split("\n").filter(l => l.trim().length > 0);
-        const questions = qLines.map((line, i) => {
-          const p = line.split("|").map(s => s.trim());
-          if (p.length >= 4) {
-            return {
-              id: `q_${Date.now()}_${i}`,
-              question: p[0],
-              options: [p[1], p[2], p[3], p[4] || "Otra opción"].filter(Boolean),
-              correctIndex: parseInt(p[4]) || 0,
-              explanation: p[5] || ""
-            };
-          }
-          return null;
-        }).filter(Boolean);
-
-        const newConv = {
-          id: `conv_${Date.now()}`,
-          category: cat,
-          subcategory: subcat,
-          title: title,
-          difficulty: diff,
-          dialogue: dialogue,
-          questions: questions
-        };
-
-        conversations.unshift(newConv);
-        openCategories.add(cat);
-        currentConvId = newConv.id;
-        saveData();
-        renderCurrentConversation();
-        creatorModal.classList.add("hidden");
-
-        document.getElementById("new-dialogue-text").value = "";
-        document.getElementById("new-questions-text").value = "";
-      });
-
-      // Data JSON
-      const dataModal = document.getElementById("data-modal");
-      document.getElementById("btn-open-data").addEventListener("click", () => {
-        document.getElementById("json-input").value = JSON.stringify(conversations, null, 2);
-        dataModal.classList.remove("hidden");
-      });
-      document.getElementById("btn-close-data").addEventListener("click", () => dataModal.classList.add("hidden"));
-
-      document.getElementById("btn-export-json").addEventListener("click", () => {
-        const blob = new Blob([JSON.stringify(conversations, null, 2)], { type: "application/json" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `kikunihongo_backup_${new Date().toISOString().slice(0,10)}.json`;
-        a.click();
-      });
-
-      document.getElementById("btn-reset-factory").addEventListener("click", () => {
-        if (confirm("¿Restaurar los diálogos de fábrica?")) {
-          conversations = [...DEFAULT_CONVERSATIONS];
-          currentConvId = conversations[0].id;
-          saveData();
-          renderCurrentConversation();
-          dataModal.classList.add("hidden");
-        }
-      });
-
-      document.getElementById("btn-import-json").addEventListener("click", () => {
-        try {
-          const parsed = JSON.parse(document.getElementById("json-input").value);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            conversations = parsed;
-            currentConvId = conversations[0].id;
-            saveData();
-            renderCurrentConversation();
-            dataModal.classList.add("hidden");
-            alert("¡Datos importados correctamente!");
-          }
-        } catch(err) {
-          alert("Error de sintaxis en el JSON: " + err.message);
-        }
-      });
-    }
-
-    window.addEventListener("DOMContentLoaded", () => {
-      initData();
-      renderCurrentConversation();
-      setupEventListeners();
-      lucide.createIcons();
-    });
-  </script>
+  <!-- ==================== LÓGICA JAVASCRIPT EXTERNA ==================== -->
+  <script src="./js/app.js" defer></script>
 </body>
 </html>

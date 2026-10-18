@@ -1,0 +1,22 @@
+[
+  {
+    "id": "conv_transporte_001",
+    "category": "Transporte",
+    "subcategory": "Tren / Shinkansen",
+    "title": "Comprando billetes de Shinkansen en taquilla",
+    "difficulty": "N5",
+    "dialogue": [
+      { "speaker": "Taquillero", "pitch": 1.0, "text": "次の方どうぞ。どちらまでですか。", "html": "<ruby>次<rt>つぎ</rt></ruby>の<ruby>方<rt>かた</rt></ruby>どうぞ。どちらまでですか。" },
+      { "speaker": "Pasajero", "pitch": 1.15, "text": "京都まで大人二枚お願いします。あ、自由席でいいです。", "html": "<ruby>京都<rt>きょうと</rt></ruby>まで<ruby>大人<rt>おとな</rt></ruby><ruby>二枚<rt>にまい</rt></ruby>お<ruby>願<rt>ねが</rt></ruby>いします。あ、<ruby>自由席<rt>じゆうせき</rt></ruby>でいいです。" }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "question": "¿Qué tipo de asiento decide comprar finalmente?",
+        "options": ["Asiento no reservado (自由席)", "Asiento reservado (指定席)", "Primera clase (Green Car)", "Coche cama"],
+        "correctIndex": 1,
+        "explanation": "Pidió 自由席, pero cambió a 指定席."
+      }
+    ]
+  }
+]
