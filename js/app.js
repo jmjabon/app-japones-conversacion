@@ -12,7 +12,7 @@ let currentUtteranceIndex = 0;
 let userAnswers = {};
 let openCategories = new Set();
 
-// --- 1. MOTOR DE CARGA (NUEVO) ---
+// --- 1. MOTOR DE CARGA ---
 async function loadApp() {
   logDebug("Iniciando la carga de la app...");
   try {
@@ -52,12 +52,14 @@ async function loadApp() {
       renderCurrentConversation();
       logDebug("🎉 Interfaz renderizada correctamente.");
     } else {
-      document.getElementById("conv-title").textContent = "No hay diálogos disponibles.";
+      const title = document.getElementById("conv-title");
+      if (title) title.textContent = "No hay diálogos disponibles.";
       logDebug("⚠️ No hay diálogos en los JSON.");
     }
   } catch (error) {
     logDebug(`❌ ERROR CRÍTICO: ${error.message}`);
-    document.getElementById("conv-title").textContent = "Error al conectar con la base de datos.";
+    const title = document.getElementById("conv-title");
+    if (title) title.textContent = "Error al conectar con la base de datos.";
   }
 }
 
@@ -66,7 +68,8 @@ function stopAudio() {
   try { if (window.speechSynthesis) window.speechSynthesis.cancel(); } catch (e) {}
   isPlaying = false;
   updateAudioUI(false);
-  document.getElementById("speaker-display").classList.add("hidden");
+  const speakerDisplay = document.getElementById("speaker-display");
+  if (speakerDisplay) speakerDisplay.classList.add("hidden");
 }
 
 function playFullConversation() {
@@ -86,7 +89,8 @@ function playFullConversation() {
   const speakerBox = document.getElementById("speaker-display");
   const currentSpeakerTxt = document.getElementById("current-speaker");
   const audioProgressStep = document.getElementById("audio-progress-step");
-  speakerBox.classList.remove("hidden");
+  
+  if (speakerBox) speakerBox.classList.remove("hidden");
 
   const voices = window.speechSynthesis.getVoices();
   const jaVoice = voices.find(v => v.lang.startsWith("ja") || v.lang.includes("JP"));
@@ -99,8 +103,8 @@ function playFullConversation() {
     }
 
     const line = conv.dialogue[currentUtteranceIndex];
-    currentSpeakerTxt.textContent = line.speaker || "Interlocutor";
-    audioProgressStep.textContent = `${currentUtteranceIndex + 1} / ${conv.dialogue.length}`;
+    if (currentSpeakerTxt) currentSpeakerTxt.textContent = line.speaker || "Interlocutor";
+    if (audioProgressStep) audioProgressStep.textContent = `${currentUtteranceIndex + 1} / ${conv.dialogue.length}`;
 
     const cleanText = line.text || line.html.replace(/<[^>]*>/g, "");
     const utterance = new SpeechSynthesisUtterance(cleanText);
@@ -131,13 +135,13 @@ function updateAudioUI(playing) {
   const statusText = document.getElementById("audio-status");
 
   if (playing) {
-    btnText.textContent = "Reproduciendo...";
-    if(iconWrapper) iconWrapper.innerHTML = `<i data-lucide="volume-2" class="w-6 h-6 fill-current"></i>`;
-    if(statusText) statusText.innerHTML = `<span id="status-indicator" class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block animate-ping"></span> Reproduciendo diálogo en japonés`;
+    if (btnText) btnText.textContent = "Reproduciendo...";
+    if (iconWrapper) iconWrapper.innerHTML = `<i data-lucide="volume-2" class="w-6 h-6 fill-current"></i>`;
+    if (statusText) statusText.innerHTML = `<span id="status-indicator" class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block animate-ping"></span> Reproduciendo diálogo en japonés`;
   } else {
-    btnText.textContent = "Reproducir Diálogo";
-    if(iconWrapper) iconWrapper.innerHTML = `<i data-lucide="play" class="w-6 h-6 fill-current"></i>`;
-    if(statusText) statusText.innerHTML = `<span id="status-indicator" class="w-2.5 h-2.5 rounded-full bg-slate-400 inline-block"></span> Listo para escuchar`;
+    if (btnText) btnText.textContent = "Reproducir Diálogo";
+    if (iconWrapper) iconWrapper.innerHTML = `<i data-lucide="play" class="w-6 h-6 fill-current"></i>`;
+    if (statusText) statusText.innerHTML = `<span id="status-indicator" class="w-2.5 h-2.5 rounded-full bg-slate-400 inline-block"></span> Listo para escuchar`;
   }
   if (typeof lucide !== 'undefined') lucide.createIcons();
 }
@@ -148,23 +152,34 @@ function renderCurrentConversation() {
   if (!conv) return;
   userAnswers = {};
 
-// Buscamos los elementos de forma segura con ?. (Optional Chaining)
-  document.getElementById("label-category")?.textContent = `${conv.category} > ${conv.subcategory || 'General'}`;
-  document.getElementById("label-difficulty")?.textContent = conv.difficulty || "N5";
-  document.getElementById("conv-title")?.textContent = conv.title;
-  document.getElementById("current-badge")?.textContent = `${conv.category} • ${conv.dialogue.length} intervenciones`;
+  const elCat = document.getElementById("label-category");
+  if (elCat) elCat.textContent = `${conv.category} > ${conv.subcategory || 'General'}`;
+
+  const elDiff = document.getElementById("label-difficulty");
+  if (elDiff) elDiff.textContent = conv.difficulty || "N5";
+
+  const elTitle = document.getElementById("conv-title");
+  if (elTitle) elTitle.textContent = conv.title;
+
+  const elBadge = document.getElementById("current-badge");
+  if (elBadge) elBadge.textContent = `${conv.category} • ${conv.dialogue.length} intervenciones`;
 
   const transcriptBox = document.getElementById("transcript-box");
-  transcriptBox.innerHTML = conv.dialogue.map(line => `
-    <div class="flex items-start gap-2.5">
-      <span class="font-bold text-slate-700 min-w-[75px] text-xs uppercase tracking-wide bg-slate-200/80 px-2 py-0.5 rounded text-center flex-shrink-0">${line.speaker}:</span>
-      <span class="text-slate-800 text-base leading-relaxed">${line.html || line.text}</span>
-    </div>
-  `).join("");
+  if (transcriptBox) {
+    transcriptBox.innerHTML = conv.dialogue.map(line => `
+      <div class="flex items-start gap-2.5">
+        <span class="font-bold text-slate-700 min-w-[75px] text-xs uppercase tracking-wide bg-slate-200/80 px-2 py-0.5 rounded text-center flex-shrink-0">${line.speaker}:</span>
+        <span class="text-slate-800 text-base leading-relaxed">${line.html || line.text}</span>
+      </div>
+    `).join("");
+    transcriptBox.classList.add("hidden");
+  }
 
-  transcriptBox.classList.add("hidden");
-  document.getElementById("furigana-switch-container").classList.add("hidden");
-  document.getElementById("transcript-toggle-text").textContent = "Ver Transcripción en Japonés";
+  const furiganaSwitch = document.getElementById("furigana-switch-container");
+  if (furiganaSwitch) furiganaSwitch.classList.add("hidden");
+
+  const transText = document.getElementById("transcript-toggle-text");
+  if (transText) transText.textContent = "Ver Transcripción en Japonés";
 
   renderQuestions(conv);
   updateScoreBadge();
@@ -173,6 +188,7 @@ function renderCurrentConversation() {
 
 function renderQuestions(conv) {
   const container = document.getElementById("questions-container");
+  if (!container) return;
   container.innerHTML = "";
 
   if (!conv.questions || conv.questions.length === 0) {
@@ -231,7 +247,7 @@ function handleSelectOption(question, selectedIndex, cardElement) {
     }
   });
 
-  if (question.explanation) {
+  if (question.explanation && expDiv) {
     expDiv.innerHTML = `<strong>Explicación:</strong> ${question.explanation}`;
     expDiv.classList.remove("hidden");
   }
@@ -243,15 +259,15 @@ function updateScoreBadge() {
   const conv = conversations.find(c => c.id === currentConvId);
   if (!conv || !conv.questions) return;
   const counter = document.getElementById("score-counter");
-  if(counter) counter.textContent = `${Object.keys(userAnswers).length} / ${conv.questions.length} Respondidas`;
+  if (counter) counter.textContent = `${Object.keys(userAnswers).length} / ${conv.questions.length} Respondidas`;
 }
 
 function renderCategoriesDrawer(filterText = "") {
   const container = document.getElementById("dialogues-tree");
-  if(!container) return;
+  if (!container) return;
   container.innerHTML = "";
   const counter = document.getElementById("total-convs-counter");
-  if(counter) counter.textContent = `${conversations.length} diálogos en total`;
+  if (counter) counter.textContent = `${conversations.length} diálogos en total`;
 
   const groups = {};
   conversations.forEach(c => {
@@ -312,10 +328,10 @@ function renderCategoriesDrawer(filterText = "") {
 // --- 4. EVENTOS ---
 function setupEventListeners() {
   const btnPlay = document.getElementById("btn-play-audio");
-  if(btnPlay) btnPlay.addEventListener("click", () => isPlaying ? stopAudio() : playFullConversation());
+  if (btnPlay) btnPlay.addEventListener("click", () => isPlaying ? stopAudio() : playFullConversation());
   
   const btnStop = document.getElementById("btn-stop-audio");
-  if(btnStop) btnStop.addEventListener("click", stopAudio);
+  if (btnStop) btnStop.addEventListener("click", stopAudio);
 
   document.querySelectorAll(".btn-speed").forEach(btn => {
     btn.addEventListener("click", (e) => {
@@ -329,24 +345,26 @@ function setupEventListeners() {
   const furiganaSwitch = document.getElementById("furigana-switch-container");
   const btnToggleTrans = document.getElementById("btn-toggle-transcript");
   
-  if(btnToggleTrans && transcriptBox && furiganaSwitch) {
+  if (btnToggleTrans && transcriptBox && furiganaSwitch) {
     btnToggleTrans.addEventListener("click", () => {
       if (transcriptBox.classList.contains("hidden")) {
         transcriptBox.classList.remove("hidden");
         furiganaSwitch.classList.remove("hidden");
         furiganaSwitch.classList.add("flex");
-        document.getElementById("transcript-toggle-text").textContent = "Ocultar Transcripción";
+        const tText = document.getElementById("transcript-toggle-text");
+        if(tText) tText.textContent = "Ocultar Transcripción";
       } else {
         transcriptBox.classList.add("hidden");
         furiganaSwitch.classList.add("hidden");
         furiganaSwitch.classList.remove("flex");
-        document.getElementById("transcript-toggle-text").textContent = "Ver Transcripción en Japonés";
+        const tText = document.getElementById("transcript-toggle-text");
+        if(tText) tText.textContent = "Ver Transcripción en Japonés";
       }
     });
   }
 
   const checkFurigana = document.getElementById("check-furigana");
-  if(checkFurigana && transcriptBox) {
+  if (checkFurigana && transcriptBox) {
     checkFurigana.addEventListener("change", (e) => {
       e.target.checked ? transcriptBox.classList.remove("hide-furigana") : transcriptBox.classList.add("hide-furigana");
     });
@@ -354,7 +372,7 @@ function setupEventListeners() {
 
   const menuDrawer = document.getElementById("menu-drawer");
   const btnToggleMenu = document.getElementById("btn-toggle-menu");
-  if(btnToggleMenu && menuDrawer) {
+  if (btnToggleMenu && menuDrawer) {
     btnToggleMenu.addEventListener("click", () => {
       renderCategoriesDrawer();
       menuDrawer.classList.remove("hidden");
@@ -362,19 +380,20 @@ function setupEventListeners() {
   }
   
   const btnCloseMenu = document.getElementById("btn-close-menu");
-  if(btnCloseMenu && menuDrawer) btnCloseMenu.addEventListener("click", () => menuDrawer.classList.add("hidden"));
+  if (btnCloseMenu && menuDrawer) btnCloseMenu.addEventListener("click", () => menuDrawer.classList.add("hidden"));
   
   const searchInput = document.getElementById("search-input");
-  if(searchInput) searchInput.addEventListener("input", (e) => renderCategoriesDrawer(e.target.value));
+  if (searchInput) searchInput.addEventListener("input", (e) => renderCategoriesDrawer(e.target.value));
 
   const tree = document.getElementById("dialogues-tree");
-  if(tree) {
+  if (tree) {
     tree.addEventListener("click", (e) => {
       const headerBtn = e.target.closest("[data-category-header]");
       if (headerBtn) {
         const cat = headerBtn.getAttribute("data-category-header");
         openCategories.has(cat) ? openCategories.delete(cat) : openCategories.add(cat);
-        renderCategoriesDrawer(document.getElementById("search-input").value);
+        const searchInputEl = document.getElementById("search-input");
+        renderCategoriesDrawer(searchInputEl ? searchInputEl.value : "");
         return;
       }
       const convBtn = e.target.closest("[data-conv-id]");
@@ -382,7 +401,7 @@ function setupEventListeners() {
         stopAudio();
         currentConvId = convBtn.getAttribute("data-conv-id");
         renderCurrentConversation();
-        menuDrawer.classList.add("hidden");
+        if(menuDrawer) menuDrawer.classList.add("hidden");
       }
     });
   }
@@ -393,5 +412,4 @@ window.addEventListener("DOMContentLoaded", () => {
   logDebug("El HTML ha cargado. Arrancando scripts...");
   setupEventListeners();
   loadApp(); 
-  if (typeof lucide !== 'undefined') lucide.createIcons();
 });

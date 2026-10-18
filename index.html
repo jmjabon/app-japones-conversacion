@@ -44,9 +44,9 @@
 <body class="h-full bg-slate-100 text-slate-800 flex flex-col font-sans select-none antialiased">
 
   <!-- ==================== CHIVATO DE ERRORES (DEBUG) ==================== -->
-  <div id="debug-box" style="position:fixed; top:0; left:0; width:100%; background:red; color:white; font-family:monospace; font-size:12px; padding:10px; z-index:9999; word-wrap:break-word; max-height: 150px; overflow-y: auto;">
-    <strong>Consola de Depuración (Borrar cuando todo funcione)</strong>
-  </div>
+<div id="debug-box" style="position:fixed; top:0; left:0; width:100%; background:red; color:white; font-family:monospace; font-size:12px; padding:10px; z-index:9999; word-wrap:break-word; max-height: 150px; overflow-y: auto; user-select: text; -webkit-user-select: text; pointer-events: auto;">
+  <strong>Consola de Depuración (Borrar cuando todo funcione)</strong>
+</div>
   <script>
     window.addEventListener('error', function(e) {
       document.getElementById('debug-box').innerHTML += '<br><br>🚨 JS Error: ' + e.message + ' (Línea ' + e.lineno + ')';
