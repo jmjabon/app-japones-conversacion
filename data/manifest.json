@@ -1,6 +1,11 @@
-[
+{
+  "appVersion": "1.0.1",
+  "appName": "KikuNihongo",
+  "lastUpdate": "2023-10-25",
+  "categories": [
   { "id": "transporte", "name": "Transporte", "file": "data/transporte.json" },
   { "id": "restauracion", "name": "Restauración", "file": "data/restauracion.json" },
   { "id": "alojamiento", "name": "Alojamiento", "file": "data/alojamiento.json" },
   { "id": "comercio", "name": "Comercio", "file": "data/comercio.json" }
-]
+  ]
+}
