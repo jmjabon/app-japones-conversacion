@@ -57,10 +57,10 @@ function setupEventListeners() {
 
 function setupTranscriptEvents() {
   const transcriptBox = document.getElementById("transcript-box");
-  const controls = document.getElementById("transcript-controls");
+  const controls = document.getElementById("transcript-controls"); // <--- Aquí está la clave
   
   document.getElementById("btn-toggle-transcript")?.addEventListener("click", () => {
-    if (!transcriptBox || !controls) return;
+    if (!transcriptBox || !controls) return; // Si no encuentra el HTML, se detiene
     const isHidden = transcriptBox.classList.contains("hidden");
     
     transcriptBox.classList.toggle("hidden", !isHidden);
