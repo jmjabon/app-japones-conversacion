@@ -1,38 +1,5 @@
 [
   {
-    "id": "conv_restauracion_001",
-    "category": "Restauración",
-    "subcategory": "Cafetería",
-    "title": "Dos personas decidiendo qué pedir ante el mostrador",
-    "difficulty": "N5",
-    "dialogue": [
-      { "speaker": "Kenji", "pitch": 0.9, "text": "マナ、何を飲む？僕はアイスコーヒーにするよ。", "html": "マナ、<ruby>何<rt>なに</rt></ruby>を<ruby>飲<rt>の</rt></ruby>む？<ruby>僕<rt>ぼく</rt></ruby>はアイスコーヒーにするよ。" },
-      { "speaker": "Mana", "pitch": 1.25, "text": "うーん、抹茶ラテにしようかな。あ、でもケーキセットも美味しそう！", "html": "うーん、<ruby>抹茶<rt>まっちゃ</rt></ruby>ラテにしようかな。あ、でもケーキセットも<ruby>美味<rt>おい</rt></ruby>しそう！" },
-      { "speaker": "Camarera", "pitch": 1.05, "text": "いらっしゃいませ。ご注文をお伺いします。", "html": "いらっしゃいませ。ご<ruby>注文<rt>ちゅうもん</rt></ruby>をお<ruby>伺<rt>うかが</rt></ruby>いします。" },
-      { "speaker": "Kenji", "pitch": 0.9, "text": "アイスコーヒーを一つと、えーと……", "html": "アイスコーヒーを<ruby>一<rt>ひと</rt></ruby>つと、えーと……" },
-      { "speaker": "Mana", "pitch": 1.25, "text": "あ、やっぱり抹茶ラテじゃなくて、ホットの紅茶にします！それとチーズケーキを一つ。", "html": "あ、やっぱり<ruby>抹茶<rt>まっちゃ</rt></ruby>ラテじゃなくて、ホットの<ruby>紅茶<rt>こうちゃ</rt></ruby>にします！それとチーズケーキを<ruby>一<rt>ひと</rt></ruby>つ。" },
-      { "speaker": "Camarera", "pitch": 1.05, "text": "かしこまりました。店内でお召し上がりですか。", "html": "かしこまりました。<ruby>店内<rt>てんない</rt></ruby>でお<ruby>召<rt>め</rt></ruby>し<ruby>上<rt>あ</rt></ruby>がりですか。" },
-      { "speaker": "Kenji", "pitch": 0.9, "text": "はい、店内でお願いします。", "html": "はい、<ruby>店内<rt>てんない</rt></ruby>でお<ruby>願<rt>ねが</rt></ruby>いします。" },
-      { "speaker": "Camarera", "pitch": 1.05, "text": "合計で千二百円になります。", "html": "<ruby>合計<rt>ごうけい</rt></ruby>で<ruby>千二百円<rt>せんにひゃくえん</rt></ruby>になります。" }
-    ],
-    "questions": [
-      {
-        "id": "q1",
-        "question": "¿Qué bebida pide Mana al final?",
-        "options": ["Matcha latte", "Café frío", "Té caliente (紅茶)", "Zumo de fruta"],
-        "correctIndex": 2,
-        "explanation": "Mana rectificó: 'やっぱり抹茶ラテじゃなくて、ホットの紅茶にします'."
-      },
-      {
-        "id": "q2",
-        "question": "¿Dónde van a consumir el pedido?",
-        "options": ["Para llevar", "En el local (店内)", "En la terraza", "Solo la tarta en el local"],
-        "correctIndex": 1,
-        "explanation": "Kenji respondió: '店内でお願いします'."
-      }
-    ]
-  },
-  {
     "id": "conv_restaurante_002",
     "category": "Restauración",
     "subcategory": "Restaurante",

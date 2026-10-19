@@ -57,20 +57,24 @@ function setupEventListeners() {
 
 function setupTranscriptEvents() {
   const transcriptBox = document.getElementById("transcript-box");
-  const furiganaSwitch = document.getElementById("furigana-switch-container");
+  const controls = document.getElementById("transcript-controls");
   
   document.getElementById("btn-toggle-transcript")?.addEventListener("click", () => {
-    if (!transcriptBox || !furiganaSwitch) return;
+    if (!transcriptBox || !controls) return;
     const isHidden = transcriptBox.classList.contains("hidden");
     
     transcriptBox.classList.toggle("hidden", !isHidden);
-    furiganaSwitch.classList.toggle("hidden", !isHidden);
-    furiganaSwitch.classList.toggle("flex", isHidden);
+    controls.classList.toggle("hidden", !isHidden);
+    controls.classList.toggle("flex", isHidden);
     updateElementText("transcript-toggle-text", isHidden ? "Ocultar Transcripción" : "Ver Transcripción en Japonés");
   });
 
   document.getElementById("check-furigana")?.addEventListener("change", (e) => {
     e.target.checked ? transcriptBox.classList.remove("hide-furigana") : transcriptBox.classList.add("hide-furigana");
+  });
+
+  document.getElementById("check-translation")?.addEventListener("change", (e) => {
+    e.target.checked ? transcriptBox.classList.remove("hide-translation") : transcriptBox.classList.add("hide-translation");
   });
 }
 

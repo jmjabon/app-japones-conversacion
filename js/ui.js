@@ -65,16 +65,19 @@ function renderTranscript(dialogue) {
   if (!transcriptBox) return;
 
   transcriptBox.innerHTML = dialogue.map(line => `
-    <div class="flex items-start gap-2.5">
-      <span class="font-bold text-slate-700 min-w-[75px] text-xs uppercase tracking-wide bg-slate-200/80 px-2 py-0.5 rounded text-center flex-shrink-0">${line.speaker}:</span>
-      <span class="text-slate-800 text-base leading-relaxed">${line.html || line.text}</span>
+    <div class="flex flex-col gap-1 border-b border-slate-100 pb-2 last:border-0 last:pb-0">
+      <div class="flex items-start gap-2.5">
+        <span class="font-bold text-slate-700 min-w-[75px] text-xs uppercase tracking-wide bg-slate-200/80 px-2 py-0.5 rounded text-center flex-shrink-0">${line.speaker}:</span>
+        <span class="text-slate-800 text-base leading-relaxed">${line.html || line.text}</span>
+      </div>
+      ${line.translation ? `<div class="dialogue-translation text-xs text-slate-500 pl-[85px] leading-normal italic">${line.translation}</div>` : ''}
     </div>
   `).join("");
   
   transcriptBox.classList.add("hidden");
   
-  const furiganaSwitch = document.getElementById("furigana-switch-container");
-  if (furiganaSwitch) furiganaSwitch.classList.add("hidden");
+  const controls = document.getElementById("transcript-controls");
+  if (controls) controls.classList.add("hidden");
 
   updateElementText("transcript-toggle-text", "Ver Transcripción en Japonés");
 }
