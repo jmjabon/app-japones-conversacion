@@ -1,0 +1,314 @@
+[
+  {
+    "id": "conv_conversacion_001",
+    "category": "Conversación",
+    "subcategory": "Vida cotidiana",
+    "title": "Rutina de la mañana",
+    "difficulty": "N5",
+    "audioUrl": "media/despertarse1.mp3",
+    "dialogue": [
+      {
+        "speaker": "Chica",
+        "pitch": 1.1,
+        "text": "けん、起きて。もう7時だよ。",
+        "html": "けん、<ruby>起<rt>お</rt></ruby>きて。もう<ruby>7時<rt>しちじ</rt></ruby>だよ。",
+        "translation": "Ken, despiértate. Ya son las siete."
+      },
+      {
+        "speaker": "Ken",
+        "pitch": 0.8,
+        "text": "ん…、あと5分。",
+        "html": "ん…、あと<ruby>5分<rt>ごふん</rt></ruby>。",
+        "translation": "Mmm... cinco minutos más."
+      },
+      {
+        "speaker": "Chica",
+        "pitch": 1.1,
+        "text": "だめだよ。朝ご飯ができてるよ。",
+        "html": "だめだよ。<ruby>朝<rt>あさ</rt></ruby>ご<ruby>飯<rt>はん</rt></ruby>ができてるよ。",
+        "translation": "¡Ni hablar! El desayuno ya está listo."
+      },
+      {
+        "speaker": "Ken",
+        "pitch": 0.8,
+        "text": "わかった、すぐ行くよ。今日の朝ご飯は何ですか？",
+        "html": "わかった、すぐ<ruby>行<rt>い</rt></ruby>くよ。<ruby>今日<rt>きょう</rt></ruby>の<ruby>朝<rt>あさ</rt></ruby>ご<ruby>飯<rt>はん</rt></ruby>は<ruby>何<rt>なん</rt></ruby>ですか？",
+        "translation": "Entendido, voy enseguida. ¿Qué hay hoy para desayunar?"
+      },
+      {
+        "speaker": "Chica",
+        "pitch": 1.1,
+        "text": "焼き魚と味噌汁だよ。",
+        "html": "<ruby>焼<rt>や</rt></ruby>き<ruby>魚<rt>ざかな</rt></ruby>と<ruby>味噌汁<rt>みそしる</rt></ruby>だよ。",
+        "translation": "Pescado asado y sopa de miso."
+      },
+      {
+        "speaker": "Ken",
+        "pitch": 0.8,
+        "text": "いいね。コーヒーもある？",
+        "html": "いいね。コーヒーもある？",
+        "translation": "Qué bien. ¿Hay café también?"
+      },
+      {
+        "speaker": "Chica",
+        "pitch": 1.1,
+        "text": "うん、あそこにあるよ。早く準備してね。",
+        "html": "うん、あそこにあるよ。<ruby>早<rt>はや</rt></ruby>く<ruby>準備<rt>じゅんび</rt></ruby>してね。",
+        "translation": "Sí, está allí. Prepárate rápido, ¿vale?"
+      },
+      {
+        "speaker": "Ken",
+        "pitch": 0.8,
+        "text": "ありがとう。今日は雨かな？",
+        "html": "ありがとう。<ruby>今日<rt>きょう</rt></ruby>は<ruby>雨<rt>あめ</rt></ruby>かな？",
+        "translation": "Gracias. ¿Lloverá hoy?"
+      },
+      {
+        "speaker": "Chica",
+        "pitch": 1.1,
+        "text": "天気予報では晴れだよ。傘はいらないよ。",
+        "html": "<ruby>天気予報<rt>てんきよほう</rt></ruby>では<ruby>晴<rt>は</rt></ruby>れだよ。<ruby>傘<rt>かさ</rt></ruby>はいらないよ。",
+        "translation": "Según el pronóstico del tiempo va a estar despejado. No hace falta paraguas."
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1_despertarse1",
+        "question": "¿Qué hora es cuando intentan despertar a Ken y qué responde él?",
+        "options": [
+          "Son las 6:30 y pide levantarse ya",
+          "Son las 7:00 y pide 5 minutos más (あと5分)",
+          "Son las 8:00 y dice que no tiene sueño",
+          "Son las 7:15 y pide 10 minutos más"
+        ],
+        "correctIndex": 1,
+        "explanation": "Le avisan de que 'もう7時だよ' (ya son las 7:00) y Ken contesta 'あと5分' (cinco minutos más)."
+      },
+      {
+        "id": "q2_despertarse1",
+        "question": "¿Qué menú tradicional japonés hay preparado para el desayuno?",
+        "options": [
+          "Tostadas con mermelada y té",
+          "Arroz blanco con huevo crudo",
+          "Pescado asado y sopa de miso (焼き魚と味噌汁)",
+          "Fideos udon calientes"
+        ],
+        "correctIndex": 2,
+        "explanation": "A la pregunta de Ken sobre qué hay de comer, ella responde '焼き魚と味噌汁だよ' (pescado asado y sopa de miso)[cite: 10]."
+      },
+      {
+        "id": "q3_despertarse1",
+        "question": "¿Por qué otra bebida pregunta Ken específicamente?",
+        "options": [
+          "Té verde (お茶)",
+          "Zumo de naranja",
+          "Café (コーヒー)",
+          "Leche caliente"
+        ],
+        "correctIndex": 2,
+        "explanation": "Ken celebra el menú y añade: 'コーヒーもある？' (¿hay café también?)[cite: 10]."
+      },
+      {
+        "id": "q4_despertarse1",
+        "question": "Según el pronóstico del tiempo (天気予報), ¿qué tiempo se espera para hoy?",
+        "options": [
+          "Lluvia intensa durante el día",
+          "Tiempo despejado / soleado (晴れ)",
+          "Cielo muy nublado",
+          "Fuertes vientos"
+        ],
+        "correctIndex": 1,
+        "explanation": "Ella consulta o recuerda el parte diciendo '天気予報では晴れだよ' (según el parte meteorológico va a estar despejado)[cite: 10]."
+      },
+      {
+        "id": "q5_despertarse1",
+        "question": "¿Qué indicación recibe Ken sobre el paraguas (傘)?",
+        "options": [
+          "Que coja un paraguas grande por si acaso",
+          "Que lo compre de camino a la estación",
+          "Que no necesita paraguas (傘はいらないよ)",
+          "Que se lo ha dejado olvidado"
+        ],
+        "correctIndex": 2,
+        "explanation": "Al estar despejado, ella concluye con la frase '傘はいらないよ' (no hace falta paraguas)[cite: 10]."
+      }
+    ]
+  },
+  {
+    "id": "conv_conversacion_002",
+    "category": "Conversación",
+    "subcategory": "Vida cotidiana",
+    "title": "Antes de salir hacia la escuela",
+    "difficulty": "N5",
+    "audioUrl": "media/desayuno2.mp3",
+    "dialogue": [
+      {
+        "speaker": "Chica",
+        "pitch": 1.1,
+        "text": "行ってきます。大丈夫ですか？",
+        "html": "<ruby>行<rt>い</rt></ruby>ってきます。<ruby>大丈夫<rt>だいじょうぶ</rt></ruby>ですか？",
+        "translation": "Ya me marcho. ¿Estás bien?"
+      },
+      {
+        "speaker": "Hombre",
+        "pitch": 0.8,
+        "text": "はい、大丈夫です。",
+        "html": "はい、<ruby>大丈夫<rt>だいじょうぶ</rt></ruby>です。",
+        "translation": "Sí, estoy bien."
+      },
+      {
+        "speaker": "Chica",
+        "pitch": 1.1,
+        "text": "朝ご飯食べましたか？",
+        "html": "<ruby>朝<rt>あさ</rt></ruby>ご<ruby>飯<rt>はん</rt></ruby><ruby>食<rt>た</rt></ruby>べましたか？",
+        "translation": "¿Has desayunado?"
+      },
+      {
+        "speaker": "Hombre",
+        "pitch": 0.8,
+        "text": "少し食べました。",
+        "html": "<ruby>少<rt>すこ</rt></ruby>し<ruby>食<rt>た</rt></ruby>べました。",
+        "translation": "He comido un poco."
+      },
+      {
+        "speaker": "Chica",
+        "pitch": 1.1,
+        "text": "薬飲みましたか？",
+        "html": "<ruby>薬<rt>くすり</rt></ruby><ruby>飲<rt>の</rt></ruby>みましたか？",
+        "translation": "¿Te tomaste la medicina?"
+      },
+      {
+        "speaker": "Hombre",
+        "pitch": 0.8,
+        "text": "まだです。",
+        "html": "まだです。",
+        "translation": "Todavía no."
+      },
+      {
+        "speaker": "Chica",
+        "pitch": 1.1,
+        "text": "すぐ持ってきます。よく飲んでください。",
+        "html": "すぐ<ruby>持<rt>も</rt></ruby>ってきます。よく<ruby>飲<rt>の</rt></ruby>んでください。",
+        "translation": "Te la traigo enseguida. Tómala bien, por favor."
+      },
+      {
+        "speaker": "Hombre",
+        "pitch": 0.8,
+        "text": "今日お休みですか？",
+        "html": "<ruby>今日<rt>きょう</rt></ruby>お<ruby>休<rt>やす</rt></ruby>みですか？",
+        "translation": "¿Hoy libras (tienes el día libre)?"
+      },
+      {
+        "speaker": "Chica",
+        "pitch": 1.1,
+        "text": "いいえ、今ちょうど学校の時間です。",
+        "html": "いいえ、<ruby>今<rt>いま</rt></ruby>ちょうど<ruby>学校<rt>がっこう</rt></ruby>の<ruby>時間<rt>じかん</rt></ruby>です。",
+        "translation": "No, ahora es justo la hora de ir a la escuela."
+      },
+      {
+        "speaker": "Hombre",
+        "pitch": 0.8,
+        "text": "ちょっとミルクを飲みたいですが。",
+        "html": "ちょっとミルクを<ruby>飲<rt>の</rt></ruby>みたいですが。",
+        "translation": "Me gustaría beber un poco de leche..."
+      },
+      {
+        "speaker": "Chica",
+        "pitch": 1.1,
+        "text": "ちょっと待ってください。",
+        "html": "ちょっと<ruby>待<rt>ま</rt></ruby>ってください。",
+        "translation": "Espera un momento, por favor."
+      },
+      {
+        "speaker": "Hombre",
+        "pitch": 0.8,
+        "text": "お皿は欲しいです。犬も飲みたいですから。",
+        "html": "お<ruby>皿<rt>さら</rt></ruby>は<ruby>欲<rt>ほ</rt></ruby>しいです。<ruby>犬<rt>いぬ</rt></ruby>も<ruby>飲<rt>の</rt></ruby>みたいですから。",
+        "translation": "Quiero un plato, porque el perro también quiere beber."
+      },
+      {
+        "speaker": "Chica",
+        "pitch": 1.1,
+        "text": "はい、持ってきます。どうぞ。",
+        "html": "はい、<ruby>持<rt>も</rt></ruby>ってきます。どうぞ。",
+        "translation": "Sí, te lo traigo. Aquí tienes."
+      },
+      {
+        "speaker": "Chica",
+        "pitch": 1.1,
+        "text": "時間がないから、学校に行きます。行ってきます。",
+        "html": "<ruby>時間<rt>じかん</rt></ruby>がないから、<ruby>学校<rt>がっこう</rt></ruby>に<ruby>行<rt>い</rt></ruby>きます。<ruby>行<rt>い</rt></ruby>ってきます。",
+        "translation": "Como no me queda tiempo, me voy a la escuela. ¡Hasta luego!"
+      },
+      {
+        "speaker": "Hombre",
+        "pitch": 0.8,
+        "text": "いってらっしゃい。",
+        "html": "いってらっしゃい。",
+        "translation": "Que te vaya bien / Cuídate."
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1_desayuno2",
+        "question": "¿Qué responde el hombre cuando le preguntan por la medicina (薬)?",
+        "options": [
+          "Que ya se la ha tomado con el desayuno",
+          "Que no necesita tomar medicina",
+          "Que todavía no se la ha tomado (まだです)",
+          "Que se le ha terminado"
+        ],
+        "correctIndex": 2,
+        "explanation": "A la pregunta '薬飲みましたか？', el hombre responde con claridad 'まだです' (todavía no)."
+      },
+      {
+        "id": "q2_desayuno2",
+        "question": "¿Adónde se dirige la chica tras la conversación?",
+        "options": [
+          "Al trabajo",
+          "A la escuela (学校)",
+          "A la farmacia a por más pastillas",
+          "Al hospital"
+        ],
+        "correctIndex": 1,
+        "explanation": "La chica aclara que no tiene el día libre y que '今ちょうど学校の時間です' (es justo la hora de ir a la escuela)[cite: 11]."
+      },
+      {
+        "id": "q3_desayuno2",
+        "question": "¿Para qué pide el hombre un plato (お皿)?",
+        "options": [
+          "Para servirse más comida",
+          "Para poner las pastillas encima",
+          "Para darle leche al perro (犬も飲みたいですから)",
+          "Para calentar una tostada"
+        ],
+        "correctIndex": 2,
+        "explanation": "El hombre indica: 'お皿は欲しいです。犬も飲みたいですから' (Quiero un plato, porque el perro también quiere beber [leche])[cite: 11]."
+      },
+      {
+        "id": "q4_desayuno2",
+        "question": "¿Por qué motivo se marcha la chica inmediatamente tras traerle lo pedido?",
+        "options": [
+          "Porque no le queda tiempo (時間がないから)",
+          "Porque ha llegado un autobús a la puerta",
+          "Porque el hombre se ha enfadado",
+          "Porque ha empezado a llover"
+        ],
+        "correctIndex": 0,
+        "explanation": "Ella explica la prisa diciendo: '時間がないから、学校に行きます' (Como no tengo tiempo, me voy a la escuela)[cite: 11]."
+      },
+      {
+        "id": "q5_desayuno2",
+        "question": "¿Qué saludo tradicional de despedida dice el hombre al quedarse en casa?",
+        "options": [
+          "さようなら (Sayounara)",
+          "じゃあね (Jaa ne)",
+          "いってらっしゃい (Itterasshai)",
+          "お大事に (Odaiji ni)"
+        ],
+        "correctIndex": 2,
+        "explanation": "Cuando quien sale dice '行ってきます' (me marcho), quien se queda en la vivienda responde 'いってらっしゃい' (que te vaya bien)[cite: 11]."
+      }
+    ]
+  }
+]

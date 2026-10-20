@@ -1,0 +1,369 @@
+[
+  {
+    "id": "conv_servicios_001",
+    "category": "Servicios",
+    "subcategory": "Banco",
+    "title": "Banco 1",
+    "difficulty": "N4",
+    "audioUrl": "media/Banco1.mp3",
+    "dialogue": [
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "すみません、口座を作りたいです。",
+        "html": "すみません、<ruby>口座<rt>こうざ</rt></ruby>を<ruby>作<rt>つく</rt></ruby>りたいです。",
+        "translation": "Disculpe, me gustaría abrir una cuenta bancaria."
+      },
+      {
+        "speaker": "Empleado",
+        "pitch": 0.8,
+        "text": "はい、口座開設ですね。初めてですか？",
+        "html": "はい、<ruby>口座開設<rt>こうざかいせつ</rt></ruby>ですね。<ruby>初<rt>はじ</rt></ruby>めてですか？",
+        "translation": "Sí, apertura de cuenta. ¿Es su primera vez?"
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "はい、初めてです。",
+        "html": "はい、<ruby>初<rt>はじ</rt></ruby>めてです。",
+        "translation": "Sí, es la primera vez."
+      },
+      {
+        "speaker": "Empleado",
+        "pitch": 0.8,
+        "text": "在留カードとパスポートはお持ちですか？",
+        "html": "<ruby>在留<rt>ざいりゅう</rt></ruby>カードとパスポートはお<ruby>持<rt>も</rt></ruby>ちですか？",
+        "translation": "¿Lleva consigo la tarjeta de residencia y el pasaporte?"
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "はい、あります。こちらです。",
+        "html": "はい、あります。こちらです。",
+        "translation": "Sí, los tengo. Aquí están."
+      },
+      {
+        "speaker": "Empleado",
+        "pitch": 0.8,
+        "text": "ありがとうございます。少し確認します。こちらの申込書に名前と住所を書いてください。",
+        "html": "ありがとうございます。<ruby>少<rt>すこ</rt></ruby>し<ruby>確認<rt>かくにん</rt></ruby>します。こちらの<ruby>申込書<rt>もうしこみしょ</rt></ruby>に<ruby>名前<rt>なまえ</rt></ruby>と<ruby>住所<rt>じゅうしょ</rt></ruby>を<ruby>書<rt>か</rt></ruby>いてください。",
+        "translation": "Muchas gracias. Los reviso un momento. Escriba su nombre y dirección en este formulario de solicitud, por favor."
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "ローマ字でいいですか？",
+        "html": "ローマ<ruby>字<rt>じ</rt></ruby>でいいですか？",
+        "translation": "¿Puedo escribir en letras romanas (alfabeto latino)?"
+      },
+      {
+        "speaker": "Empleado",
+        "pitch": 0.8,
+        "text": "はい、大丈夫です。",
+        "html": "はい、<ruby>大丈夫<rt>だいじょうぶ</rt></ruby>です。",
+        "translation": "Sí, sin problema."
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "書きました。",
+        "html": "<ruby>書<rt>か</rt></ruby>きました。",
+        "translation": "Ya lo he escrito."
+      },
+      {
+        "speaker": "Empleado",
+        "pitch": 0.8,
+        "text": "電話番号と職業もお願いします。",
+        "html": "<ruby>電話番号<rt>でんわばんごう</rt></ruby>と<ruby>職業<rt>しょくぎょう</rt></ruby>もお<ruby>願<rt>ねが</rt></ruby>いします。",
+        "translation": "Su número de teléfono y profesión también, por favor."
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "職業は学生です。",
+        "html": "<ruby>職業<rt>しょくぎょう</rt></ruby>は<ruby>学生<rt>がくせい</rt></ruby>です。",
+        "translation": "De profesión soy estudiante."
+      },
+      {
+        "speaker": "Empleado",
+        "pitch": 0.8,
+        "text": "暗証番号を4桁で書いてください。キャッシュカードは後日郵送でお送りします。",
+        "html": "<ruby>暗証番号<rt>あんしょうばんごう</rt></ruby>を<ruby>4桁<rt>よんけた</rt></ruby>で<ruby>書<rt>か</rt></ruby>いてください。キャッシュカードは<ruby>後日<rt>ごじつ</rt></ruby><ruby>郵送<rt>ゆうそう</rt></ruby>でお<ruby>送<rt>おく</rt></ruby>りします。",
+        "translation": "Escriba un número secreto (PIN) de 4 dígitos, por favor. La tarjeta del cajero se la enviaremos por correo postal más adelante."
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "今日はもらえませんか？",
+        "html": "<ruby>今日<rt>きょう</rt></ruby>はもらえませんか？",
+        "translation": "¿No puedo recibirla hoy?"
+      },
+      {
+        "speaker": "Empleado",
+        "pitch": 0.8,
+        "text": "すみません、今日は出せません。一週間ぐらいで届きます。今、いくら入金しますか？",
+        "html": "すみません、<ruby>今日<rt>きょう</rt></ruby>は<ruby>出<rt>だ</rt></ruby>せません。<ruby>一週間<rt>いっしゅうかん</rt></ruby>ぐらいで<ruby>届<rt>とど</rt></ruby>きます。<ruby>今<rt>いま</rt></ruby>、いくら<ruby>入金<rt>にゅうきん</rt></ruby>しますか？",
+        "translation": "Lo lamento, hoy no podemos expedirla. Le llegará en aproximadamente una semana. En este momento, ¿cuánto dinero desea ingresar?"
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "1万円入れます。",
+        "html": "<ruby>1万円<rt>いちまんえん</rt></ruby><ruby>入<rt>い</rt></ruby>れます。",
+        "translation": "Voy a ingresar 10.000 yenes."
+      },
+      {
+        "speaker": "Empleado",
+        "pitch": 0.8,
+        "text": "こちらが通帳です。",
+        "html": "こちらが<ruby>通帳<rt>つうちょう</rt></ruby>です。",
+        "translation": "Aquí tiene su libreta bancaria."
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "ありがとうございます。",
+        "html": "ありがとうございます。",
+        "translation": "Muchas gracias."
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1_banco1",
+        "question": "¿Qué documentos de identidad presenta la clienta?",
+        "options": ["Solo el pasaporte", "Tarjeta de residencia y pasaporte", "Carnet de conducir japonés", "Carnet de estudiante"],
+        "correctIndex": 1,
+        "explanation": "El empleado le solicita ambos documentos: '在留カードとパスポートはお持ちですか？' (¿Lleva consigo la tarjeta de residencia y el pasaporte?)."
+      },
+      {
+        "id": "q2_banco1",
+        "question": "¿Cuál es la ocupación de la clienta?",
+        "options": ["Profesora", "Oficinista", "Estudiante (学生)", "Comerciante"],
+        "correctIndex": 2,
+        "explanation": "A la petición de indicar su empleo, ella especifica '職業は学生です' (De profesión soy estudiante)."
+      },
+      {
+        "id": "q3_banco1",
+        "question": "¿Cuándo y cómo recibirá la tarjeta del cajero (cash card)?",
+        "options": ["Se la entregan al instante en mano", "Por correo en aproximadamente una semana", "Debe volver a recogerla al día siguiente", "En un plazo de un mes por mensajería"],
+        "correctIndex": 1,
+        "explanation": "El empleado explica '今日は出せません。1週間ぐらいで届きます' (Hoy no podemos expedirla. Le llegará [por correo] en una semana aproximadamente)."
+      },
+      {
+        "id": "q4_banco1",
+        "question": "¿Qué documento bancario sí le entregan en mano hoy?",
+        "options": ["La tarjeta de débito", "La libreta bancaria (通帳)", "El talonario de cheques", "Un certificado de saldo"],
+        "correctIndex": 1,
+        "explanation": "Al final del trámite el empleado le entrega la cartilla diciendo 'こちらが通帳です' (Aquí tiene su libreta/cartilla bancaria)."
+      }
+    ]
+  },
+  {
+    "id": "conv_servicios_002",
+    "category": "Servicios",
+    "subcategory": "Policía",
+    "title": "Pidiendo ayuda en el puesto de policía",
+    "difficulty": "N5",
+    "audioUrl": "media/Policia1.mp3",
+    "dialogue": [
+      {
+        "speaker": "Policía",
+        "pitch": 0.8,
+        "text": "どうしましたか？",
+        "html": "どうしましたか？",
+        "translation": "¿Qué ha ocurrido?"
+      },
+      {
+        "speaker": "Ciudadana",
+        "pitch": 1.1,
+        "text": "すみません、ちょっと困っています。鍵を無くしました。家に入れません。どうしよう。",
+        "html": "すみません、ちょっと<ruby>困<rt>こま</rt></ruby>っています。<ruby>鍵<rt>かぎ</rt></ruby>を<ruby>無<rt>な</rt></ruby>くしました。<ruby>家<rt>いえ</rt></ruby>に<ruby>入<rt>はい</rt></ruby>れません。どうしよう。",
+        "translation": "Disculpe, tengo un problema. He perdido la llave. No puedo entrar en casa. ¿Qué hago?"
+      },
+      {
+        "speaker": "Policía",
+        "pitch": 0.8,
+        "text": "お家はどこですか？一人ですか？お父さんとお母さんは？",
+        "html": "お<ruby>家<rt>うち</rt></ruby>はどこですか？<ruby>一人<rt>ひとり</rt></ruby>ですか？お<ruby>父<rt>とう</rt></ruby>さんとお<ruby>母<rt>かあ</rt></ruby>さんは？",
+        "translation": "¿Dónde está tu casa? ¿Estás sola? ¿Y tus padres?"
+      },
+      {
+        "speaker": "Ciudadana",
+        "pitch": 1.1,
+        "text": "お父さんとお母さんは仕事です。遠くにいます。今いません。",
+        "html": "お<ruby>父<rt>とう</rt></ruby>さんとお<ruby>母<rt>かあ</rt></ruby>さんは<ruby>仕事<rt>しごと</rt></ruby>です。<ruby>遠<rt>とお</rt></ruby>くにいます。<ruby>今<rt>いま</rt></ruby>いません。",
+        "translation": "Mi padre y mi madre están trabajando. Están lejos. Ahora no están."
+      },
+      {
+        "speaker": "Policía",
+        "pitch": 0.8,
+        "text": "そうですか。交番に入りましょう。連絡します。一緒に待ちましょう。",
+        "html": "そうですか。<ruby>交番<rt>こうばん</rt></ruby>に<ruby>入<rt>はい</rt></ruby>りましょう。<ruby>連絡<rt>れんらく</rt></ruby>します。<ruby>一緒<rt>いっしょ</rt></ruby>に<ruby>待<rt>ま</rt></ruby>ちましょう。",
+        "translation": "Ya veo. Entremos a la comisaría (koban). Me pondré en contacto con ellos. Esperemos juntos."
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1_policia1",
+        "question": "¿Cuál es el motivo por el que la chica pide ayuda?",
+        "options": [
+          "Ha perdido la cartera con su dinero",
+          "Ha perdido la llave y no puede entrar en casa",
+          "Se ha perdido y no sabe volver a su casa",
+          "Alguien le ha robado la bicicleta"
+        ],
+        "correctIndex": 1,
+        "explanation": "Explica su situación diciendo '鍵を無くしました。家に入れません' (He perdido la llave. No puedo entrar en casa)."
+      },
+      {
+        "id": "q2_policia1",
+        "question": "¿Dónde se encuentran los padres de la chica?",
+        "options": [
+          "Están dentro de la casa descansando",
+          "Están de compras en el supermercado",
+          "Están trabajando lejos de allí",
+          "Están esperando en la estación"
+        ],
+        "correctIndex": 2,
+        "explanation": "Aclara que sus padres '仕事です。遠くにいます' (Están en el trabajo. Están lejos)."
+      },
+      {
+        "id": "q3_policia1",
+        "question": "¿Qué plan propone el agente para resolver el problema?",
+        "options": [
+          "Buscar un cerrajero de inmediato",
+          "Llevarla en el coche patrulla hasta su casa",
+          "Entrar al puesto de policía (koban), contactar con ellos y esperar juntos",
+          "Pedirle que vuelva sola a buscar la llave"
+        ],
+        "correctIndex": 2,
+        "explanation": "El policía le indica: '交番に入りましょう。連絡します。一緒に待ちましょう' (Entremos al koban. Nos comunicaremos con ellos. Esperemos juntos)."
+      }
+    ]
+  },
+  {
+    "id": "conv_servicios_003",
+    "category": "Servicios",
+    "subcategory": "Gestión laboral",
+    "title": "Avisando de una ausencia por fiebre",
+    "difficulty": "N5",
+    "audioUrl": "media/Enfermo1.mp3",
+    "dialogue": [
+      {
+        "speaker": "Empleada",
+        "pitch": 1.1,
+        "text": "もしもし、山田さんですか？",
+        "html": "もしもし、<ruby>山田<rt>やまだ</rt></ruby>さんですか？",
+        "translation": "Diga, ¿es el señor Yamada?"
+      },
+      {
+        "speaker": "Yamada",
+        "pitch": 0.8,
+        "text": "はい、そうです。",
+        "html": "はい、そうです。",
+        "translation": "Sí, soy yo."
+      },
+      {
+        "speaker": "Empleada",
+        "pitch": 1.1,
+        "text": "すみません、今日は休みを取りたいです。熱があります。",
+        "html": "すみません、<ruby>今日<rt>きょう</rt></ruby>は<ruby>休<rt>やす</rt></ruby>みを<ruby>取<rt>と</rt></ruby>りたいです。<ruby>熱<rt>ねつ</rt></ruby>があります。",
+        "translation": "Disculpe, hoy me gustaría tomarme el día libre. Tengo fiebre."
+      },
+      {
+        "speaker": "Yamada",
+        "pitch": 0.8,
+        "text": "そうですか。お大事にしてください。わかりました。今日はゆっくり休んでください。",
+        "html": "そうですか。お<ruby>大事<rt>だいじ</rt></ruby>にしてください。わかりました。<ruby>今日<rt>きょう</rt></ruby>はゆっくり<ruby>休<rt>やす</rt></ruby>んでください。",
+        "translation": "Vaya. Cuídate mucho, por favor. Entendido. Hoy descansa tranquilamente."
+      },
+      {
+        "speaker": "Empleada",
+        "pitch": 1.1,
+        "text": "はい、すみません。",
+        "html": "はい、すみません。",
+        "translation": "Sí, muchas gracias y disculpe las molestias."
+      },
+      {
+        "speaker": "Yamada",
+        "pitch": 0.8,
+        "text": "仕事のことは心配しないでください。",
+        "html": "<ruby>仕事<rt>しごと</rt></ruby>のことは<ruby>心配<rt>しんぱい</rt></ruby>しないでください。",
+        "translation": "No te preocupes por los asuntos del trabajo."
+      },
+      {
+        "speaker": "Empleada",
+        "pitch": 1.1,
+        "text": "ありがとうございます。",
+        "html": "ありがとうございます。",
+        "translation": "Muchas gracias."
+      },
+      {
+        "speaker": "Yamada",
+        "pitch": 0.8,
+        "text": "明日はどうですか？",
+        "html": "<ruby>明日<rt>あした</rt></ruby>はどうですか？",
+        "translation": "¿Cómo lo ves para mañana?"
+      },
+      {
+        "speaker": "Empleada",
+        "pitch": 1.1,
+        "text": "まだ分かりません。今日の夜、また連絡します。",
+        "html": "まだ<ruby>分<rt>わ</rt></ruby>かりません。<ruby>今日<rt>きょう</rt></ruby>の<ruby>夜<rt>よる</rt></ruby>、また<ruby>連絡<rt>れんらく</rt></ruby>します。",
+        "translation": "Todavía no lo sé. Esta noche me pondré en contacto de nuevo."
+      },
+      {
+        "speaker": "Yamada",
+        "pitch": 0.8,
+        "text": "分かりました。それまでお大事に。",
+        "html": "<ruby>分<rt>わ</rt></ruby>かりました。それまでお<ruby>大事<rt>だいじ</rt></ruby>に。",
+        "translation": "De acuerdo. Cuídate hasta entonces."
+      },
+      {
+        "speaker": "Empleada",
+        "pitch": 1.1,
+        "text": "はい、失礼します。",
+        "html": "はい、<ruby>失礼<rt>しつれい</rt></ruby>します。",
+        "translation": "Sí, hasta luego (con su permiso)."
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1_servicios_003",
+        "question": "¿Por qué motivo solicita ausentarse la empleada?",
+        "options": [
+          "Tiene un trámite urgente que realizar",
+          "Tiene fiebre (熱があります)",
+          "Ha perdido el tren de la mañana",
+          "Tiene que cuidar a un familiar"
+        ],
+        "correctIndex": 1,
+        "explanation": "La empleada indica con claridad: '今日は休みを取りたいです。熱があります' (Hoy me gustaría tomar el día libre. Tengo fiebre)."
+      },
+      {
+        "id": "q2_servicios_003",
+        "question": "¿Qué indicación le da el señor Yamada con respecto a las tareas laborales?",
+        "options": [
+          "Que trabaje en remoto desde casa",
+          "Que busque a un sustituto",
+          "Que no se preocupe por el trabajo y descanse",
+          "Que envíe un informe por correo antes del mediodía"
+        ],
+        "correctIndex": 2,
+        "explanation": "Yamada-san tranquiliza a la empleada diciéndole: '仕事のことは心配しないでください' (No te preocupes por el trabajo)."
+      },
+      {
+        "id": "q3_servicios_003",
+        "question": "¿Cuándo volverá a comunicarse la empleada sobre el día de mañana?",
+        "options": [
+          "Mañana a primera hora",
+          "Esta misma noche (今日の夜)",
+          "Esta tarde a mediodía",
+          "Solo si continúa con fiebre"
+        ],
+        "correctIndex": 1,
+        "explanation": "A la pregunta sobre mañana, responde: 'まだ分かりません。今日の夜、また連絡します' (Aún no lo sé. Esta noche me pondré en contacto de nuevo)."
+      }
+    ]
+  }
+]

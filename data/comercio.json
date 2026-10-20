@@ -1,0 +1,112 @@
+[
+  {
+    "id": "conv_comercio_001",
+    "category": "Comercio",
+    "subcategory": "Tienda de barrio",
+    "title": "Comprando en tienda",
+    "difficulty": "N5",
+    "audioUrl": "media/Tienda1.mp3",
+    "dialogue": [
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "すみません、卵を買いたいです。",
+        "html": "すみません、<ruby>卵<rt>たまご</rt></ruby>を<ruby>買<rt>か</rt></ruby>いたいです。",
+        "translation": "Perdone, quiero comprar huevos."
+      },
+      {
+        "speaker": "Tendero",
+        "pitch": 0.8,
+        "text": "はい、いくつですか？",
+        "html": "はい、いくつですか？",
+        "translation": "Sí, ¿cuántos quiere?"
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "6個ください。",
+        "html": "<ruby>6個<rt>ろっこ</rt></ruby>ください。",
+        "translation": "Seis, por favor."
+      },
+      {
+        "speaker": "Tendero",
+        "pitch": 0.8,
+        "text": "他に何か要りますか？",
+        "html": "<ruby>他<rt>ほか</rt></ruby>に<ruby>何<rt>なに</rt></ruby>か<ruby>要<rt>い</rt></ruby>りますか？",
+        "translation": "¿Necesita algo más?"
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "はい、醤油もください。",
+        "html": "はい、<ruby>醤油<rt>しょうゆ</rt></ruby>もください。",
+        "translation": "Sí, salsa de soja también, por favor."
+      },
+      {
+        "speaker": "Tendero",
+        "pitch": 0.8,
+        "text": "はい。",
+        "html": "はい。",
+        "translation": "De acuerdo."
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "いくらですか？",
+        "html": "いくらですか？",
+        "translation": "¿Cuánto es?"
+      },
+      {
+        "speaker": "Tendero",
+        "pitch": 0.8,
+        "text": "400円です。",
+        "html": "<ruby>400円<rt>よんひゃくえん</rt></ruby>です。",
+        "translation": "Son 400 yenes."
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "はい、どうぞ。",
+        "html": "はい、どうぞ。",
+        "translation": "Aquí tiene."
+      },
+      {
+        "speaker": "Tendero",
+        "pitch": 0.8,
+        "text": "ありがとう、気をつけて帰ってね。",
+        "html": "ありがとう、<ruby>気<rt>き</rt></ruby>をつけて<ruby>帰<rt>かえ</rt></ruby>ってね。",
+        "translation": "Gracias, ten cuidado al volver a casa."
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1_tienda1",
+        "question": "¿Qué es lo primero que pide la clienta?",
+        "options": ["Leche", "Huevos", "Verduras", "Pan"],
+        "correctIndex": 1,
+        "explanation": "La clienta dice '卵を買いたいです' (Quiero comprar huevos)."
+      },
+      {
+        "id": "q2_tienda1",
+        "question": "¿Cuántas unidades de huevos compra?",
+        "options": ["Cuatro", "Seis", "Ocho", "Diez"],
+        "correctIndex": 1,
+        "explanation": "Responde '6個ください' (Seis unidades, por favor)."
+      },
+      {
+        "id": "q3_tienda1",
+        "question": "¿Qué otro producto añade a su compra?",
+        "options": ["Salsa de soja (しょうゆ)", "Sal (しお)", "Azúcar (さとう)", "Aceite (あぶら)"],
+        "correctIndex": 0,
+        "explanation": "Ante la pregunta del tendero, ella añade '醤油もください' (Salsa de soja también, por favor)."
+      },
+      {
+        "id": "q4_tienda1",
+        "question": "¿Qué le dice el tendero al despedirse?",
+        "options": ["Que vuelva pronto", "Que le dará un recibo", "Que tenga cuidado al volver a casa", "Que cierre la puerta al salir"],
+        "correctIndex": 2,
+        "explanation": "El tendero se despide de forma cercana diciendo '気をつけて帰ってね' (Ten cuidado al volver a casa)."
+      }
+    ]
+  }
+]

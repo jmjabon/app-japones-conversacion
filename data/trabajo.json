@@ -1,0 +1,496 @@
+ [
+    {
+    "id": "conv_trabajo_001",
+    "category": "Trabajo",
+    "subcategory": "Entrevista",
+    "title": "Entrevista de trabajo",
+    "difficulty": "N4",
+    "audioUrl": "media/Trabajo1.mp3",
+    "dialogue": [
+      {
+        "speaker": "Umi",
+        "pitch": 1.1,
+        "text": "こんにちは、面接に来ました。",
+        "html": "こんにちは、<ruby>面接<rt>めんせつ</rt></ruby>に<ruby>来<rt>き</rt></ruby>ました。",
+        "translation": "Buenas tardes, vengo a la entrevista."
+      },
+      {
+        "speaker": "Entrevistador",
+        "pitch": 0.8,
+        "text": "こんにちは、どうぞお入りください。",
+        "html": "こんにちは、どうぞお<ruby>入<rt>はい</rt></ruby>りください。",
+        "translation": "Buenas tardes, pase, por favor."
+      },
+      {
+        "speaker": "Umi",
+        "pitch": 1.1,
+        "text": "よろしくお願いします。",
+        "html": "よろしくお<ruby>願<rt>ねが</rt></ruby>いします。",
+        "translation": "Mucho gusto / Encantada de conocerle."
+      },
+      {
+        "speaker": "Entrevistador",
+        "pitch": 0.8,
+        "text": "お名前は何ですか？",
+        "html": "お<ruby>名前<rt>なまえ</rt></ruby>は<ruby>何<rt>なん</rt></ruby>ですか？",
+        "translation": "¿Cómo se llama?"
+      },
+      {
+        "speaker": "Umi",
+        "pitch": 1.1,
+        "text": "海です。",
+        "html": "<ruby>海<rt>うみ</rt></ruby>です。",
+        "translation": "Soy Umi."
+      },
+      {
+        "speaker": "Entrevistador",
+        "pitch": 0.8,
+        "text": "海さんですね。今日はありがとうございます。",
+        "html": "<ruby>海<rt>うみ</rt></ruby>さんですね。<ruby>今日<rt>きょう</rt></ruby>はありがとうございます。",
+        "translation": "Umi-san, ¿verdad? Muchas gracias por venir hoy."
+      },
+      {
+        "speaker": "Umi",
+        "pitch": 1.1,
+        "text": "こちらこそありがとうございます。",
+        "html": "こちらこそありがとうございます。",
+        "translation": "Gracias a usted."
+      },
+      {
+        "speaker": "Entrevistador",
+        "pitch": 0.8,
+        "text": "なぜこの仕事を選びましたか？",
+        "html": "なぜこの<ruby>仕事<rt>しごと</rt></ruby>を<ruby>選<rt>えら</rt></ruby>びましたか？",
+        "translation": "¿Por qué ha elegido este trabajo?"
+      },
+      {
+        "speaker": "Umi",
+        "pitch": 1.1,
+        "text": "カフェが好きです。人と話すことが楽しいです。",
+        "html": "カフェが<ruby>好<rt>す</rt></ruby>きです。<ruby>人<rt>ひと</rt></ruby>と<ruby>話<rt>はな</rt></ruby>すことが<ruby>楽<rt>たの</rt></ruby>しいです。",
+        "translation": "Me gustan las cafeterías. Me divierte hablar con la gente."
+      },
+      {
+        "speaker": "Entrevistador",
+        "pitch": 0.8,
+        "text": "アルバイトの経験はありますか？",
+        "html": "アルバイトの<ruby>経験<rt>けいけん</rt></ruby>はありますか？",
+        "translation": "¿Tiene experiencia en trabajos a tiempo parcial?"
+      },
+      {
+        "speaker": "Umi",
+        "pitch": 1.1,
+        "text": "はい、コンビニで働いたことがあります。",
+        "html": "はい、コンビニで<ruby>働<rt>はたら</rt></ruby>いたことがあります。",
+        "translation": "Sí, he trabajado anteriormente en un conbini."
+      },
+      {
+        "speaker": "Entrevistador",
+        "pitch": 0.8,
+        "text": "週に何回働けますか？",
+        "html": "<ruby>週<rt>しゅう</rt></ruby>に<ruby>何回<rt>なんかい</rt></ruby><ruby>働<rt>はたら</rt></ruby>けますか？",
+        "translation": "¿Cuántas veces por semana puede trabajar?"
+      },
+      {
+        "speaker": "Umi",
+        "pitch": 1.1,
+        "text": "週に3回働けます。",
+        "html": "<ruby>週<rt>しゅう</rt></ruby>に<ruby>3回<rt>さんかい</rt></ruby><ruby>働<rt>はたら</rt></ruby>けます。",
+        "translation": "Puedo trabajar tres veces a la semana."
+      },
+      {
+        "speaker": "Entrevistador",
+        "pitch": 0.8,
+        "text": "何時から何時まで仕事ができますか？",
+        "html": "<ruby>何時<rt>なんじ</rt></ruby>から<ruby>何時<rt>なんじ</rt></ruby>まで<ruby>仕事<rt>しごと</rt></ruby>ができますか？",
+        "translation": "¿De qué hora a qué hora puede trabajar?"
+      },
+      {
+        "speaker": "Umi",
+        "pitch": 1.1,
+        "text": "夕方から夜まで働けます。",
+        "html": "<ruby>夕方<rt>ゆうがた</rt></ruby>から<ruby>夜<rt>よる</rt></ruby>まで<ruby>働<rt>はたら</rt></ruby>けます。",
+        "translation": "Puedo trabajar desde el atardecer hasta la noche."
+      },
+      {
+        "speaker": "Entrevistador",
+        "pitch": 0.8,
+        "text": "土曜日と日曜日も大丈夫ですか？",
+        "html": "<ruby>土曜日<rt>どようび</rt></ruby>と<ruby>日曜日<rt>にちようび</rt></ruby>も<ruby>大丈夫<rt>だいじょうぶ</rt></ruby>ですか？",
+        "translation": "¿Los sábados y domingos también le va bien?"
+      },
+      {
+        "speaker": "Umi",
+        "pitch": 1.1,
+        "text": "はい、大丈夫です。",
+        "html": "はい、<ruby>大丈夫<rt>だいじょうぶ</rt></ruby>です。",
+        "translation": "Sí, sin problema."
+      },
+      {
+        "speaker": "Entrevistador",
+        "pitch": 0.8,
+        "text": "お客様の対応は得意ですか？",
+        "html": "お<ruby>客様<rt>きゃくさま</rt></ruby>の<ruby>対応<rt>たいおう</rt></ruby>は<ruby>得意<rt>とくい</rt></ruby>ですか？",
+        "translation": "¿Se le da bien la atención al cliente?"
+      },
+      {
+        "speaker": "Umi",
+        "pitch": 1.1,
+        "text": "はい、自信があります。",
+        "html": "はい、<ruby>自信<rt>じしん</rt></ruby>があります。",
+        "translation": "Sí, tengo confianza en ello."
+      },
+      {
+        "speaker": "Entrevistador",
+        "pitch": 0.8,
+        "text": "それはいいですね。じゃあ、一緒に頑張りましょう。",
+        "html": "それはいいですね。じゃあ、<ruby>一緒<rt>いっしょ</rt></ruby>に<ruby>頑張<rt>がんば</rt></ruby>りましょう。",
+        "translation": "Eso está muy bien. Entonces, esforcémonos juntos."
+      },
+      {
+        "speaker": "Umi",
+        "pitch": 1.1,
+        "text": "はい、よろしくお願いします。仕事で一生懸命頑張ります。",
+        "html": "はい、よろしくお<ruby>願<rt>ねが</rt></ruby>いします。<ruby>仕事<rt>しごと</rt></ruby>で<ruby>一生懸命<rt>いっしょうけんめい</rt></ruby><ruby>頑張<rt>がんば</rt></ruby>ります。",
+        "translation": "Sí, muchas gracias. Me esforzaré al máximo en el trabajo."
+      },
+      {
+        "speaker": "Entrevistador",
+        "pitch": 0.8,
+        "text": "いつから働けますか？",
+        "html": "いつから<ruby>働<rt>はたら</rt></ruby>けますか？",
+        "translation": "¿A partir de cuándo puede empezar a trabajar?"
+      },
+      {
+        "speaker": "Umi",
+        "pitch": 1.1,
+        "text": "来週から働けます。",
+        "html": "<ruby>来週<rt>らいしゅう</rt></ruby>から<ruby>働<rt>はたら</rt></ruby>けます。",
+        "translation": "Puedo empezar a trabajar a partir de la próxima semana."
+      },
+      {
+        "speaker": "Entrevistador",
+        "pitch": 0.8,
+        "text": "分かりました。では、また連絡します。",
+        "html": "<ruby>分<rt>わ</rt></ruby>かりました。では、また<ruby>連絡<rt>れんらく</rt></ruby>します。",
+        "translation": "Entendido. Entonces volveremos a ponernos en contacto."
+      },
+      {
+        "speaker": "Umi",
+        "pitch": 1.1,
+        "text": "ありがとうございます。楽しみです。",
+        "html": "ありがとうございます。<ruby>楽<rt>たの</rt></ruby>しみです。",
+        "translation": "Muchas gracias. Tengo muchas ganas."
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1_trabajo1",
+        "question": "¿En qué tipo de establecimiento ha trabajado Umi anteriormente?",
+        "options": [
+          "En un supermercado",
+          "En una librería",
+          "En una tienda de conveniencia (コンビニ)",
+          "En un restaurante de ramen"
+        ],
+        "correctIndex": 2,
+        "explanation": "Umi explica su experiencia previa diciendo: 'コンビニで働いたことがあります' (He trabajado en un conbini)."
+      },
+      {
+        "id": "q2_trabajo1",
+        "question": "¿Cuál es la disponibilidad semanal y horaria que ofrece Umi?",
+        "options": [
+          "5 días a la semana por las mañanas",
+          "3 días a la semana, desde el atardecer hasta la noche",
+          "Solo los fines de semana a jornada completa",
+          "Todos los días en turno nocturno"
+        ],
+        "correctIndex": 1,
+        "explanation": "Indica que puede trabajar '週に3回' (3 veces por semana) y '夕方から夜まで' (del atardecer a la noche), aceptando también los fines de semana[cite: 8]."
+      },
+      {
+        "id": "q3_trabajo1",
+        "question": "¿A partir de qué momento puede incorporarse al puesto de trabajo?",
+        "options": [
+          "A partir del día siguiente",
+          "A partir del mes que viene",
+          "A partir de la próxima semana (来週から)",
+          "Dentro de dos semanas"
+        ],
+        "correctIndex": 2,
+        "explanation": "A la pregunta 'いつから働けますか？', Umi responde con claridad: '来週から働けます' (Puedo trabajar a partir de la próxima semana)[cite: 8]."
+      }
+    ]
+  },
+    {
+        "id": "conv_trabajo_002",
+        "category": "Trabajo",
+        "subcategory": "Gestión laboral",
+        "title": "Avisando de una ausencia por fiebre",
+        "difficulty": "N5",
+        "audioUrl": "media/Enfermo1.mp3",
+        "dialogue": [
+        {
+            "speaker": "Empleada",
+            "pitch": 1.1,
+            "text": "もしもし、山田さんですか？",
+            "html": "もしもし、<ruby>山田<rt>やまだ</rt></ruby>さんですか？",
+            "translation": "Diga, ¿es el señor Yamada?"
+        },
+        {
+            "speaker": "Yamada",
+            "pitch": 0.8,
+            "text": "はい、そうです。",
+            "html": "はい、そうです。",
+            "translation": "Sí, soy yo."
+        },
+        {
+            "speaker": "Empleada",
+            "pitch": 1.1,
+            "text": "すみません、今日は休みを取りたいです。熱があります。",
+            "html": "すみません、<ruby>今日<rt>きょう</rt></ruby>は<ruby>休<rt>やす</rt></ruby>みを<ruby>取<rt>と</rt></ruby>りたいです。<ruby>熱<rt>ねつ</rt></ruby>があります。",
+            "translation": "Disculpe, hoy me gustaría tomarme el día libre. Tengo fiebre."
+        },
+        {
+            "speaker": "Yamada",
+            "pitch": 0.8,
+            "text": "そうですか。お大事にしてください。わかりました。今日はゆっくり休んでください。",
+            "html": "そうですか。お<ruby>大事<rt>だいじ</rt></ruby>にしてください。わかりました。<ruby>今日<rt>きょう</rt></ruby>はゆっくり<ruby>休<rt>やす</rt></ruby>んでください。",
+            "translation": "Vaya. Cuídate mucho, por favor. Entendido. Hoy descansa tranquilamente."
+        },
+        {
+            "speaker": "Empleada",
+            "pitch": 1.1,
+            "text": "はい、すみません。",
+            "html": "はい、すみません。",
+            "translation": "Sí, muchas gracias y disculpe las molestias."
+        },
+        {
+            "speaker": "Yamada",
+            "pitch": 0.8,
+            "text": "仕事のことは心配しないでください。",
+            "html": "<ruby>仕事<rt>しごと</rt></ruby>のことは<ruby>心配<rt>しんぱい</rt></ruby>しないでください。",
+            "translation": "No te preocupes por los asuntos del trabajo."
+        },
+        {
+            "speaker": "Empleada",
+            "pitch": 1.1,
+            "text": "ありがとうございます。",
+            "html": "ありがとうございます。",
+            "translation": "Muchas gracias."
+        },
+        {
+            "speaker": "Yamada",
+            "pitch": 0.8,
+            "text": "明日はどうですか？",
+            "html": "<ruby>明日<rt>あした</rt></ruby>はどうですか？",
+            "translation": "¿Cómo lo ves para mañana?"
+        },
+        {
+            "speaker": "Empleada",
+            "pitch": 1.1,
+            "text": "まだ分かりません。今日の夜、また連絡します。",
+            "html": "まだ<ruby>分<rt>わ</rt></ruby>かりません。<ruby>今日<rt>きょう</rt></ruby>の<ruby>夜<rt>よる</rt></ruby>、また<ruby>連絡<rt>れんらく</rt></ruby>します。",
+            "translation": "Todavía no lo sé. Esta noche me pondré en contacto de nuevo."
+        },
+        {
+            "speaker": "Yamada",
+            "pitch": 0.8,
+            "text": "分かりました。それまでお大事に。",
+            "html": "<ruby>分<rt>わ</rt></ruby>かりました。それまでお<ruby>大事<rt>だいじ</rt></ruby>に。",
+            "translation": "De acuerdo. Cuídate hasta entonces."
+        },
+        {
+            "speaker": "Empleada",
+            "pitch": 1.1,
+            "text": "はい、失礼します。",
+            "html": "はい、<ruby>失礼<rt>しつれい</rt></ruby>します。",
+            "translation": "Sí, hasta luego (con su permiso)."
+        }
+        ],
+        "questions": [
+        {
+            "id": "q1_trabajo2",
+            "question": "¿Por qué motivo solicita ausentarse la empleada?",
+            "options": [
+            "Tiene un trámite urgente que realizar",
+            "Tiene fiebre (熱があります)",
+            "Ha perdido el tren de la mañana",
+            "Tiene que cuidar a un familiar"
+            ],
+            "correctIndex": 1,
+            "explanation": "La empleada indica con claridad: '今日は休みを取りたいです。熱があります' (Hoy me gustaría tomar el día libre. Tengo fiebre)."
+        },
+        {
+            "id": "q2_trabajo2",
+            "question": "¿Qué indicación le da el señor Yamada con respecto a las tareas laborales?",
+            "options": [
+            "Que trabaje en remoto desde casa",
+            "Que busque a un sustituto",
+            "Que no se preocupe por el trabajo y descanse",
+            "Que envíe un informe por correo antes del mediodía"
+            ],
+            "correctIndex": 2,
+            "explanation": "Yamada-san tranquiliza a la empleada diciéndole: '仕事のことは心配しないでください' (No te preocupes por el trabajo)."
+        },
+        {
+            "id": "q3_trabajo2",
+            "question": "¿Cuándo volverá a comunicarse la empleada sobre el día de mañana?",
+            "options": [
+            "Mañana a primera hora",
+            "Esta misma noche (今日の夜)",
+            "Esta tarde a mediodía",
+            "Solo si continúa con fiebre"
+            ],
+            "correctIndex": 1,
+            "explanation": "A la pregunta sobre mañana, responde: 'まだ分かりません。今日の夜、また連絡します' (Aún no lo sé. Esta noche me pondré en contacto de nuevo)."
+        }
+        ]
+    },
+    {
+    "id": "conv_trabajo_003",
+    "category": "Trabajo",
+    "subcategory": "Compañeros de trabajo",
+    "title": "Conversación compañeros",
+    "difficulty": "N5",
+    "audioUrl": "media/Cansado1.mp3",
+    "dialogue": [
+      {
+        "speaker": "Compañera",
+        "pitch": 1.1,
+        "text": "あれ？今日は元気がないね。",
+        "html": "あれ？<ruby>今日<rt>きょう</rt></ruby>は<ruby>元気<rt>げんき</rt></ruby>がないね。",
+        "translation": "¿Eh? Hoy no te veo con mucha energía, ¿verdad?"
+      },
+      {
+        "speaker": "Compañero",
+        "pitch": 0.8,
+        "text": "うん、ちょっと疲れてる。",
+        "html": "うん、ちょっと<ruby>疲<rt>つか</rt></ruby>れてる。",
+        "translation": "Sí, estoy un poco cansado."
+      },
+      {
+        "speaker": "Compañera",
+        "pitch": 1.1,
+        "text": "大丈夫？",
+        "html": "<ruby>大丈夫<rt>だいじょうぶ</rt></ruby>？",
+        "translation": "¿Estás bien?"
+      },
+      {
+        "speaker": "Compañero",
+        "pitch": 0.8,
+        "text": "大丈夫だけど、少し頭が痛い。",
+        "html": "<ruby>大丈夫<rt>だいじょうぶ</rt></ruby>だけど、<ruby>少<rt>すこ</rt></ruby>し<ruby>頭<rt>あたま</rt></ruby>が<ruby>痛<rt>いた</rt></ruby>い。",
+        "translation": "Estoy bien, pero me duele un poco la cabeza."
+      },
+      {
+        "speaker": "Compañera",
+        "pitch": 1.1,
+        "text": "昨日、ちゃんと寝た？",
+        "html": "<ruby>昨日<rt>きのう</rt></ruby>、ちゃんと<ruby>寝<rt>ね</rt></ruby>た？",
+        "translation": "¿Dormiste bien anoche?"
+      },
+      {
+        "speaker": "Compañero",
+        "pitch": 0.8,
+        "text": "あまり寝てない。",
+        "html": "あまり<ruby>寝<rt>ね</rt></ruby>てない。",
+        "translation": "No he dormido mucho."
+      },
+      {
+        "speaker": "Compañera",
+        "pitch": 1.1,
+        "text": "仕事が忙しかった？",
+        "html": "<ruby>仕事<rt>しごと</rt></ruby>が<ruby>忙<rt>いそが</rt></ruby>しかった？",
+        "translation": "¿Estuvo muy ocupado el trabajo?"
+      },
+      {
+        "speaker": "Compañero",
+        "pitch": 0.8,
+        "text": "うん、すごく忙しかった。",
+        "html": "うん、すごく<ruby>忙<rt>いそが</rt></ruby>しかった。",
+        "translation": "Sí, estuvo sumamente ocupado."
+      },
+      {
+        "speaker": "Compañera",
+        "pitch": 1.1,
+        "text": "無理しないでね。",
+        "html": "<ruby>無理<rt>むり</rt></ruby>しないでね。",
+        "translation": "No te sobreesfuerces, ¿vale?"
+      },
+      {
+        "speaker": "Compañero",
+        "pitch": 0.8,
+        "text": "ありがとう。",
+        "html": "ありがとう。",
+        "translation": "Gracias."
+      },
+      {
+        "speaker": "Compañera",
+        "pitch": 1.1,
+        "text": "今日は早く帰った方がいいよ。",
+        "html": "<ruby>今日<rt>きょう</rt></ruby>は<ruby>早<rt>はや</rt></ruby>く<ruby>帰<rt>かえ</rt></ruby>った<ruby>方<rt>ほう</rt></ruby>がいいよ。",
+        "translation": "Será mejor que hoy vuelvas pronto a casa."
+      },
+      {
+        "speaker": "Compañero",
+        "pitch": 0.8,
+        "text": "そうだね。",
+        "html": "そうだね。",
+        "translation": "Sí, tienes razón."
+      },
+      {
+        "speaker": "Compañera",
+        "pitch": 1.1,
+        "text": "お大事にね。",
+        "html": "お<ruby>大事<rt>だいじ</rt></ruby>にね。",
+        "translation": "Cuídate mucho."
+      },
+      {
+        "speaker": "Compañero",
+        "pitch": 0.8,
+        "text": "ありがとう、助かった。",
+        "html": "ありがとう、<ruby>助<rt>たす</rt></ruby>かった。",
+        "translation": "Gracias, me sirve de gran ayuda."
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1_trabajo3",
+        "question": "¿Qué síntoma físico menciona el compañero?",
+        "options": [
+          "Le duele la garganta",
+          "Le duele un poco la cabeza (少し頭が痛い)",
+          "Tiene fiebre alta",
+          "Le duele el estómago"
+        ],
+        "correctIndex": 1,
+        "explanation": "El compañero contesta que aunque aguanta, '少し頭が痛い' (me duele un poco la cabeza)."
+      },
+      {
+        "id": "q2_trabajo3",
+        "question": "¿Por qué apenas pudo dormir anoche?",
+        "options": [
+          "Estuvo estudiando hasta tarde",
+          "Estuvo viendo series",
+          "Estuvo sumamente ocupado con el trabajo (仕事がすごく忙しかった)",
+          "Había mucho ruido en su calle"
+        ],
+        "correctIndex": 2,
+        "explanation": "Ante la pregunta de si el trabajo estuvo ocupado, confirma 'うん、すごく忙しかった' (Sí, estuvo sumamente ocupado) y por eso no durmió bien[cite: 9]."
+      },
+      {
+        "id": "q3_trabajo3",
+        "question": "¿Qué recomendación le da la compañera para la jornada de hoy?",
+        "options": [
+          "Que tome café fuerte",
+          "Que vaya al médico a mediodía",
+          "Que pida ayuda a su jefe de inmediato",
+          "Que no se sobreesfuerce y vuelva temprano a casa (早く帰った方がいい)"
+        ],
+        "correctIndex": 3,
+        "explanation": "Ella le dice '無理しないでね' (no te fuerces) y utiliza la estructura de consejo '今日は早く帰った方がいいよ' (es mejor que hoy regreses temprano a casa)[cite: 9]."
+      }
+    ]
+  }
+]

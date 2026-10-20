@@ -1,0 +1,161 @@
+[
+  {
+    "id": "conv_alojamiento_001",
+    "category": "Alojamiento",
+    "subcategory": "Hotel",
+    "title": "Hotel 1",
+    "difficulty": "N4",
+    "audioUrl": "media/Hotel1.mp3",
+    "dialogue": [
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "すみません。",
+        "html": "すみません。",
+        "translation": "Perdone."
+      },
+      {
+        "speaker": "Recepcionista",
+        "pitch": 1.1,
+        "text": "はい、いらっしゃいませ。",
+        "html": "はい、いらっしゃいませ。",
+        "translation": "Sí, bienvenido/a."
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "チェックインをお願いします。",
+        "html": "チェックインをお<ruby>願<rt>ねが</rt></ruby>いします。",
+        "translation": "Quiero hacer el check-in, por favor."
+      },
+      {
+        "speaker": "Recepcionista",
+        "pitch": 1.1,
+        "text": "ご予約のお名前をお願いします。",
+        "html": "ご<ruby>予約<rt>よやく</rt></ruby>のお<ruby>名前<rt>なまえ</rt></ruby>をお<ruby>願<rt>ねが</rt></ruby>いします。",
+        "translation": "El nombre de la reserva, por favor."
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "ソフィア・スミスです。",
+        "html": "ソフィア・スミスです。",
+        "translation": "Soy Sophia Smith."
+      },
+      {
+        "speaker": "Recepcionista",
+        "pitch": 1.1,
+        "text": "少々お待ちください。",
+        "html": "<ruby>少々<rt>しょうしょう</rt></ruby>お<ruby>待<rt>ま</rt></ruby>ちください。",
+        "translation": "Un momento, por favor."
+      },
+      {
+        "speaker": "Recepcionista",
+        "pitch": 1.1,
+        "text": "はい、ご予約を確認しました。本日から三泊ですね。",
+        "html": "はい、ご<ruby>予約<rt>よやく</rt></ruby>を<ruby>確認<rt>かくにん</rt></ruby>しました。<ruby>本日<rt>ほんじつ</rt></ruby>から<ruby>三泊<rt>さんぱく</rt></ruby>ですね。",
+        "translation": "Sí, he confirmado su reserva. Son tres noches a partir de hoy, ¿verdad?"
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "はい、そうです。",
+        "html": "はい、そうです。",
+        "translation": "Sí, así es."
+      },
+      {
+        "speaker": "Recepcionista",
+        "pitch": 1.1,
+        "text": "パスポートを拝見できますか？",
+        "html": "パスポートを<ruby>拝見<rt>はいけん</rt></ruby>できますか？",
+        "translation": "¿Me permite ver su pasaporte?"
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "はい、どうぞ。",
+        "html": "はい、どうぞ。",
+        "translation": "Sí, aquí tiene."
+      },
+      {
+        "speaker": "Recepcionista",
+        "pitch": 1.1,
+        "text": "ありがとうございます。それでは、こちらの用紙にご記入をお願いします。",
+        "html": "ありがとうございます。それでは、こちらの<ruby>用紙<rt>ようし</rt></ruby>にご<ruby>記入<rt>きにゅう</rt></ruby>をお<ruby>願<rt>ねが</rt></ruby>いします。",
+        "translation": "Muchas gracias. Entonces, por favor, rellene este formulario."
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "わかりました。",
+        "html": "わかりました。",
+        "translation": "De acuerdo."
+      },
+      {
+        "speaker": "Recepcionista",
+        "pitch": 1.1,
+        "text": "お部屋は七階、七〇五号室です。チェックアウトは午前十一時です。",
+        "html": "お<ruby>部屋<rt>へや</rt></ruby>は<ruby>七階<rt>ななかい</rt></ruby>、<ruby>七〇五号室<rt>ななまるごごうしつ</rt></ruby>です。チェックアウトは<ruby>午前十一時<rt>ごぜんじゅういちじ</rt></ruby>です。",
+        "translation": "Su habitación está en el séptimo piso, la habitación 705. El check-out es a las 11 de la mañana."
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "朝食はついていますか？",
+        "html": "<ruby>朝食<rt>ちょうしょく</rt></ruby>はついていますか？",
+        "translation": "¿El desayuno está incluido?"
+      },
+      {
+        "speaker": "Recepcionista",
+        "pitch": 1.1,
+        "text": "はい。一階のレストランで、午前七時から十時までです。",
+        "html": "はい。<ruby>一階<rt>いっかい</rt></ruby>のレストランで、<ruby>午前七時<rt>ごぜんしちじ</rt></ruby>から<ruby>十時<rt>じゅうじ</rt></ruby>までです。",
+        "translation": "Sí. Es en el restaurante del primer piso, desde las 7:00 hasta las 10:00 de la mañana."
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "ありがとうございます。",
+        "html": "ありがとうございます。",
+        "translation": "Muchas gracias."
+      },
+      {
+        "speaker": "Recepcionista",
+        "pitch": 1.1,
+        "text": "どうぞ、ごゆっくりお過ごしください。",
+        "html": "どうぞ、ごゆっくりお<ruby>過<rt>す</rt></ruby>ごしください。",
+        "translation": "Por favor, disfrute de su estancia."
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1_hotel1",
+        "question": "¿Cuántas noches se quedará la clienta en el hotel?",
+        "options": ["Una noche", "Dos noches", "Tres noches (三泊)", "Siete noches"],
+        "correctIndex": 2,
+        "explanation": "El recepcionista confirma la reserva diciendo '本日から三泊ですね' (Son tres noches a partir de hoy, ¿verdad?)."
+      },
+      {
+        "id": "q2_hotel1",
+        "question": "¿Qué documento le pide el recepcionista a la clienta?",
+        "options": ["La tarjeta de crédito", "El carnet de conducir", "La confirmación de la reserva", "El pasaporte"],
+        "correctIndex": 3,
+        "explanation": "Le pregunta 'パスポートを拝見できますか？' (¿Puedo ver su pasaporte?)."
+      },
+      {
+        "id": "q3_hotel1",
+        "question": "¿A qué hora es el check-out?",
+        "options": ["A las 10:00 de la mañana", "A las 11:00 de la mañana", "A las 12:00 del mediodía", "A las 7:00 de la mañana"],
+        "correctIndex": 1,
+        "explanation": "El recepcionista indica claramente 'チェックアウトは午前十一時です' (El check-out es a las 11 de la mañana)."
+      },
+      {
+        "id": "q4_hotel1",
+        "question": "¿Dónde se sirve el desayuno?",
+        "options": ["En su habitación (705)", "En el restaurante del primer piso", "En el séptimo piso", "No tiene desayuno incluido"],
+        "correctIndex": 1,
+        "explanation": "A la pregunta de si el desayuno está incluido, responde 'はい。一階のレストランで...' (Sí. En el restaurante del primer piso...)."
+      }
+    ]
+  }
+]
