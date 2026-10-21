@@ -1,42 +1,9 @@
 [
   {
-    "id": "conv_restauracion_001",
-    "category": "Restauración",
-    "subcategory": "Cafetería",
-    "title": "Dos personas decidiendo qué pedir ante el mostrador",
-    "difficulty": "N5",
-    "dialogue": [
-      { "speaker": "Kenji", "pitch": 0.9, "text": "マナ、何を飲む？僕はアイスコーヒーにするよ。", "html": "マナ、<ruby>何<rt>なに</rt></ruby>を<ruby>飲<rt>の</rt></ruby>む？<ruby>僕<rt>ぼく</rt></ruby>はアイスコーヒーにするよ。" },
-      { "speaker": "Mana", "pitch": 1.25, "text": "うーん、抹茶ラテにしようかな。あ、でもケーキセットも美味しそう！", "html": "うーん、<ruby>抹茶<rt>まっちゃ</rt></ruby>ラテにしようかな。あ、でもケーキセットも<ruby>美味<rt>おい</rt></ruby>しそう！" },
-      { "speaker": "Camarera", "pitch": 1.05, "text": "いらっしゃいませ。ご注文をお伺いします。", "html": "いらっしゃいませ。ご<ruby>注文<rt>ちゅうもん</rt></ruby>をお<ruby>伺<rt>うかが</rt></ruby>いします。" },
-      { "speaker": "Kenji", "pitch": 0.9, "text": "アイスコーヒーを一つと、えーと……", "html": "アイスコーヒーを<ruby>一<rt>ひと</rt></ruby>つと、えーと……" },
-      { "speaker": "Mana", "pitch": 1.25, "text": "あ、やっぱり抹茶ラテじゃなくて、ホットの紅茶にします！それとチーズケーキを一つ。", "html": "あ、やっぱり<ruby>抹茶<rt>まっちゃ</rt></ruby>ラテじゃなくて、ホットの<ruby>紅茶<rt>こうちゃ</rt></ruby>にします！それとチーズケーキを<ruby>一<rt>ひと</rt></ruby>つ。" },
-      { "speaker": "Camarera", "pitch": 1.05, "text": "かしこまりました。店内でお召し上がりですか。", "html": "かしこまりました。<ruby>店内<rt>てんない</rt></ruby>でお<ruby>召<rt>め</rt></ruby>し<ruby>上<rt>あ</rt></ruby>がりですか。" },
-      { "speaker": "Kenji", "pitch": 0.9, "text": "はい、店内でお願いします。", "html": "はい、<ruby>店内<rt>てんない</rt></ruby>でお<ruby>願<rt>ねが</rt></ruby>いします。" },
-      { "speaker": "Camarera", "pitch": 1.05, "text": "合計で千二百円になります。", "html": "<ruby>合計<rt>ごうけい</rt></ruby>で<ruby>千二百円<rt>せんにひゃくえん</rt></ruby>になります。" }
-    ],
-    "questions": [
-      {
-        "id": "q1",
-        "question": "¿Qué bebida pide Mana al final?",
-        "options": ["Matcha latte", "Café frío", "Té caliente (紅茶)", "Zumo de fruta"],
-        "correctIndex": 2,
-        "explanation": "Mana rectificó: 'やっぱり抹茶ラテじゃなくて、ホットの紅茶にします'."
-      },
-      {
-        "id": "q2",
-        "question": "¿Dónde van a consumir el pedido?",
-        "options": ["Para llevar", "En el local (店内)", "En la terraza", "Solo la tarta en el local"],
-        "correctIndex": 1,
-        "explanation": "Kenji respondió: '店内でお願いします'."
-      }
-    ]
-  },
-  {
     "id": "conv_restaurante_002",
     "category": "Restauración",
     "subcategory": "Restaurante",
-    "title": "Pidiendo una hamburguesa para llevar",
+    "title": "Pidiendo comida",
     "difficulty": "N5",
     "audioUrl": "media/Restaurante1.mp3",
     "dialogue": [
@@ -125,7 +92,7 @@
     "id": "conv_restauracion_003",
     "category": "Restauración",
     "subcategory": "Cafetería",
-    "title": "Pidiendo un café helado en la cafetería",
+    "title": "Pidiendo en la cafetería",
     "difficulty": "N5",
     "audioUrl": "media/Cafeteria1.mp3",
     "dialogue": [
@@ -235,6 +202,247 @@
         "options": ["Azúcar extra", "Un sándwich", "Un dulce (sweets)", "Agua"],
         "correctIndex": 2,
         "explanation": "Le ofreció un postre diciendo 'ご一緒にスイーツはいかがですか？' (¿Le gustaría algún dulce?)."
+      }
+    ]
+  },
+  {
+    "id": "conv_restauracion_004",
+    "category": "Restauración",
+    "subcategory": "Conbini",
+    "title": "Comprando un bento",
+    "difficulty": "N5",
+    "audioUrl": "media/Conbini1.mp3",
+    "dialogue": [
+      {
+        "speaker": "Dependiente",
+        "pitch": 1.1,
+        "text": "いらっしゃいませ。",
+        "html": "いらっしゃいませ。",
+        "translation": "Bienvenido."
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "すみません。お弁当はどこですか？",
+        "html": "すみません。お<ruby>弁当<rt>べんとう</rt></ruby>はどこですか？",
+        "translation": "Perdone. ¿Dónde están los bento (cajas de comida)?"
+      },
+      {
+        "speaker": "Dependiente",
+        "pitch": 1.1,
+        "text": "あちらです。",
+        "html": "あちらです。",
+        "translation": "Están por allí."
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "ありがとうございます。このお弁当を一つください。",
+        "html": "ありがとうございます。このお<ruby>弁当<rt>べんとう</rt></ruby>を<ruby>一<rt>ひと</rt></ruby>つください。",
+        "translation": "Gracias. Deme uno de este bento, por favor."
+      },
+      {
+        "speaker": "Dependiente",
+        "pitch": 1.1,
+        "text": "温めますか？",
+        "html": "<ruby>温<rt>あたた</rt></ruby>めますか？",
+        "translation": "¿Desea que se lo caliente?"
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "はい、お願いします。",
+        "html": "はい、お<ruby>願<rt>ねが</rt></ruby>いします。",
+        "translation": "Sí, por favor."
+      },
+      {
+        "speaker": "Dependiente",
+        "pitch": 1.1,
+        "text": "袋はご利用ですか？",
+        "html": "<ruby>袋<rt>ふくろ</rt></ruby>はご<ruby>利用<rt>りよう</rt></ruby>ですか？",
+        "translation": "¿Va a necesitar una bolsa?"
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "いいえ、大丈夫です。",
+        "html": "いいえ、<ruby>大丈夫<rt>だいじょうぶ</rt></ruby>です。",
+        "translation": "No, no hace falta (estoy bien)."
+      },
+      {
+        "speaker": "Dependiente",
+        "pitch": 1.1,
+        "text": "500円です。",
+        "html": "<ruby>500円<rt>ごひゃくえん</rt></ruby>です。",
+        "translation": "Son 500 yenes."
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "はい。",
+        "html": "はい。",
+        "translation": "Aquí tiene."
+      },
+      {
+        "speaker": "Dependiente",
+        "pitch": 1.1,
+        "text": "ありがとうございました。",
+        "html": "ありがとうございました。",
+        "translation": "Muchas gracias."
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1_conbini",
+        "question": "¿Qué artículo busca el cliente al principio de la conversación?",
+        "options": ["Bebidas", "Cajas de bento (comida)", "Revistas", "Dulces"],
+        "correctIndex": 1,
+        "explanation": "El cliente pregunta 'お弁当はどこですか？' (¿Dónde están los bento?)."
+      },
+      {
+        "id": "q2_conbini",
+        "question": "¿Qué servicio extra le ofrece el dependiente al pagar?",
+        "options": ["Calentar la comida", "Cubiertos de plástico", "Una tarjeta de puntos", "Un vaso de agua"],
+        "correctIndex": 0,
+        "explanation": "El dependiente usa la frase clásica de conbini '温めますか？' (¿Lo caliento?), y el cliente acepta."
+      },
+      {
+        "id": "q3_conbini",
+        "question": "¿Qué decide el cliente respecto a la bolsa de plástico?",
+        "options": ["Pide una bolsa grande", "Rechaza la bolsa", "Pide dos bolsas", "Pide que le cobren la bolsa"],
+        "correctIndex": 1,
+        "explanation": "Ante la pregunta '袋はご利用ですか？' (¿Va a usar bolsa?), el cliente la rechaza cortésmente con 'いいえ、大丈夫です' (No, estoy bien)."
+      }
+    ]
+  },
+  {
+    "id": "conv_restauracion_005",
+    "category": "Restauración",
+    "subcategory": "Conbini",
+    "title": "Conbini 2",
+    "difficulty": "N5",
+    "audioUrl": "media/Conbini2.mp3",
+    "dialogue": [
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "これお願いします。",
+        "html": "これお<ruby>願<rt>ねが</rt></ruby>いします。",
+        "translation": "Esto, por favor."
+      },
+      {
+        "speaker": "Dependiente",
+        "pitch": 1.1,
+        "text": "温めますか？",
+        "html": "<ruby>温<rt>あたた</rt></ruby>めますか？",
+        "translation": "¿Lo caliento?"
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "はい、お願いします。",
+        "html": "はい、お<ruby>願<rt>ねが</rt></ruby>いします。",
+        "translation": "Sí, por favor."
+      },
+      {
+        "speaker": "Dependiente",
+        "pitch": 1.1,
+        "text": "少々お待ちください。",
+        "html": "<ruby>少々<rt>しょうしょう</rt></ruby>お<ruby>待<rt>ま</rt></ruby>ちください。",
+        "translation": "Espere un momento, por favor."
+      },
+      {
+        "speaker": "Dependiente",
+        "pitch": 1.1,
+        "text": "お待たせしました。お会計は300円です。",
+        "html": "お<ruby>待<rt>ま</rt></ruby>たせしました。お<ruby>会計<rt>かいけい</rt></ruby>は<ruby>300円<rt>さんびゃくえん</rt></ruby>です。",
+        "translation": "Siento la espera. La cuenta son 300 yenes."
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "カードで払えますか？",
+        "html": "カードで<ruby>払<rt>はら</rt></ruby>えますか？",
+        "translation": "¿Puedo pagar con tarjeta?"
+      },
+      {
+        "speaker": "Dependiente",
+        "pitch": 1.1,
+        "text": "はい、大丈夫です。",
+        "html": "はい、<ruby>大丈夫<rt>だいじょうぶ</rt></ruby>です。",
+        "translation": "Sí, no hay problema."
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "お願いします。",
+        "html": "お<ruby>願<rt>ねが</rt></ruby>いします。",
+        "translation": "Por favor."
+      },
+      {
+        "speaker": "Dependiente",
+        "pitch": 1.1,
+        "text": "ありがとうございます。",
+        "html": "ありがとうございます。",
+        "translation": "Muchas gracias."
+      },
+      {
+        "speaker": "Dependiente",
+        "pitch": 1.1,
+        "text": "レシートはご利用ですか？",
+        "html": "レシートはご<ruby>利用<rt>りよう</rt></ruby>ですか？",
+        "translation": "¿Necesita el recibo?"
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "はい、ください。",
+        "html": "はい、ください。",
+        "translation": "Sí, démelo."
+      },
+      {
+        "speaker": "Dependiente",
+        "pitch": 1.1,
+        "text": "袋はご利用ですか？",
+        "html": "<ruby>袋<rt>ふくろ</rt></ruby>はご<ruby>利用<rt>りよう</rt></ruby>ですか？",
+        "translation": "¿Va a necesitar una bolsa?"
+      },
+      {
+        "speaker": "Cliente",
+        "pitch": 0.9,
+        "text": "いいえ、大丈夫です。",
+        "html": "いいえ、<ruby>大丈夫<rt>だいじょうぶ</rt></ruby>です。",
+        "translation": "No, estoy bien."
+      },
+      {
+        "speaker": "Dependiente",
+        "pitch": 1.1,
+        "text": "ありがとうございました。",
+        "html": "ありがとうございました。",
+        "translation": "Muchas gracias."
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1_conbini2",
+        "question": "¿Qué acción realiza el dependiente antes de cobrar la compra?",
+        "options": ["Poner los productos en una bolsa", "Calentar el producto en el microondas", "Comprobar el saldo de la tarjeta", "Darle el recibo a la clienta"],
+        "correctIndex": 1,
+        "explanation": "El dependiente pregunta '温めますか？' (¿Lo caliento?) y tras la respuesta afirmativa pide a la clienta que espere."
+      },
+      {
+        "id": "q2_conbini2",
+        "question": "¿Cómo se realiza el pago de los 300 yenes?",
+        "options": ["En efectivo", "Con tarjeta", "Con el móvil", "Con monedas sueltas"],
+        "correctIndex": 1,
+        "explanation": "La clienta pregunta explícitamente 'カードで払えますか？' (¿Puedo pagar con tarjeta?)."
+      },
+      {
+        "id": "q3_conbini2",
+        "question": "¿Qué artículo extra rechaza la clienta al final de la interacción?",
+        "options": ["El recibo", "Un folleto de ofertas", "Los palillos", "La bolsa de plástico"],
+        "correctIndex": 3,
+        "explanation": "La clienta acepta el recibo ('はい、ください'), pero cuando le ofrecen la bolsa ('袋はご利用ですか？') responde 'いいえ、大丈夫です' (No, estoy bien)."
       }
     ]
   }

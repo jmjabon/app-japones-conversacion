@@ -1,6 +1,6 @@
 import { state } from './state.js';
 import { fetchManifest, fetchAllCategories } from './api.js';
-import { logDebug, applyEnvironmentSettings, renderCurrentConversation, renderCategoriesDrawer, updateElementText } from './ui.js';
+import { logDebug, applyEnvironmentSettings, renderCurrentConversation, renderCatalog, updateElementText } from './ui.js';
 import { playFullConversation, stopAudio } from './audio.js';
 
 async function loadApp() {
@@ -20,12 +20,8 @@ async function loadApp() {
 function initializeUI() {
   logDebug(`Total diálogos listos: ${state.conversations.length}`);
   if (state.conversations.length > 0) {
-    state.currentConvId = state.conversations[0].id;
-    
-    const firstConv = state.conversations[0];
-    state.openCategories.add(firstConv.category);
-
-    renderCurrentConversation();
+    // En lugar de cargar el reproductor por defecto, mostramos el Catálogo iOS
+    renderCatalog();
     logDebug("🎉 Interfaz renderizada correctamente.");
   } else {
     updateElementText("conv-title", "No hay diálogos disponibles.");
@@ -44,62 +40,75 @@ function setupEventListeners() {
 
   document.querySelectorAll(".btn-speed").forEach(btn => {
     btn.addEventListener("click", (e) => {
-      document.querySelectorAll(".btn-speed").forEach(b => b.className = "btn-speed cursor-pointer text-xs px-2.5 py-1 rounded-lg font-bold text-slate-600 hover:bg-slate-100");
-      e.target.className = "btn-speed cursor-pointer text-xs px-2.5 py-1 rounded-lg font-bold bg-rose-500 text-white shadow-sm";
+      // Clases nativas inactivas
+      document.querySelectorAll(".btn-speed").forEach(b => b.className = "btn-speed cursor-pointer text-[12px] px-3 py-1 rounded-md font-semibold text-slate-600 active:bg-white/50");
+      // Clase nativa activa
+      e.target.className = "btn-speed cursor-pointer text-[12px] px-3 py-1 rounded-md font-semibold bg-white text-slate-900 shadow-sm";
+      
       state.selectedPlaybackSpeed = parseFloat(e.target.dataset.speed);
       if (state.currentAudioElement) state.currentAudioElement.playbackRate = state.selectedPlaybackSpeed;
     });
   });
 
   setupTranscriptEvents();
-  setupMenuEvents();
+  setupNavigationEvents();
 }
 
 function setupTranscriptEvents() {
   const transcriptBox = document.getElementById("transcript-box");
-  const furiganaSwitch = document.getElementById("furigana-switch-container");
+  const controls = document.getElementById("transcript-controls");
   
   document.getElementById("btn-toggle-transcript")?.addEventListener("click", () => {
-    if (!transcriptBox || !furiganaSwitch) return;
+    if (!transcriptBox || !controls) return;
     const isHidden = transcriptBox.classList.contains("hidden");
     
     transcriptBox.classList.toggle("hidden", !isHidden);
-    furiganaSwitch.classList.toggle("hidden", !isHidden);
-    furiganaSwitch.classList.toggle("flex", isHidden);
-    updateElementText("transcript-toggle-text", isHidden ? "Ocultar Transcripción" : "Ver Transcripción en Japonés");
+    controls.classList.toggle("hidden", !isHidden);
+    controls.classList.toggle("flex", isHidden);
+    updateElementText("transcript-toggle-text", isHidden ? "Ocultar Transcripción" : "Transcripción");
   });
 
   document.getElementById("check-furigana")?.addEventListener("change", (e) => {
     e.target.checked ? transcriptBox.classList.remove("hide-furigana") : transcriptBox.classList.add("hide-furigana");
   });
+
+  document.getElementById("check-translation")?.addEventListener("change", (e) => {
+    e.target.checked ? transcriptBox.classList.remove("hide-translation") : transcriptBox.classList.add("hide-translation");
+  });
 }
 
-function setupMenuEvents() {
-  const menuDrawer = document.getElementById("menu-drawer");
-  
-  document.getElementById("btn-toggle-menu")?.addEventListener("click", () => {
-    renderCategoriesDrawer();
-    menuDrawer?.classList.remove("hidden");
-  });
-  
-  document.getElementById("btn-close-menu")?.addEventListener("click", () => menuDrawer?.classList.add("hidden"));
-  document.getElementById("search-input")?.addEventListener("input", (e) => renderCategoriesDrawer(e.target.value));
+function setupNavigationEvents() {
+  // Buscador en la pantalla principal
+  document.getElementById("search-input")?.addEventListener("input", (e) => renderCatalog(e.target.value));
 
-  document.getElementById("dialogues-tree")?.addEventListener("click", (e) => {
-    const headerBtn = e.target.closest("[data-category-header]");
-    if (headerBtn) {
-      const cat = headerBtn.getAttribute("data-category-header");
-      state.openCategories.has(cat) ? state.openCategories.delete(cat) : state.openCategories.add(cat);
-      renderCategoriesDrawer(document.getElementById("search-input")?.value || "");
-      return;
-    }
-    const convBtn = e.target.closest("[data-conv-id]");
-    if (convBtn) {
-      stopAudio();
-      state.currentConvId = convBtn.getAttribute("data-conv-id");
-      renderCurrentConversation();
-      menuDrawer?.classList.add("hidden");
-    }
+  // Evento para abrir un diálogo y deslizar al reproductor
+  window.addEventListener("loadDialogue", (e) => {
+    const dialogue = e.detail;
+    state.currentConvId = dialogue.id;
+    
+    // Actualizar la barra superior del reproductor
+    document.getElementById("nav-category").textContent = dialogue.category;
+    
+    renderCurrentConversation();
+    
+    // Transición iOS (Deslizar hacia la izquierda)
+    const homeView = document.getElementById("home-view");
+    const playerView = document.getElementById("player-view");
+    
+    homeView?.classList.replace("view-enter", "view-leave"); 
+    playerView?.classList.replace("view-leave", "view-enter"); 
+  });
+
+  // Botón Atrás (< Inicio) en el Navigation Bar
+  document.getElementById("btn-back")?.addEventListener("click", () => {
+    stopAudio(); // Importante: parar el audio al salir de la lección
+
+    // Transición iOS (Deslizar hacia la derecha)
+    const homeView = document.getElementById("home-view");
+    const playerView = document.getElementById("player-view");
+    
+    playerView?.classList.replace("view-enter", "view-leave"); 
+    homeView?.classList.replace("view-leave", "view-enter"); 
   });
 }
 

@@ -1,11 +1,20 @@
 {
-  "appVersion": "1.0.1",
+  "appVersion": "1.1.0",
   "appName": "KikuNihongo",
+  "icons": [
+  {
+    "src": "./media/icon-listening.jpg",
+    "sizes": "256x256",
+    "type": "image/jpg"
+  }
+ ],
   "lastUpdate": "2023-10-25",
   "categories": [
   { "id": "transporte", "name": "Transporte", "file": "data/transporte.json" },
   { "id": "restauracion", "name": "Restauración", "file": "data/restauracion.json" },
   { "id": "alojamiento", "name": "Alojamiento", "file": "data/alojamiento.json" },
-  { "id": "comercio", "name": "Comercio", "file": "data/comercio.json" }
+  { "id": "comercio", "name": "Comercio", "file": "data/comercio.json" },
+  { "id": "servicios", "name": "Servicios", "file": "data/servicios.json" },
+  { "id": "trabajo", "name": "Trabajo", "file": "data/trabajo.json" }
   ]
 }

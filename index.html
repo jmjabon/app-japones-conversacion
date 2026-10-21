@@ -1,20 +1,18 @@
 <!DOCTYPE html>
-<html lang="es" class="h-full">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>KikuNihongo - Práctica Auditiva de Japonés</title>
+  <title>KikuNihongo</title>
   
-  <!-- Optimización iOS (Modo App / PWA) -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="KikuNihongo">
+  
+  <link rel="apple-touch-icon" href="./media/icon-listening.jpg">
+  <link rel="icon" type="image/jpg" href="./media/icon-listening.jpg">
+  <link rel="manifest" href="./manifest.json">
 
-  <!-- Aceleración de CDNs -->
-  <link rel="preconnect" href="https://cdn.tailwindcss.com">
-  <link rel="preconnect" href="https://unpkg.com">
-
-  <!-- Tailwind CSS y Lucide Icons (Versión fija sin redirecciones) -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@0.284.0"></script>
 
@@ -22,189 +20,136 @@
     body {
       -webkit-touch-callout: none;
       -webkit-tap-highlight-color: transparent;
-      user-select: none;
+      scrollbar-width: none;
+      background-color: #F2F2F7; /* Color de fondo oficial de Ajustes en iOS */
     }
-    ruby {
-      ruby-position: over;
-    }
-    rt {
-      font-size: 0.65em;
-      color: #e11d48;
-      user-select: none;
-      font-weight: 600;
-    }
-    .hide-furigana rt {
-      display: none;
-    }
-    ::-webkit-scrollbar {
-      width: 5px;
-      height: 5px;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 4px;
-    }
+    body::-webkit-scrollbar { display: none; }
+    ruby { ruby-position: over; }
+    rt { font-size: 0.65em; color: #FF2D55; font-weight: 600; user-select: none; }
+    .hide-furigana rt { display: none; }
+    .hide-translation .dialogue-translation { display: none; }
+
+    /* Animaciones fluidas estilo iOS */
+    .view-enter { transform: translateX(0%); }
+    .view-leave { transform: translateX(100%); }
+    
+    /* Efecto "pulsar" en listas nativas */
+    .ios-list-item:active { background-color: #E5E5EA !important; }
   </style>
 </head>
-<body class="h-full bg-slate-100 text-slate-800 flex flex-col font-sans select-none antialiased">
 
-  <!-- ==================== CONSOLA DE DEPURACIÓN (DEBUG) ==================== -->
-  <div id="debug-box-container" class="fixed top-0 left-0 w-full z-50 shadow-md">
-    <div class="bg-red-900 text-white px-3 py-2 flex justify-between items-center text-xs font-bold font-sans">
-      <span>Consola de Depuración</span>
-      <button onclick="document.getElementById('debug-box-container').style.display='none'" class="bg-white text-red-900 rounded px-2.5 py-1 text-[11px] font-bold cursor-pointer active:scale-95 transition-transform">
-        Minimizar
-      </button>
+<body class="h-[100dvh] text-slate-900 flex flex-col font-sans select-none antialiased overflow-hidden relative">
+
+  <!-- ==================== PANTALLA 1: INICIO (CATÁLOGO) ==================== -->
+  <div id="home-view" class="absolute inset-0 overflow-y-auto z-10 transition-transform duration-300 ease-out view-enter">
+    
+    <!-- iOS Large Title Header -->
+    <div class="px-5 pt-[max(env(safe-area-inset-top),40px)] pb-2">
+      <p class="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-1">Práctica Auditiva</p>
+      <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">KikuNihongo</h1>
     </div>
-    <div id="debug-box" class="bg-red-500 text-white font-mono text-[11px] p-2.5 max-h-36 overflow-y-auto break-words select-text"></div>
-  </div>
 
-  <script>
-    window.addEventListener('error', (e) => {
-      const box = document.getElementById('debug-box');
-      if (box) box.innerHTML += `<br>🚨 JS Error: ${e.message} (Línea ${e.lineno})`;
-    });
-    window.addEventListener('unhandledrejection', (e) => {
-      const box = document.getElementById('debug-box');
-      if (box) box.innerHTML += `<br>⚠️ Promesa: ${e.reason}`;
-    });
-  </script>
-
-  <!-- ==================== HEADER ==================== -->
-  <header class="bg-white border-b border-slate-200 px-4 py-3 flex items-center justify-between shadow-sm flex-shrink-0">
-    <div class="flex items-center gap-3">
-      <button id="btn-toggle-menu" class="cursor-pointer p-2.5 rounded-xl hover:bg-slate-100 active:bg-slate-200 transition-colors text-slate-700 flex items-center justify-center" aria-label="Abrir catálogo">
-        <i data-lucide="menu" class="w-6 h-6 pointer-events-none"></i>
-      </button>
-      <div>
-        <h1 class="text-lg font-bold tracking-tight text-slate-900 flex items-center gap-2">
-          <span>聞く日本語</span>
-          <span class="text-[10px] bg-rose-100 text-rose-700 px-2 py-0.5 rounded-full font-bold uppercase tracking-wide">Choukai Lab</span>
-        </h1>
-        <p id="current-badge" class="text-xs text-slate-500 font-medium">Iniciando...</p>
+    <!-- Buscador nativo iOS -->
+    <div class="px-5 py-3 sticky top-0 bg-[#F2F2F7]/95 backdrop-blur-md z-20">
+      <div class="relative">
+        <i data-lucide="search" class="w-5 h-5 absolute left-3 top-2.5 text-slate-400"></i>
+        <input type="text" id="search-input" placeholder="Buscar diálogo..." class="w-full pl-10 pr-4 py-2 bg-slate-200/80 text-slate-900 rounded-[10px] text-[17px] focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#FF2D55]/50 transition-all placeholder:text-slate-500">
       </div>
     </div>
-  </header>
 
-  <!-- ==================== ÁREA PRINCIPAL ==================== -->
-  <main class="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8 flex justify-center">
-    <div class="w-full max-w-3xl flex flex-col gap-6">
+    <!-- Lista de Categorías (Renderizada por JS) -->
+    <div id="dialogues-tree" class="px-5 pb-[calc(env(safe-area-inset-bottom)+40px)] space-y-6 mt-2">
+      <!-- Aquí se inyectarán las listas agrupadas nativas de iOS -->
+    </div>
+  </div>
 
-      <!-- TARJETA DEL REPRODUCTOR -->
-      <section class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 flex flex-col gap-5">
-        <div>
-          <div class="flex items-center gap-2 mb-1">
-            <span id="label-category" class="text-xs font-bold text-rose-600 tracking-wide uppercase">Cargando...</span>
-            <span class="text-slate-300">•</span>
-            <span id="label-difficulty" class="text-xs font-bold px-2 py-0.5 rounded-md bg-amber-50 text-amber-700 border border-amber-200">--</span>
+  <!-- ==================== PANTALLA 2: REPRODUCTOR (LECCIÓN) ==================== -->
+  <div id="player-view" class="absolute inset-0 bg-[#F2F2F7] z-20 transition-transform duration-300 ease-out view-leave flex flex-col">
+    
+    <!-- iOS Navigation Bar -->
+    <header class="bg-[#F2F2F7]/90 backdrop-blur-xl border-b border-slate-200/60 px-2 pt-[max(env(safe-area-inset-top),10px)] pb-2 flex items-center justify-between z-40 flex-shrink-0">
+      <button id="btn-back" class="cursor-pointer px-2 py-2 text-[#FF2D55] active:opacity-50 flex items-center gap-1 transition-opacity">
+        <i data-lucide="chevron-left" class="w-7 h-7 -ml-2 pointer-events-none"></i>
+        <span class="text-[17px] font-medium pointer-events-none">Inicio</span>
+      </button>
+      <h2 id="nav-category" class="text-[16px] font-semibold text-slate-900 truncate max-w-[50%] text-center">Lección</h2>
+      <div class="w-20"></div> <!-- Espaciador para centrar el título -->
+    </header>
+
+    <!-- Contenido del reproductor -->
+    <main class="flex-1 overflow-y-auto px-4 md:px-8 py-6 flex justify-center">
+      <div class="w-full max-w-2xl flex flex-col gap-6">
+
+        <!-- Tarjeta Principal -->
+        <section class="bg-white rounded-[24px] p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)] flex flex-col gap-6">
+          <div class="flex flex-col gap-2">
+            <span id="label-difficulty" class="w-fit text-[11px] font-bold px-2 py-0.5 rounded border border-slate-200 text-slate-500">--</span>
+            <h2 id="conv-title" class="text-2xl font-bold text-slate-900 leading-snug tracking-tight">Cargando...</h2>
           </div>
-          <h2 id="conv-title" class="text-xl md:text-2xl font-bold text-slate-900 leading-snug">Conectando con la base de datos...</h2>
-          <p class="text-xs text-slate-500 mt-1">Escucha atentamente el audio en japonés para responder a las preguntas.</p>
-        </div>
 
-        <!-- Panel de Control Auditivo -->
-        <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200 flex flex-col gap-4">
-          <div class="flex items-center justify-between">
-            <span id="audio-status" class="text-xs font-semibold text-slate-600 flex items-center gap-2">
-              <span id="status-indicator" class="w-2.5 h-2.5 rounded-full bg-slate-400 inline-block"></span>
-              Listo para escuchar
-            </span>
+          <!-- Reproductor -->
+          <div class="bg-[#F2F2F7] rounded-2xl p-4 flex flex-col gap-5">
+            <div class="flex items-center justify-between">
+              <span id="audio-status" class="text-[13px] font-semibold text-slate-500 flex items-center gap-2">
+                <span id="status-indicator" class="w-2.5 h-2.5 rounded-full bg-slate-300 inline-block"></span> Listo
+              </span>
+              <!-- Selector de Velocidad -->
+              <div class="flex items-center bg-[#E3E3E8] rounded-lg p-0.5">
+                <button data-speed="0.75" class="btn-speed cursor-pointer text-[12px] px-3 py-1 rounded-md font-semibold text-slate-600 active:bg-white/50">0.75x</button>
+                <button data-speed="1.0" class="btn-speed cursor-pointer text-[12px] px-3 py-1 rounded-md font-semibold bg-white text-slate-900 shadow-sm">1.0x</button>
+                <button data-speed="1.25" class="btn-speed cursor-pointer text-[12px] px-3 py-1 rounded-md font-semibold text-slate-600 active:bg-white/50">1.25x</button>
+              </div>
+            </div>
 
-            <!-- Selector de Velocidad -->
-            <div class="flex items-center gap-1 bg-white rounded-xl p-1 border border-slate-200">
-              <button data-speed="0.75" class="btn-speed cursor-pointer text-xs px-2.5 py-1 rounded-lg font-bold text-slate-600 hover:bg-slate-100">0.75x</button>
-              <button data-speed="1.0" class="btn-speed cursor-pointer text-xs px-2.5 py-1 rounded-lg font-bold bg-rose-500 text-white shadow-sm">1.0x</button>
-              <button data-speed="1.25" class="btn-speed cursor-pointer text-xs px-2.5 py-1 rounded-lg font-bold text-slate-600 hover:bg-slate-100">1.25x</button>
+            <!-- Botones de Control -->
+            <div class="flex items-center gap-3">
+              <button id="btn-play-audio" class="cursor-pointer flex-1 py-3.5 rounded-xl bg-[#FF2D55] active:bg-[#E0244A] active:scale-[0.98] text-white font-bold flex items-center justify-center gap-2 transition-all">
+                <i data-lucide="play" class="w-5 h-5 fill-current pointer-events-none"></i>
+                <span id="btn-play-text">Escuchar</span>
+              </button>
+              <button id="btn-stop-audio" class="cursor-pointer p-3.5 rounded-xl bg-white text-slate-600 shadow-sm active:bg-slate-100 transition-all">
+                <i data-lucide="square" class="w-5 h-5 fill-current pointer-events-none"></i>
+              </button>
+            </div>
+
+            <!-- Speaker activo -->
+            <div id="speaker-display" class="hidden text-[14px] bg-white p-3 rounded-lg text-[#FF2D55] font-medium flex items-center justify-between shadow-sm">
+              <span class="flex items-center gap-2">
+                <i data-lucide="volume-2" class="w-4 h-4 animate-pulse"></i>
+                <strong id="current-speaker">Interlocutor</strong>
+              </span>
+              <span id="audio-progress-step" class="text-[12px] bg-rose-50 px-2 py-0.5 rounded font-mono font-bold">1/5</span>
             </div>
           </div>
 
-          <!-- Botones de Reproducción -->
-          <div class="flex items-center gap-3">
-            <button id="btn-play-audio" class="cursor-pointer flex-1 py-4 px-6 rounded-2xl bg-rose-600 hover:bg-rose-700 active:scale-[0.99] text-white font-bold flex items-center justify-center gap-3 shadow-md transition-all text-base">
-              <span id="play-icon-wrapper" class="flex items-center justify-center pointer-events-none">
-                <i data-lucide="play" class="w-6 h-6 fill-current"></i>
-              </span>
-              <span id="btn-play-text">Reproducir Diálogo</span>
-            </button>
-            <button id="btn-stop-audio" class="cursor-pointer p-4 rounded-2xl bg-slate-200 hover:bg-slate-300 active:scale-95 text-slate-700 transition-all" title="Detener Audio">
-              <i data-lucide="square" class="w-6 h-6 fill-current pointer-events-none"></i>
-            </button>
+          <!-- Transcripción -->
+          <div class="border-t border-slate-100 pt-4 flex flex-col gap-4">
+            <div class="flex items-center justify-between">
+              <button id="btn-toggle-transcript" class="cursor-pointer text-[15px] font-semibold text-[#FF2D55] active:opacity-50 flex items-center gap-1.5">
+                <i data-lucide="book-open" class="w-4 h-4"></i> <span id="transcript-toggle-text">Transcripción</span>
+              </button>
+              <div id="transcript-controls" class="hidden items-center gap-4">
+                <label class="flex items-center gap-1.5 cursor-pointer text-[13px] text-slate-600">
+                  <input type="checkbox" id="check-furigana" checked class="w-4 h-4 rounded text-[#FF2D55] focus:ring-0"> Furigana
+                </label>
+                <label class="flex items-center gap-1.5 cursor-pointer text-[13px] text-slate-600">
+                  <input type="checkbox" id="check-translation" checked class="w-4 h-4 rounded text-[#FF2D55] focus:ring-0"> Español
+                </label>
+              </div>
+            </div>
+            <div id="transcript-box" class="hidden p-4 bg-[#F2F2F7] rounded-xl text-[16px] space-y-4"></div>
           </div>
+        </section>
 
-          <!-- Indicador dinámico de interlocutor -->
-          <div id="speaker-display" class="hidden text-sm bg-white border border-rose-200 p-3 rounded-xl text-rose-900 font-medium flex items-center justify-between shadow-sm">
-            <span class="flex items-center gap-2">
-              <i data-lucide="volume-2" class="w-4 h-4 text-rose-500 animate-bounce pointer-events-none"></i>
-              Habla: <strong id="current-speaker" class="font-bold">Interlocutor</strong>
-            </span>
-            <span id="audio-progress-step" class="text-xs bg-rose-50 text-rose-700 px-2.5 py-1 rounded-md font-mono font-bold">1 / 5</span>
-          </div>
-        </div>
-
-        <!-- Transcripción y Furigana -->
-        <div class="border-t border-slate-100 pt-3 flex flex-col gap-3">
-          <div class="flex items-center justify-between">
-            <button id="btn-toggle-transcript" class="cursor-pointer text-xs font-bold text-slate-600 hover:text-slate-900 flex items-center gap-1.5 transition-colors">
-              <i data-lucide="eye" class="w-4 h-4 text-slate-500 pointer-events-none"></i>
-              <span id="transcript-toggle-text">Ver Transcripción en Japonés</span>
-            </button>
-
-            <!-- Switch Furigana -->
-            <label id="furigana-switch-container" class="hidden items-center gap-2 cursor-pointer text-xs font-semibold text-slate-600">
-              <input type="checkbox" id="check-furigana" checked class="w-4 h-4 rounded text-rose-600 accent-rose-600 focus:ring-0">
-              <span>Furigana</span>
-            </label>
-          </div>
-
-          <div id="transcript-box" class="hidden p-4 bg-slate-50 rounded-2xl border border-slate-200 text-sm space-y-3"></div>
-        </div>
-      </section>
-
-      <!-- PREGUNTAS TIPO TEST -->
-      <section class="flex flex-col gap-4">
-        <div class="flex items-center justify-between px-1">
-          <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
-            <i data-lucide="help-circle" class="w-5 h-5 text-rose-500 pointer-events-none"></i>
-            Preguntas de Comprensión
-          </h3>
-          <span id="score-counter" class="text-xs font-bold px-3 py-1 bg-white rounded-full border border-slate-200 text-slate-600 shadow-sm">
-            0 / 0 Respondidas
-          </span>
-        </div>
-
-        <div id="questions-container" class="space-y-4 pb-8"></div>
-      </section>
-
-    </div>
-  </main>
-
-  <!-- ==================== CATÁLOGO LATERAL (DRAWER) ==================== -->
-  <div id="menu-drawer" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden">
-    <div class="absolute inset-y-0 left-0 w-full max-w-md bg-white shadow-2xl flex flex-col">
-      <div class="p-4 border-b border-slate-200 flex items-center justify-between">
-        <div>
-          <h2 class="font-bold text-slate-900 text-lg">Catálogo de Diálogos</h2>
-          <p id="total-convs-counter" class="text-xs text-slate-500">Cargando índice...</p>
-        </div>
-        <button id="btn-close-menu" class="cursor-pointer p-2 rounded-xl hover:bg-slate-100 text-slate-500 flex items-center justify-center">
-          <i data-lucide="x" class="w-5 h-5 pointer-events-none"></i>
-        </button>
+        <!-- Sección Preguntas -->
+        <section class="flex flex-col gap-3 mt-4">
+          <h3 class="text-[20px] font-bold text-slate-900 px-2">Preguntas</h3>
+          <div id="questions-container" class="space-y-4 pb-10"></div>
+        </section>
       </div>
-
-      <!-- Buscador -->
-      <div class="p-4 border-b border-slate-100 bg-slate-50">
-        <div class="relative">
-          <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3.5 text-slate-400 pointer-events-none"></i>
-          <input type="text" id="search-input" placeholder="Buscar por tema o situación..." class="w-full pl-9 pr-3 py-2.5 bg-white rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500">
-        </div>
-      </div>
-
-      <!-- Árbol de categorías en acordeón -->
-      <div id="dialogues-tree" class="flex-1 overflow-y-auto p-4 space-y-3 pb-8"></div>
-    </div>
+    </main>
   </div>
 
-  <!-- Entrada modular ES6 con control de caché -->
-  <script type="module" src="./js/main.js?v=1.0.1"></script>
+  <script type="module" src="./js/main.js?v=1.0.4"></script>
 </body>
 </html>
