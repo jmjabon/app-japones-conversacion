@@ -3,9 +3,9 @@
   "appName": "KikuNihongo",
   "icons": [
   {
-    "src": "./media/icon-japan.png",
+    "src": "./media/icon-listening.jpg",
     "sizes": "256x256",
-    "type": "image/png"
+    "type": "image/jpg"
   }
  ],
   "lastUpdate": "2023-10-25",
