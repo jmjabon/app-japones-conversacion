@@ -1,6 +1,13 @@
 {
   "appVersion": "1.1.0",
   "appName": "KikuNihongo",
+  "icons": [
+  {
+    "src": "./media/icon-japan.png",
+    "sizes": "256x256",
+    "type": "image/png"
+  }
+ ],
   "lastUpdate": "2023-10-25",
   "categories": [
   { "id": "transporte", "name": "Transporte", "file": "data/transporte.json" },
